@@ -55,7 +55,6 @@ def tests_template_is_git_repo(template):
     subprocess.check_call(["git", "status"], cwd=template)
 
 
-@pytest.mark.xfail(reason="Known CI issue with ECR auth inside docker")
 @pytest.mark.parametrize(
     "make_cmd,img_name",
     [
