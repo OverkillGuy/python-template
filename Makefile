@@ -13,7 +13,7 @@ test:
 build:
 	poetry build
 
-PYTHON_VERSION=3.8
+PYTHON_VERSION=3.10
 MAKE_TGT=docker-build docker-build-release
 try:
 	-rm -rf template_expanded
