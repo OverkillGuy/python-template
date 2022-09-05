@@ -1,7 +1,7 @@
 {
     "project_name": "My Lovely Project",
     "description": "A python project to do Things",
-    "python_version": "3.8",
+    "python_version": ["3.8", "3.9", "3.10"],
     "project_slug": "{{ cookiecutter.project_name.strip().lower().replace(' ', '-') }}",
     "package_name": "{{ cookiecutter.project_slug.replace('-', '_') }}",
     "_extensions": ["jinja2_git.GitExtension"]
