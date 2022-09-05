@@ -1,0 +1,7 @@
+{
+    "project_name": "My Lovely Project",
+    "description": "A python project to do Things",
+    "python_version": "3.8",
+    "project_slug": "{{ cookiecutter.project_name.strip().lower().replace(' ', '-') }}",
+    "package_name": "{{ cookiecutter.project_slug.replace('-', '_') }}"
+}

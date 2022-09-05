@@ -1,0 +1,16 @@
+FROM python:{{ cookiecutter.python_version }}
+
+# Bring poetry, our package manager
+RUN pip install poetry
+
+COPY . /workdir/
+WORKDIR /workdir
+
+RUN poetry build -f wheel
+
+# Start over with just the binary package install
+FROM /python:{{ cookiecutter.python_version }}-slim as runner
+
+COPY --from=builder /workdir/dist /app
+
+RUN pip install --no-cache-dir /app/*.whl

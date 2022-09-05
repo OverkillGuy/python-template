@@ -1,0 +1,31 @@
+[tool.poetry]
+name = "jb_python_project_skeleton"
+version = "0.1.0"
+description = "A project skeleton for Python projects, using Cookiecutter lib"
+authors = ["Jb Doyon <jb@jiby.tech>"]
+# Known poetry issue causes the project_slug folder to not be included
+# properly in wheel. See https://github.com/python-poetry/poetry/issues/2685
+include = ["{{cookiecutter.project_slug}}/*", "cookiecutter.json"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+cookiecutter = "^1.7.2"
+
+[tool.poetry.dev-dependencies]
+pytest = "^7.*"
+# Formatters
+black = "^23.*"
+isort = "^5.*"
+
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+
+# Set pytest to record stdout/stderr to junit test result xml
+[tool.pytest.ini_options]
+junit_logging = "all"
+addopts = """-vvvv \
+    --color=yes \
+    --junit-xml=test_results/results.xml"""
