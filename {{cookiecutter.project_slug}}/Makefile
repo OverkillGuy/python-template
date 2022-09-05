@@ -28,7 +28,6 @@ docker-build:
 docker-build-release:
 	docker build -t ${DOCKER_IMAGE_NAME} -f Dockerfile.release .
 
-
 # Less commonly used commands
 
 # Generate a pip-compatible requirements.txt
@@ -36,7 +35,6 @@ docker-build-release:
 .PHONY: export-requirements
 export-requirements:
 	poetry -o requirements.txt
-
 
 # Install poetry from pip
 # IMPORTANT: Make sure "pip" resolves to a virtualenv

@@ -6,7 +6,7 @@ The project uses semantic versioning (see [semver](semver.org)).
 
 ## [Unreleased]
 
-## v0.1 - {% now 'local' %}
+## v0.1.0 - {% now 'local' %}
 
 ### Added
 - New module {{ cookiecutter.package_name }}
