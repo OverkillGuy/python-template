@@ -3,5 +3,6 @@
     "description": "A python project to do Things",
     "python_version": "3.8",
     "project_slug": "{{ cookiecutter.project_name.strip().lower().replace(' ', '-') }}",
-    "package_name": "{{ cookiecutter.project_slug.replace('-', '_') }}"
+    "package_name": "{{ cookiecutter.project_slug.replace('-', '_') }}",
+    "_extensions": ["jinja2_git.GitExtension"]
 }

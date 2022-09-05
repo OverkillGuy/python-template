@@ -16,7 +16,8 @@ git add --all
 git commit \
     --message "Initial commit from cookiecutter template" \
     --message "From python-skeleton repository in Github:" \
-    --message "https://github.com/OverkillGuy/python-skeleton"
+    --message "https://github.com/OverkillGuy/python-skeleton" \
+    --message "at commit {% gitcommit %}"
 
 # Reset the user config after committing
 git config --unset user.name
