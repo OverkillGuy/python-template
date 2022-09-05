@@ -2,6 +2,12 @@
 
 # Prepopulates a git repo out of the rendered template with an initial commit
 
+# If a git repo is already in place
+if [[ -d ".git/" ]];
+then
+    exit 0  # No action, exit early
+fi
+
 # First create empty git repo
 git init
 
