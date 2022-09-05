@@ -1,15 +1,15 @@
-FROM python:{{ cookiecutter.python_version }}
+FROM python:{{ cookiecutter.python_version }} as builder
 
 # Bring poetry, our package manager
-RUN pip install poetry
-
+ARG POETRY_VERSION=1.2.0
+RUN pip install --no-cache-dir poetry==${POETRY_VERSION}
 COPY . /workdir/
 WORKDIR /workdir
 
 RUN poetry build -f wheel
 
 # Start over with just the binary package install
-FROM /python:{{ cookiecutter.python_version }}-slim as runner
+FROM python:{{ cookiecutter.python_version }}-slim as runner
 
 COPY --from=builder /workdir/dist /app
 
