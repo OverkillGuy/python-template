@@ -5,6 +5,7 @@ import pytest
 from cookiecutter import main as ck
 from cookiecutter.generate import generate_context
 from cookiecutter.prompt import prompt_for_config
+from pytest_cases import parametrize_with_cases
 
 # The config in cookiecutter.json, once expanded
 DEFAULT_CONF = prompt_for_config(generate_context(), no_input=True)
@@ -78,14 +79,20 @@ def tests_template_is_git_repo(template):
     subprocess.check_call(["git", "status"], cwd=template)
 
 
-@pytest.mark.parametrize(
-    "make_cmd,img_name",
-    [
-        ("docker-build", f"{DEFAULT_CONF['project_slug']}-dev"),
-        ("docker-build-release", DEFAULT_CONF["project_slug"]),
-    ],
-)
+class CasesDockerBuild:
+    """Test cases for the docker-building commands"""
+
+    def case_docker_build_dev(self):
+        """Build the dev container via make"""
+        return (["make", "docker-build"], DEFAULT_CONF["project_slug"] + "-dev")
+
+    def case_docker_build_release(self):
+        """Build the release container via make"""
+        return (["make", "docker-build-release"], DEFAULT_CONF["project_slug"])
+
+
+@parametrize_with_cases("make_cmd,img_name", cases=CasesDockerBuild)
 def tests_template_makes_docker_ok(template, make_cmd, img_name):
     """Checks we can build a docker image on rendered code"""
-    subprocess.check_call(["make", make_cmd], cwd=template)
+    subprocess.check_call(make_cmd, cwd=template)
     subprocess.check_call(["docker", "image", "rm", img_name])

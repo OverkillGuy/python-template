@@ -14,10 +14,11 @@ jinja2-git = "^1.2.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^7.*"
-# Formatters
+# Manage test cases for complex parameterized fixtures (such as templates)
+pytest-cases = "^3.6.13"
+# Formatters, not using pre-commit due to the recursive stuff in template folder
 black = "^23.*"
 isort = "^5.*"
-
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
