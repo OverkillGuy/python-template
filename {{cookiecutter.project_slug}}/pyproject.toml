@@ -4,6 +4,9 @@ version = "0.1.0"
 description = "{{cookiecutter.description}}"
 authors = ["Jb Doyon <jb@jiby.tech>"]
 
+[tool.poetry.scripts]
+{{ cookiecutter.project_slug}} = "{{ cookiecutter.package_name }}.cli:cli"
+
 [tool.poetry.dependencies]
 python = "^{{cookiecutter.python_version}}"
 
