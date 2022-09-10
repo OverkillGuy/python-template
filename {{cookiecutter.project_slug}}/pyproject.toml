@@ -11,9 +11,11 @@ authors = ["Jb Doyon <jb@jiby.tech>"]
 python = "^{{cookiecutter.python_version}}"
 
 [tool.poetry.dev-dependencies]
-pytest = "^6.1.2"
-pytest-cov = "^3.0.0"
-pytest-clarity = "^1.0.1"
+pytest = "7.*"
+# Test coverage
+pytest-cov = "3.*"
+# Clearer assertion failures (colorful diff)
+pytest-clarity = "1.*"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
