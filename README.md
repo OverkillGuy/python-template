@@ -7,19 +7,35 @@ A project skeleton for Python projects.
 Template built out of code repeated at least thrice by Jb.
 
 ## Usage
+## Usage
 
-### On the command line
+Use the `cookiecutter` templating command.
 
-Install [cookiecutter](https://cookiecutter.readthedocs.io/en/latest/) on your system:
+### Installing Cookiecutter
 
-	brew install cookiecutter  # system-wide
-	pip install cookiecutter  # in your local virtualenv for separation
+To install `cookiecutter`, consider using [pipx](https://pypa.github.io/pipx/)
+to isolate the executable from your system:
 
-Try out the template:
+	pipx install cookiecutter
+	# Inject the dependencies used in this particular template
+	pipx inject cookiecutter jinja2-git
 
-	cookiecutter git@github.com:OverkillGuy/python-skeleton.git
+Otherwise install it normally via pip, though we encourage you use a virtual
+environment:
 
-It will then ask questions like python version and project name.
+	pip install cookiecutter jinja2-git
+
+### Using the template
+
+Point the cookiecutter command to this repository to use it. This can be done by
+using the locally cloned version of it, or if uploaded to Github, directly via
+repo URL:
+
+	# Assuming the python_skeleton lives at ~/git/python_skeleton
+	cookiecutter ~/git/python_skeleton
+
+It will then ask questions like python version and project name to get a fresh
+repository, ready for action!
 
 ## Testing
 
@@ -31,3 +47,12 @@ Use the convenient Makefile for testing:
 
 	make      # defaults to target "all"
 	make all  # equivalent
+
+A target called `make try` with optional parameters `PYTHON_VERSION` and
+`MAKE_TGT` is available to see the template expanded locally, running inside the
+templated repo the make target defined by `MAKE_TGT`:
+
+	make try  # defaults to PYTHON_VERSION=3.9 MAKE_TGT=all
+	# You can override these variables:
+	make try PYTHON_VERSION=3.10
+	make try MAKE_TGT=docker-build  # to run make docker-build inside repo
