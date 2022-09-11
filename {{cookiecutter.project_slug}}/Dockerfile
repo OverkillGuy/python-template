@@ -12,8 +12,12 @@ ENV POETRY_VIRTUALENVS_CREATE=false
 
 
 # Workaround critical-level CVEs in Python image
-# By forcing just security update (no feature-full updates, as part of apt conf)
-RUN apt-get update && apt-get upgrade -y \
+# By forcing just security update (no featureful updates, as part of apt conf)
+# Also install make while we're at it, but ignore pinning version warning
+# hadolint ignore=DL3008
+RUN apt-get update \
+    && apt-get install --no-install-recommends -y make \
+    && apt-get upgrade -y \
     && rm -rf /var/lib/apt/lists/*
 
 COPY . /workdir
