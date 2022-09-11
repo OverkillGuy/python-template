@@ -13,12 +13,14 @@ cookiecutter = "^1.7.2"
 jinja2-git = "^1.2.0"
 
 [tool.poetry.dev-dependencies]
-pytest = "^7.*"
+pytest = "7.*"
 # Manage test cases for complex parameterized fixtures (such as templates)
-pytest-cases = "^3.6.13"
+pytest-cases = "3.*"
+# Run containers as part of tests (simulate other python versions)
+docker = "6.*"
 # Formatters, not using pre-commit due to the recursive stuff in template folder
-black = "^23.*"
-isort = "^5.*"
+black = "22.*"
+isort = "5.*"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
