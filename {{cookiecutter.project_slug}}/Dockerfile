@@ -1,4 +1,4 @@
-FROM python:{{ cookiecutter.python_version}}
+FROM python:{{ cookiecutter.python_version}}-bullseye
 
 # Bring poetry, our package manager, and pre-commit hooks
 ARG POETRY_VERSION=1.2.0
