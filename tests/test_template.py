@@ -84,6 +84,11 @@ def tests_template_packages_ok(template):
     docker_run_devimg(["poetry", "build"], template)
     assert os.listdir(template + "/dist/"), "Nothing was built!"
 
+def tests_template_docs_ok(template):
+    """Checks we can run make docson rendered code to get HTML"""
+    docker_run_devimg(["make", "docs"], template)
+    assert os.listdir(template + "/docs/build/html/"), "Docs not built"
+
 
 def tests_template_makes_ok(template):
     """Checks we can run make on rendered code to get a binary/tests"""
