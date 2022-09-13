@@ -1,7 +1,7 @@
 DOCKER_IMAGE_NAME={{ cookiecutter.project_slug }}
 
 .PHONY: all
-all: install lint test build
+all: install lint test docs build
 
 .PHONY: install
 install:
@@ -14,6 +14,14 @@ lint:  # Use all linters on all files (not just staged for commit)
 .PHONY: test
 test:
 	poetry run pytest
+
+.PHONY: docs
+docs:
+	cd docs && make html
+
+.PHONY: docs-serve
+docs-serve:
+	cd docs/build/html && python3 -m http.server
 
 .PHONY: build
 build:

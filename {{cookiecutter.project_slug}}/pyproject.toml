@@ -11,11 +11,24 @@ authors = ["Jb Doyon <jb@jiby.tech>"]
 python = "^{{cookiecutter.python_version}}"
 
 [tool.poetry.dev-dependencies]
+## Testing
 pytest = "7.*"
 # Test coverage
 pytest-cov = "3.*"
 # Clearer assertion failures (colorful diff)
 pytest-clarity = "1.*"
+## Docs
+# Main documentation-as-code (HTML generator)
+Sphinx = "4.*"
+# Read the docs (pretty) theme for sphinx
+sphinx-rtd-theme = "1.*"
+# Markdown parser for sphinx: Sphinx uses "RST" files, this adds markdown
+myst-parser = "*"
+# Automatic Python module docs (javadoc-style)
+sphinx-autoapi = "*"
+
+# Note: Linters not defined here, but .pre-commit-config.yaml, which
+# installs/manages each tool in its own isolated virtualenv
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
@@ -40,3 +53,6 @@ addopts = """-vv \
       --cov-report=html:test_results/coverage.html \
       --cov-report=term \
       --junit-xml=test_results/results.xml"""
+
+[tool.mypy]
+python_version = "{{ cookiecutter.python_version }}"
