@@ -84,6 +84,7 @@ def tests_template_packages_ok(template):
     docker_run_devimg(["poetry", "build"], template)
     assert os.listdir(template + "/dist/"), "Nothing was built!"
 
+
 def tests_template_docs_ok(template):
     """Checks we can run make docson rendered code to get HTML"""
     docker_run_devimg(["make", "docs"], template)
@@ -122,7 +123,7 @@ class CasesDockerBuild:
 
     def case_docker_build_dev(self):
         """Build the dev container via make"""
-        return (["make", "docker-build"], DEFAULT_CONF["project_slug"] + "-dev")
+        return (["make", "docker-build-dev"], DEFAULT_CONF["project_slug"] + "-dev")
 
     def case_docker_build_release(self):
         """Build the release container via make"""

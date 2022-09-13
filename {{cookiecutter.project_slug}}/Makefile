@@ -27,8 +27,8 @@ docs-serve:
 build:
 	poetry build
 
-.PHONY: docker-build
-docker-build:
+.PHONY: docker-build-dev
+docker-build-dev:
 	docker build -t ${DOCKER_IMAGE_NAME}-dev .
 
 
