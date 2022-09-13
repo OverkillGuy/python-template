@@ -40,3 +40,6 @@ addopts = """-vv \
       --cov-report=html:test_results/coverage.html \
       --cov-report=term \
       --junit-xml=test_results/results.xml"""
+
+[tool.mypy]
+python_version = "{{ cookiecutter.python_version }}"
