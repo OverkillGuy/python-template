@@ -58,7 +58,7 @@ uvloop = ["uvloop (>=0.15.2)"]
 
 [[package]]
 name = "certifi"
-version = "2022.6.15.1"
+version = "2022.6.15.2"
 description = "Python package for providing Mozilla's CA Bundle."
 category = "main"
 optional = false
@@ -151,7 +151,7 @@ ssh = ["paramiko (>=2.4.3)"]
 
 [[package]]
 name = "idna"
-version = "3.3"
+version = "3.4"
 description = "Internationalized Domain Names in Applications (IDNA)"
 category = "main"
 optional = false
@@ -343,6 +343,18 @@ decopatch = "*"
 makefun = ">=1.9.5"
 
 [[package]]
+name = "pytest-parallel"
+version = "0.1.1"
+description = "a pytest plugin for parallel and concurrent testing"
+category = "dev"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+pytest = ">=3.0.0"
+tblib = "*"
+
+[[package]]
 name = "python-dateutil"
 version = "2.8.2"
 description = "Extensions to the standard Python datetime module"
@@ -402,6 +414,14 @@ optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*"
 
 [[package]]
+name = "tblib"
+version = "1.7.0"
+description = "Traceback serialization library."
+category = "dev"
+optional = false
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
+
+[[package]]
 name = "text-unidecode"
 version = "1.3"
 description = "The most basic Text::Unidecode port"
@@ -454,7 +474,7 @@ test = ["websockets"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "af6a86531586efc9290e5b1203f07aeab7b1bc1685e30a002f98f751c881ef03"
+content-hash = "794d715d17e6257f22fbe399b7942e17c66c9f5efd6750ea82ba9a1e35d642ae"
 
 [metadata.files]
 arrow = [
@@ -495,8 +515,8 @@ black = [
     {file = "black-22.8.0.tar.gz", hash = "sha256:792f7eb540ba9a17e8656538701d3eb1afcb134e3b45b71f20b25c77a8db7e6e"},
 ]
 certifi = [
-    {file = "certifi-2022.6.15.1-py3-none-any.whl", hash = "sha256:43dadad18a7f168740e66944e4fa82c6611848ff9056ad910f8f7a3e46ab89e0"},
-    {file = "certifi-2022.6.15.1.tar.gz", hash = "sha256:cffdcd380919da6137f76633531a5817e3a9f268575c128249fb637e4f9e73fb"},
+    {file = "certifi-2022.6.15.2-py3-none-any.whl", hash = "sha256:0aa1a42fbd57645fabeb6290a7687c21755b0344ecaeaa05f4e9f6207ae2e9a8"},
+    {file = "certifi-2022.6.15.2.tar.gz", hash = "sha256:aa08c101214127b9b0472ca6338315113c9487d45376fd3e669201b477c71003"},
 ]
 chardet = [
     {file = "chardet-5.0.0-py3-none-any.whl", hash = "sha256:d3e64f022d254183001eccc5db4040520c0f23b1a3f33d6413e099eb7f126557"},
@@ -527,8 +547,8 @@ docker = [
     {file = "docker-6.0.0.tar.gz", hash = "sha256:19e330470af40167d293b0352578c1fa22d74b34d3edf5d4ff90ebc203bbb2f1"},
 ]
 idna = [
-    {file = "idna-3.3-py3-none-any.whl", hash = "sha256:84d9dd047ffa80596e0f246e2eab0b391788b0503584e8945f2368256d2735ff"},
-    {file = "idna-3.3.tar.gz", hash = "sha256:9d643ff0a55b762d5cdb124b8eaa99c66322e2157b69160bc32796e824360e6d"},
+    {file = "idna-3.4-py3-none-any.whl", hash = "sha256:90b77e79eaa3eba6de819a0c442c0b4ceefc341a7a2ab77d7562bf49f425c5c2"},
+    {file = "idna-3.4.tar.gz", hash = "sha256:814f528e8dead7d329833b91c5faa87d60bf71824cd12a7530b5526063d02cb4"},
 ]
 iniconfig = [
     {file = "iniconfig-1.1.1-py2.py3-none-any.whl", hash = "sha256:011e24c64b7f47f6ebd835bb12a743f2fbe9a26d4cecaa7f53bc4f35ee9da8b3"},
@@ -636,6 +656,10 @@ pytest-cases = [
     {file = "pytest-cases-3.6.13.tar.gz", hash = "sha256:7b584433231280b16a74f34d9ba1f50abcc6b973d3ba3ada9053c2c41a11fb77"},
     {file = "pytest_cases-3.6.13-py2.py3-none-any.whl", hash = "sha256:d5bdea5a2bf8a9fef594153d2f33c6a5b45328fe26bb7b8e136442ddc67c72cd"},
 ]
+pytest-parallel = [
+    {file = "pytest-parallel-0.1.1.tar.gz", hash = "sha256:9aac3fc199a168c0a8559b60249d9eb254de7af58c12cee0310b54d4affdbfab"},
+    {file = "pytest_parallel-0.1.1-py3-none-any.whl", hash = "sha256:9e3703015b0eda52be9e07d2ba3498f09340a56d5c79a39b50f22fc5c38212fe"},
+]
 python-dateutil = [
     {file = "python-dateutil-2.8.2.tar.gz", hash = "sha256:0123cacc1627ae19ddf3c27a5de5bd67ee4586fbdd6440d9748f8abb483d3e86"},
     {file = "python_dateutil-2.8.2-py2.py3-none-any.whl", hash = "sha256:961d03dc3453ebbc59dbdea9e4e11c5651520a876d0f4db161e8674aae935da9"},
@@ -667,6 +691,10 @@ requests = [
 six = [
     {file = "six-1.16.0-py2.py3-none-any.whl", hash = "sha256:8abb2f1d86890a2dfb989f9a77cfcfd3e47c2a354b01111771326f8aa26e0254"},
     {file = "six-1.16.0.tar.gz", hash = "sha256:1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926"},
+]
+tblib = [
+    {file = "tblib-1.7.0-py2.py3-none-any.whl", hash = "sha256:289fa7359e580950e7d9743eab36b0691f0310fce64dee7d9c31065b8f723e23"},
+    {file = "tblib-1.7.0.tar.gz", hash = "sha256:059bd77306ea7b419d4f76016aef6d7027cc8a0785579b5aad198803435f882c"},
 ]
 text-unidecode = [
     {file = "text-unidecode-1.3.tar.gz", hash = "sha256:bad6603bb14d279193107714b288be206cac565dfa49aa5b105294dd5c4aab93"},
