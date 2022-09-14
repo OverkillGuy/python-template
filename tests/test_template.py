@@ -45,7 +45,7 @@ def copy_container_path_out(container, path, destination):
 
 
 @fixture
-@parametrize(python_version=["3.9", "3.10", "3.7", "3.8"])
+@parametrize(python_version=["3.9", "3.10"])
 def template(python_version: str):
     """Template expansion fixture, parametrized by python version"""
     extra_context = {"python_version": python_version}
