@@ -95,7 +95,7 @@ def docker_run_devimg(command, template: Template, raise_on_nonzero_exitcode=Tru
             command=command,
             volumes=[
                 # Named volume mount for ownership
-                f"pyskel-{context['python_version']}:/caches:rw",
+                f"python-skeleton-test-{context['python_version']}:/caches:rw",
             ],
             stdout=True,
             stderr=True,
