@@ -13,22 +13,9 @@ from cookiecutter.generate import generate_context
 from cookiecutter.prompt import prompt_for_config
 from pytest_cases import fixture, parametrize, parametrize_with_cases
 
-PYTHON_VERSION = "3.9"
-EXTRA_CONTEXT = {"python_version": PYTHON_VERSION}
-
-
-# The config in cookiecutter.json, once expanded
-DEFAULT_CONF = prompt_for_config(
-    generate_context(extra_context=EXTRA_CONTEXT), no_input=True
-)
-
 DOCKER_CLIENT = docker.from_env()
 
-DOCKER_DEVIMG_NAME = "python-skeleton-testing"
-
-
 Template = namedtuple("Template", ["path", "context"])
-
 
 def print_docker_build_log(build_log_stream):
     """Convert a docker build log JSON stream to string"""
@@ -58,8 +45,8 @@ def copy_container_path_out(container, path, destination):
 
 
 @fixture
-@parametrize(python_version=[PYTHON_VERSION])  # "3.7", "3.8", "3.10",
-def template(python_version):
+@parametrize(python_version=["3.9", "3.10", "3.7", "3.8"])
+def template(python_version: str):
     """Template expansion fixture, parametrized by python version"""
     extra_context = {"python_version": python_version}
     conf = prompt_for_config(
@@ -70,59 +57,53 @@ def template(python_version):
         yield Template(path, conf)
 
 
-def python_dev_image(template_path):
+def python_dev_image(template: Template):
     """Build the python image of the template's dockerfile"""
+    py_version = template.context['python_version']
+    docker_devimg_name = f"python-skeleton-testing:{py_version}"
     try:
         img = DOCKER_CLIENT.images.build(
-            path=str(template_path),
-            tag=DOCKER_DEVIMG_NAME,
-            # buildargs={"USERID": str(os.getuid())},
+            path=str(template.path),
+            tag=docker_devimg_name,  # FIXME: Clashing parallel builds
             rm=True,
         )
     except (docker.errors.BuildError) as e:
         print(f"Failed to build the main templated Dockerfile. Build log:")
         print_docker_build_log(e.build_log)
         raise e
-    return DOCKER_DEVIMG_NAME
+    return docker_devimg_name
 
 
-def expand_template(tmp_path, extra_context=EXTRA_CONTEXT):
+def expand_template(tmp_path, extra_context=None):
     """Expand a single template"""
     return ck.cookiecutter(
         ".", extra_context=extra_context, output_dir=tmp_path, no_input=True
     )
 
 
-def docker_run_devimg(command, workdir, raise_on_nonzero_exitcode=True):
+def docker_run_devimg(command, template: Template, raise_on_nonzero_exitcode=True):
     """Run the given command in the dev image
 
 
     Emulate a docker build + docker run + docker cp via docker-py
     """
-    python_dev_image(workdir)
+    workdir, context = template
+    docker_devimg_name = python_dev_image(template)
     try:
         container = DOCKER_CLIENT.containers.run(
-            image=DOCKER_DEVIMG_NAME,
+            image=docker_devimg_name,
             command=command,
             volumes=[
-                # f"{workdir}:/app",
                 # Named volume mount for ownership
-                f"pyskel-{PYTHON_VERSION}:/caches:rw",
-                # "/etc/passwd:/etc/passwd:ro",
-                # "/etc/groups:/etc/groups:ro",
+                f"pyskel-{context['python_version']}:/caches:rw",
             ],
-            # working_dir="/app",
             stdout=True,
             stderr=True,
-            # read_only=False,
-            # user=os.getuid(),  # Avoid root-owned permissions issues
-            # group_add=[os.getgid()],
             environment={"XDG_CACHE_HOME": "/caches/"},
-            # auto_remove=True,
             detach=True,
         )
         # Block till container completed
-        response = container.wait(timeout=90)
+        response = container.wait(timeout=90)  # TODO: Confirm timeout unit (sec?)
         exit_code = response["StatusCode"]
         print(container.logs())
         if exit_code > 0:
@@ -143,26 +124,26 @@ def docker_run_devimg(command, workdir, raise_on_nonzero_exitcode=True):
             )
 
 
-def tests_template_renders_ok(template):
+def tests_template_renders_ok(template: Template):
     """Checks we can invoke cookiecutter simply without specific arguments"""
     pass  # Checking the "template" fixture doesn't fail the test
 
 
-def tests_template_packages_ok(template):
+def tests_template_packages_ok(template: Template):
     """Checks we can run poetry build on rendered code to get a binary"""
-    out_path = docker_run_devimg(["poetry", "build"], template.path)
+    out_path = docker_run_devimg(["poetry", "build"], template)
     assert os.listdir(out_path + "/dist/"), "Nothing was built!"
 
 
-def tests_template_docs_ok(template):
+def tests_template_docs_ok(template: Template):
     """Checks we can run make docson rendered code to get HTML"""
-    out_path = docker_run_devimg(["make", "docs"], template.path)
+    out_path = docker_run_devimg(["make", "docs"], template)
     assert os.listdir(out_path + "/docs/build/html/"), "Docs not built"
 
 
-def tests_template_makes_ok(template):
+def tests_template_makes_ok(template: Template):
     """Checks we can run make on rendered code to get a binary/tests"""
-    out_path = docker_run_devimg("make", template.path)
+    out_path = docker_run_devimg("make", template)
     assert os.listdir(out_path + "/dist/"), "Nothing was built!"
     assert os.path.isfile(
         out_path + "/test_results/results.xml"
@@ -184,21 +165,21 @@ def tests_template_makes_ok(template):
     ), "Git found unstaged files after running 'make'"
 
 
-def tests_cli_runs_ok(template):
+def tests_cli_runs_ok(template: Template):
     """Runs the generated CLI's help works"""
-    docker_run_devimg([DEFAULT_CONF["project_slug"], "--help"], template.path)
+    docker_run_devimg([template.context["project_slug"], "--help"], template)
 
 
 class CasesDockerBuild:
     """Test cases for the docker-building commands"""
 
-    def case_docker_build_dev(self):
+    def case_docker_build_dev(self, template: Template):
         """Build the dev container via make"""
-        return (["make", "docker-build-dev"], DEFAULT_CONF["project_slug"] + "-dev")
+        return (["make", "docker-build-dev"], template.context["project_slug"] + "-dev")
 
-    def case_docker_build_release(self):
+    def case_docker_build_release(self, template: Template):
         """Build the release container via make"""
-        return (["make", "docker-build-release"], DEFAULT_CONF["project_slug"])
+        return (["make", "docker-build-release"], template.context["project_slug"])
 
 
 @parametrize_with_cases("make_cmd,img_name", cases=CasesDockerBuild)
