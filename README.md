@@ -65,3 +65,5 @@ templated repo the make target defined by `MAKE_TGT`:
 - Add optional file creation system (files with big IF vars, and if to be
   deleted, have a unique content in it like `DELETETHISFILE`, with post-hook
   deleting files matching that content)
+- Add a DESIGN.md to document big architectural decisions
+  - Create (Sphinx) docs for the template?
