@@ -56,3 +56,12 @@ templated repo the make target defined by `MAKE_TGT`:
 	# You can override these variables:
 	make try PYTHON_VERSION=3.10
 	make try MAKE_TGT=docker-build  # to run make docker-build inside repo
+
+## TODO list
+
+- Fix non-unique docker image name causing clashes during parallel tests
+- Optimize Dockerfile.release to copy pre-built wheel file
+- App-or-library binary choice with Poetry.lock
+- Add optional file creation system (files with big IF vars, and if to be
+  deleted, have a unique content in it like `DELETETHISFILE`, with post-hook
+  deleting files matching that content)
