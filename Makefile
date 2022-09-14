@@ -10,6 +10,9 @@ format:
 test:
 	poetry run pytest tests/
 
+test-parallel:
+	poetry run pytest tests/ --workers 8
+
 build:
 	poetry build
 
