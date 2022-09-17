@@ -88,3 +88,8 @@ And remember that `make` supports multiple targets, so you can generate the
 documentation and serve it:
 
     make docs docs-serve
+
+
+### Templated
+
+This repo is templated, using commit hash: `{% gitcommit %}`
