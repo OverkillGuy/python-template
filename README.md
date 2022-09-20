@@ -7,7 +7,6 @@ A project skeleton for Python projects.
 Template built out of code repeated at least thrice by Jb.
 
 ## Usage
-## Usage
 
 Use the `cookiecutter` templating command.
 
@@ -67,3 +66,4 @@ templated repo the make target defined by `MAKE_TGT`:
   deleting files matching that content)
 - Add a DESIGN.md to document big architectural decisions
   - Create (Sphinx) docs for the template?
+- Support using local python version if available (skip docker tests if missing)
