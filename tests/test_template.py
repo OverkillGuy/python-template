@@ -2,18 +2,22 @@ import os
 import subprocess
 import sys
 from tempfile import TemporaryDirectory
+from typing import Callable
 
 from cookiecutter.generate import generate_context
 from cookiecutter.prompt import prompt_for_config
 from pytest_cases import fixture, parametrize, parametrize_with_cases
 
-from tests.docker import docker_run_devimg
-from tests.templating import Template, expand_template
+from tests.docker import run_docker_devimg, run_native
+from tests.templating import Template, cookiecutter_json, expand_template
+
+ROOT_COOKIECUTTER_JSON = cookiecutter_json()
 
 
 @fixture
-@parametrize(python_version=["3.9", "3.10"])
-def template(python_version: str):
+@parametrize(runfunc=[run_native, run_docker_devimg])
+@parametrize(python_version=ROOT_COOKIECUTTER_JSON["python_version"])
+def template(python_version: str, runfunc: Callable):
     """Template expansion fixture, parametrized by python version"""
     extra_context = {"python_version": python_version}
     conf = prompt_for_config(
@@ -21,7 +25,7 @@ def template(python_version: str):
     )
     with TemporaryDirectory() as tmp_path:
         path = expand_template(tmp_path, extra_context)
-        yield Template(path, conf)
+        yield Template(path, conf, runfunc)
 
 
 def tests_template_renders_ok(template: Template):
@@ -31,19 +35,19 @@ def tests_template_renders_ok(template: Template):
 
 def tests_template_packages_ok(template: Template):
     """Checks we can run poetry build on rendered code to get a binary"""
-    out_path = docker_run_devimg(["poetry", "build"], template)
+    out_path = template.run_in_dev(["poetry", "build"], template)
     assert os.listdir(out_path + "/dist/"), "Nothing was built!"
 
 
 def tests_template_docs_ok(template: Template):
     """Checks we can run make docson rendered code to get HTML"""
-    out_path = docker_run_devimg(["make", "docs"], template)
+    out_path = template.run_in_dev(["make", "docs"], template)
     assert os.listdir(out_path + "/docs/build/html/"), "Docs not built"
 
 
 def tests_template_makes_ok(template: Template):
     """Checks we can run make on rendered code to get a binary/tests"""
-    out_path = docker_run_devimg("make", template)
+    out_path = template.run_in_dev("make", template)
     assert os.listdir(out_path + "/dist/"), "Nothing was built!"
     assert os.path.isfile(
         out_path + "/test_results/results.xml"
@@ -67,23 +71,23 @@ def tests_template_makes_ok(template: Template):
 
 def tests_cli_runs_ok(template: Template):
     """Runs the generated CLI's help works"""
-    docker_run_devimg([template.context["project_slug"], "--help"], template)
+    template.run_in_dev([template.context["project_slug"], "--help"], template)
 
 
-class CasesDockerBuild:
-    """Test cases for the docker-building commands"""
+# class CasesDockerBuild:
+#     """Test cases for the docker-building commands"""
 
-    def case_docker_build_dev(self, template: Template):
-        """Build the dev container via make"""
-        return (["make", "docker-build-dev"], template.context["project_slug"] + "-dev")
+#     def case_docker_build_dev(self, template: Template):
+#         """Build the dev container via make"""
+#         return (["make", "docker-build-dev"], template.context["project_slug"] + "-dev")
 
-    def case_docker_build_release(self, template: Template):
-        """Build the release container via make"""
-        return (["make", "docker-build-release"], template.context["project_slug"])
+#     def case_docker_build_release(self, template: Template):
+#         """Build the release container via make"""
+#         return (["make", "docker-build-release"], template.context["project_slug"])
 
 
-@parametrize_with_cases("make_cmd,img_name", cases=CasesDockerBuild)
-def tests_template_makes_docker_ok(template, make_cmd, img_name):
-    """Checks we can build a docker image on rendered code"""
-    subprocess.check_call(make_cmd, cwd=template.path)
-    subprocess.check_call(["docker", "image", "rm", img_name])
+# @parametrize_with_cases("make_cmd,img_name", cases=CasesDockerBuild)
+# def tests_template_makes_docker_ok(template, make_cmd, img_name):
+#     """Checks we can build a docker image on rendered code"""
+#     subprocess.check_call(make_cmd, cwd=template.path)
+#     subprocess.check_call(["docker", "image", "rm", img_name])

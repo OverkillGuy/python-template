@@ -1,4 +1,5 @@
 """Useful utilities relating to docker containers """
+import subprocess
 import sys
 import tarfile
 from io import BytesIO
@@ -6,9 +7,15 @@ from io import BytesIO
 import docker
 import pytest
 
-DOCKER_CLIENT = docker.from_env()
-
 from tests.templating import Template
+
+
+def docker_or_skip():
+    """Get the docker client or skip tests that try it"""
+    try:
+        return docker.from_env()
+    except docker.errors.DockerException:
+        pytest.skip("No docker-socket connection")
 
 
 def print_docker_build_log(build_log_stream):
@@ -42,8 +49,9 @@ def python_dev_image(template: Template):
     """Build the python image of the template's dockerfile"""
     py_version = template.context["python_version"]
     docker_devimg_name = f"python-skeleton-testing:{py_version}"
+    docker_client = docker_or_skip()
     try:
-        img = DOCKER_CLIENT.images.build(
+        img = docker_client.images.build(
             path=str(template.path),
             tag=docker_devimg_name,  # FIXME: Clashing parallel builds
             rm=True,
@@ -55,16 +63,17 @@ def python_dev_image(template: Template):
     return docker_devimg_name
 
 
-def docker_run_devimg(command, template: Template, raise_on_nonzero_exitcode=True):
+def run_docker_devimg(command, template: Template, raise_on_nonzero_exitcode=True):
     """Run the given command in the dev image
 
 
     Emulate a docker build + docker run + docker cp via docker-py
     """
-    workdir, context = template
+    workdir, context, _runfunc = template
     docker_devimg_name = python_dev_image(template)
+    docker_client = docker_or_skip()
     try:
-        container = DOCKER_CLIENT.containers.run(
+        container = docker_client.containers.run(
             image=docker_devimg_name,
             command=command,
             volumes=[
@@ -92,7 +101,40 @@ def docker_run_devimg(command, template: Template, raise_on_nonzero_exitcode=Tru
     ) as e:
         # Explicitly get container's logs, since it may be empty
         if raise_on_nonzero_exitcode:
-            logs = DOCKER_CLIENT.containers.get(e.container.name).logs()
+            logs = docker_client.containers.get(e.container.name).logs()
             pytest.fail(
                 f"Failed running {command} error was: {e}. Container logs: {logs}"
             )
+
+
+def run_native(command, template: Template):
+    """Run the given command in Template env natively (no-docker)"""
+    # Ensure the deps are installed already
+    try:
+        subprocess.run(
+            ["poetry", "install"],
+            cwd=template.path,
+            capture_output=True,
+            text=True,
+            check=True,
+        )
+    except subprocess.CalledProcessError as e:
+        # breakpoint()
+        if "ython version" in e.stderr.lower():
+            pytest.skip(
+                f"Missing python executable for version {template.context['python_version']}"
+            )
+        else:
+            print(e.stdout)
+            print(e.stderr, file=sys.stderr)
+            raise e
+    try:
+        subprocess.run(
+            command, cwd=template.path, capture_output=True, text=True, check=True
+        )
+        return template.path
+    except subprocess.CalledProcessError as e:
+        # Explicitly print the failing logs before leaving
+        print(e.stdout)
+        print(e.stderr, file=sys.stderr)
+        raise e
