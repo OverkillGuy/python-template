@@ -8,6 +8,18 @@ from cookiecutter import main as ck
 Template = namedtuple("Template", ["path", "context", "run_in_dev"])
 
 
+import faker_microservice
+from faker import Faker
+
+fake = Faker()
+fake.add_provider(faker_microservice.Provider)
+
+# Use the Faker lib to generate a plausible project name
+RANDOMIZED_PROJECT_NAME = (
+    fake.microservice().replace("-", " ").replace("_", " ").capitalize()
+)
+
+
 def expand_template(tmp_path, extra_context=None):
     """Expand a single template"""
     return ck.cookiecutter(

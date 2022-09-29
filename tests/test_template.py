@@ -9,7 +9,12 @@ from cookiecutter.prompt import prompt_for_config
 from pytest_cases import fixture, parametrize, parametrize_with_cases
 
 from tests.docker import run_docker_devimg, run_native
-from tests.templating import Template, cookiecutter_json, expand_template
+from tests.templating import (
+    RANDOMIZED_PROJECT_NAME,
+    Template,
+    cookiecutter_json,
+    expand_template,
+)
 
 ROOT_COOKIECUTTER_JSON = cookiecutter_json()
 
@@ -19,7 +24,10 @@ ROOT_COOKIECUTTER_JSON = cookiecutter_json()
 @parametrize(python_version=ROOT_COOKIECUTTER_JSON["python_version"])
 def template(python_version: str, runfunc: Callable):
     """Template expansion fixture, parametrized by python version"""
-    extra_context = {"python_version": python_version}
+    extra_context = {
+        "python_version": python_version,
+        "project_name": RANDOMIZED_PROJECT_NAME,
+    }
     conf = prompt_for_config(
         generate_context(extra_context=extra_context), no_input=True
     )

@@ -23,6 +23,8 @@ docker = "6.*"
 # Formatters, not using pre-commit due to the recursive stuff in template folder
 black = "22.*"
 isort = "5.*"
+# Generate fake microservice names for validating the template expansion
+faker-microservice = "2.*"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
