@@ -29,11 +29,17 @@ build:
 PYTHON_VERSION=3.10
 MAKE_TGT=all
 # MAKE_TGT=docker-build docker-build-release
+RANDOMIZED_PROJECT_NAME=$(shell poetry run python -c 'import faker_microservice;from faker import Faker;fake = Faker();fake.add_provider(faker_microservice.Provider);print(fake.microservice().replace("-", " ").replace("_", " ").capitalize())')
 try:
+# Wipe previous such templating if any
 	-rm -rf template_expanded
+# Re-expand with randomized vars
 	cookiecutter \
 		--no-input \
 		--output-dir template_expanded \
 		. \
-		'python_version=${PYTHON_VERSION}'
-	cd template_expanded/my-lovely-project && make ${MAKE_TGT}
+		'python_version=${PYTHON_VERSION}' 'project_name=${RANDOMIZED_PROJECT_NAME}'
+# Get in there and run make
+	cd template_expanded/ \
+		&& cd * \
+		&& make ${MAKE_TGT}
