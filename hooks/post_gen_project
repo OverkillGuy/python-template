@@ -2,6 +2,7 @@
 
 # Prepopulates a git repo out of the rendered template with an initial commit+tag
 create_git_repository() {
+    echo "Creating a git repo..."
     # If a git repo is already in place
     if [[ -d ".git/" ]];
     then
@@ -31,8 +32,22 @@ create_git_repository() {
     git config --unset user.email
 }
 
+# Delete all unused files (marked via specific content string)
+# Such as api.py in non-api projects.
+# Workaround for cookiecutter limitation (cannot conditionally include files)
 delete_unused_files() {
+    echo "Deleting unused files..."
     DELETION_MARKER="DELETE THIS FILE DURING POST_GEN HOOK"
-
+    # Compute the string's SHA256 digest
+    MARKER_SHA256=$(echo "${DELETION_MARKER}" | sha256sum | cut -d' ' -f1)
+    # echo "Marker SHA256sum = ${MARKER_SHA256}"
+    # Compute all files checksum
+    ALL_FILES_SHA256=$(find . -type f -exec sha256sum {} \;)
+    # Look for matching content digest
+    MARKED_FILES=$(echo "${ALL_FILES_SHA256}" | awk "\$1 == \"${MARKER_SHA256}\" {print \$NF}")
+    # echo "Unused files to delete: ${MARKED_FILES}"
+    echo "${MARKED_FILES}" | xargs -I % rm %
 }
+
+delete_unused_files
 create_git_repository
