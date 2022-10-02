@@ -9,4 +9,4 @@ The project uses semantic versioning (see [semver](https://semver.org)).
 ## v0.1.0 - {% now 'local' %}
 
 ### Added
-- New module {{ cookiecutter.package_name }}
+- New python module `{{ cookiecutter.package_name }}`, exposed as shell command `{{ cookiecutter.project_slug }}`
