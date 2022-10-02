@@ -82,7 +82,8 @@ def tests_cli_runs_ok(template: Template):
     """Runs the generated CLI's help works"""
     template.run_in_dev([template.context["project_slug"], "--help"], template)
 
-def tests_template_makes_docker_release_ok(template: Template,):
+
+def tests_template_makes_docker_release_ok(template: Template):
     """Checks we can build the released docker image"""
     # Build the wheel file first, for releasing
     subprocess.check_call(["make", "build"], cwd=template.path)
