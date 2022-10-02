@@ -10,6 +10,10 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^{{cookiecutter.python_version}}"
+{% if cookiecutter.project_variant == "REST_API_client" %}
+httpx = "*"
+{% endif %}
+
 
 # Note: Linters not defined in this file but .pre-commit-config.yaml, which
 # installs/manages each tool in its own isolated virtualenv

@@ -31,4 +31,8 @@ create_git_repository() {
     git config --unset user.email
 }
 
+delete_unused_files() {
+    DELETION_MARKER="DELETE THIS FILE DURING POST_GEN HOOK"
+
+}
 create_git_repository
