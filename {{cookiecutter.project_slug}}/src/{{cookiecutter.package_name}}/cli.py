@@ -14,7 +14,7 @@ def parse_arguments(arguments: List[str]) -> argparse.Namespace:
 
 
 def cli(arguments: Optional[List[str]] = None):
-    """Run the my_lovely_project cli"""
+    """Run the {{ cookiecutter.package_name }} cli"""
     if arguments is None:
         arguments = sys.argv[1:]
     args = parse_arguments(arguments)
