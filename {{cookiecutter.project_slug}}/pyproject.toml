@@ -11,15 +11,18 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^{{cookiecutter.python_version}}"
 
-[tool.poetry.dev-dependencies]
-## Testing
+# Note: Linters not defined in this file but .pre-commit-config.yaml, which
+# installs/manages each tool in its own isolated virtualenv
+
+[tool.poetry.group.test.dependencies]
 pytest = "7.*"
 # Test coverage
 pytest-cov = "3.*"
 # Clearer assertion failures (colorful diff)
 pytest-clarity = "1.*"
-## Docs
-# Main documentation-as-code (HTML generator)
+
+[tool.poetry.group.docs.dependencies]
+# Main documentation-as-code (HTML/PDF generator)
 Sphinx = "4.*"
 # Read the docs (pretty) theme for sphinx
 sphinx-rtd-theme = "1.*"
@@ -27,9 +30,6 @@ sphinx-rtd-theme = "1.*"
 myst-parser = "*"
 # Automatic Python module docs (javadoc-style)
 sphinx-autoapi = "*"
-
-# Note: Linters not defined here, but .pre-commit-config.yaml, which
-# installs/manages each tool in its own isolated virtualenv
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
