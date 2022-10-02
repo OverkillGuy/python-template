@@ -1,4 +1,5 @@
 DOCKER_IMAGE_NAME={{ cookiecutter.project_slug }}
+APP_VERSION=$(shell poetry version --short)
 
 .PHONY: all
 all: install lint test docs build
@@ -34,7 +35,7 @@ docker-build-dev:
 
 .PHONY: docker-build-release
 docker-build-release:
-	docker build -t ${DOCKER_IMAGE_NAME} -f Dockerfile.release .
+	docker build -t "${DOCKER_IMAGE_NAME}:${APP_VERSION}" -f Dockerfile.release .
 
 # Less commonly used commands
 
