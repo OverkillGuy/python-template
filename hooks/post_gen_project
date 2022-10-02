@@ -1,30 +1,33 @@
 #!/usr/bin/env bash
 
-# Prepopulates a git repo out of the rendered template with an initial commit
+# Prepopulates a git repo out of the rendered template with an initial commit+tag
+create_git_repository() {
+    # If a git repo is already in place
+    if [[ -d ".git/" ]];
+    then
+        exit 0  # No action, exit early
+    fi
 
-# If a git repo is already in place
-if [[ -d ".git/" ]];
-then
-    exit 0  # No action, exit early
-fi
+    # First create empty git repo
+    git init --initial-branch main
 
-# First create empty git repo
-git init --initial-branch main
+    # Temporarily set commiter name.
+    # Nicely solves problem of "missing git user" in CI by making all
+    # template instantiation use a set user name/email combo
+    git config --local user.name "Jb Doyon"
+    git config --local user.email "jb@jiby.tech"
 
-# Temporarily set commiter name.
-# Nicely solves problem of "missing git user" in CI by making all
-# template instantiation use a set user name/email combo
-git config --local user.name "Jb Doyon"
-git config --local user.email "jb@jiby.tech"
+    # Commit
+    git add --all
+    git commit \
+        --message "Initial commit from cookiecutter template" \
+        --message "From python-skeleton repository in Github:" \
+        --message "https://github.com/OverkillGuy/python-skeleton" \
+        --message "at commit {% gitcommit %}"
 
-# Commit
-git add --all
-git commit \
-    --message "Initial commit from cookiecutter template" \
-    --message "From python-skeleton repository in Github:" \
-    --message "https://github.com/OverkillGuy/python-skeleton" \
-    --message "at commit {% gitcommit %}"
+    # Reset the user config after committing
+    git config --unset user.name
+    git config --unset user.email
+}
 
-# Reset the user config after committing
-git config --unset user.name
-git config --unset user.email
+create_git_repository
