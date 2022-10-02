@@ -26,16 +26,16 @@ docs-serve:
 
 .PHONY: build
 build:
-	poetry build
+	poetry build -f wheel
+
+# Requires wheel package dist/, from "make build"
+.PHONY: docker-build-release
+docker-build-release:
+	docker build -t "${DOCKER_IMAGE_NAME}:${APP_VERSION}" -f Dockerfile.release .
 
 .PHONY: docker-build-dev
 docker-build-dev:
 	docker build -t ${DOCKER_IMAGE_NAME}-dev .
-
-
-.PHONY: docker-build-release
-docker-build-release:
-	docker build -t "${DOCKER_IMAGE_NAME}:${APP_VERSION}" -f Dockerfile.release .
 
 # Less commonly used commands
 

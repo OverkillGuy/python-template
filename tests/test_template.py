@@ -36,6 +36,7 @@ def template(python_version: str, runfunc: Callable):
         yield Template(path, conf, runfunc)
 
 
+# TODO Separate the parametrization of runfunc to avoid testing twice basic features
 def tests_template_renders_ok(template: Template):
     """Checks we can invoke cookiecutter simply without specific arguments"""
     pass  # Checking the "template" fixture doesn't fail the test
@@ -43,7 +44,7 @@ def tests_template_renders_ok(template: Template):
 
 def tests_template_packages_ok(template: Template):
     """Checks we can run poetry build on rendered code to get a binary"""
-    out_path = template.run_in_dev(["poetry", "build"], template)
+    out_path = subprocess.check_call(["make", "build"], cwd=template.path)
     assert os.listdir(out_path + "/dist/"), "Nothing was built!"
 
 
@@ -81,21 +82,10 @@ def tests_cli_runs_ok(template: Template):
     """Runs the generated CLI's help works"""
     template.run_in_dev([template.context["project_slug"], "--help"], template)
 
-
-# class CasesDockerBuild:
-#     """Test cases for the docker-building commands"""
-
-#     def case_docker_build_dev(self, template: Template):
-#         """Build the dev container via make"""
-#         return (["make", "docker-build-dev"], template.context["project_slug"] + "-dev")
-
-#     def case_docker_build_release(self, template: Template):
-#         """Build the release container via make"""
-#         return (["make", "docker-build-release"], template.context["project_slug"])
-
-
-# @parametrize_with_cases("make_cmd,img_name", cases=CasesDockerBuild)
-# def tests_template_makes_docker_ok(template, make_cmd, img_name):
-#     """Checks we can build a docker image on rendered code"""
-#     subprocess.check_call(make_cmd, cwd=template.path)
-#     subprocess.check_call(["docker", "image", "rm", img_name])
+def tests_template_makes_docker_release_ok(template: Template,):
+    """Checks we can build the released docker image"""
+    # Build the wheel file first, for releasing
+    subprocess.check_call(["make", "build"], cwd=template.path)
+    subprocess.check_call(["make", "docker-build-release"], cwd=template.path)
+    image_name = template.context["project_slug"] + ":0.1.0"
+    subprocess.check_call(["docker", "image", "rm", image_name])
