@@ -25,7 +25,9 @@ create_git_repository() {
         --message "From python-skeleton repository in Github:" \
         --message "https://github.com/OverkillGuy/python-skeleton" \
         --message "at commit {% gitcommit %}"
-    git tag v0.1.0 --message "First releasable artefact, from template"
+    git tag v0.1.0 \
+        --annotate \
+        --message "First releasable artefact, from template"
 
     # Reset the user config after committing
     git config --unset user.name
