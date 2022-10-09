@@ -24,6 +24,12 @@ pytest = "7.*"
 pytest-cov = "3.*"
 # Clearer assertion failures (colorful diff)
 pytest-clarity = "1.*"
+# Expose unittest.Mocker in pytest
+pytest-mock = "*"
+{% if cookiecutter.project_variant == "REST_API_client" %}
+# httpx Mocker, enabling API mocks during testing
+respx = "*"
+{% endif %}
 
 [tool.poetry.group.docs.dependencies]
 # Main documentation-as-code (HTML/PDF generator)
