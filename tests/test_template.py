@@ -44,8 +44,8 @@ def tests_template_renders_ok(template: Template):
 
 def tests_template_packages_ok(template: Template):
     """Checks we can run poetry build on rendered code to get a binary"""
-    out_path = subprocess.check_call(["make", "build"], cwd=template.path)
-    assert os.listdir(out_path + "/dist/"), "Nothing was built!"
+    subprocess.check_call(["make", "build"], cwd=template.path)
+    assert os.listdir(template.path + "/dist/"), "Nothing was built!"
 
 
 def tests_template_docs_ok(template: Template):
