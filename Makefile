@@ -18,7 +18,7 @@ test:
 
 # Runs ALL tests, slow (~30mins) (matrix-ing python version x test case x native-or-dockerized)
 slow-test:
-	poetry run pytest
+	poetry run pytest tests/
 
 # Run ALL tests but a few at a time (<10min). Adjust WORKERS to ~CPU count
 WORKERS=4
