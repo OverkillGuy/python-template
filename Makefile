@@ -9,13 +9,16 @@ format:
 
 # Run a (fast, native) test suite which covers most test cases
 # See also: make slow-test, make slow-test-parallel, make try
-TEST_VARIANT=python_version=3.10-runfunc=run_native
+TEST_VARIANT1="mode=just_a_CLI-python_version=3.10-runfunc=run_native"
+TEST_VARIANT2="mode=REST_API_client-python_version=3.10-runfunc=run_native"
 test:
-	poetry run pytest "tests/test_template.py::tests_template_makes_ok[${TEST_VARIANT}]"
+	poetry run pytest \
+		"tests/test_template.py::tests_template_makes_ok[${TEST_VARIANT1}]" \
+		"tests/test_template.py::tests_template_makes_ok[${TEST_VARIANT2}]"
 
 # Runs ALL tests, slow (~30mins) (matrix-ing python version x test case x native-or-dockerized)
 slow-test:
-	poetry run pytest
+	poetry run pytest tests/
 
 # Run ALL tests but a few at a time (<10min). Adjust WORKERS to ~CPU count
 WORKERS=4

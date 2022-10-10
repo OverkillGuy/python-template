@@ -9,8 +9,9 @@ include = ["{{cookiecutter.project_slug}}/*", "cookiecutter.json"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
-cookiecutter = "^1.7.2"
-jinja2-git = "^1.2.0"
+# Templating lib; Need v2.x _jinja2_env_vars feature
+cookiecutter = "2.*"
+jinja2-git = "*"
 
 [tool.poetry.dev-dependencies]
 pytest = "7.*"
