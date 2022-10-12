@@ -39,6 +39,17 @@ docker-build-dev:
 
 # Less commonly used commands
 
+# Generate/update the poetry.lock file
+.PHONY: lock
+lock:
+	poetry lock
+
+# Update dependencies (within pyproject.toml specs)
+# Update the lock-file at the same time
+.PHONY: update
+update:
+	poetry update --lock
+
 # Generate a pip-compatible requirements.txt
 # From the poetry.lock. Mostly for CI use.
 .PHONY: export-requirements
