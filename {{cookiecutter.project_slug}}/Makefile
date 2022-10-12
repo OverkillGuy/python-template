@@ -43,7 +43,7 @@ docker-build-dev:
 # From the poetry.lock. Mostly for CI use.
 .PHONY: export-requirements
 export-requirements:
-	poetry -o requirements.txt
+	poetry run pip freeze > requirements.txt
 
 # Install poetry from pip
 # IMPORTANT: Make sure "pip" resolves to a virtualenv
