@@ -4,11 +4,12 @@ A project skeleton for Python projects.
 
 > fill in your project name, description, and Python version, and you get a project!
 
-Template built out of code repeated at least thrice by Jb.
+Template built out of code repeated at least thrice.
 
 ## Usage
 
 Use the `cookiecutter` templating command.
+Read up on the template's design decisions in the [[DESIGN]] file.
 
 ### Installing Cookiecutter
 
@@ -59,11 +60,6 @@ templated repo the make target defined by `MAKE_TGT`:
 ## TODO list
 
 - Fix non-unique docker image name causing clashes during parallel tests
-- Optimize Dockerfile.release to copy pre-built wheel file
-- App-or-library binary choice with Poetry.lock
-- Add optional file creation system (files with big IF vars, and if to be
-  deleted, have a unique content in it like `DELETETHISFILE`, with post-hook
-  deleting files matching that content)
 - Add a DESIGN.md to document big architectural decisions
   - Create (Sphinx) docs for the template?
-- Support using local python version if available (skip docker tests if missing)
+- Use `CMD` in `Dockerfile.release` entrypoint to run our CLI.
