@@ -246,3 +246,20 @@ and that the arguments given make sense. For the HTTP API client, we also test
 separately that the main entrypoint hits the (mocked) requested endpoint. 
 
 
+### Documentation
+
+Every project worth writing about is worth documenting.
+
+Use Sphinxdocs for documentation, as it is more flexible and have more
+integrations than more recent tools like `mkdocs`).
+But ReStructuredText is kind of a nightmare, so we integrate the fantastic
+`myst_parser` to enable Markdown.
+
+The theme is the famous ReadTheDocs one, a good enough default for most
+projects.
+
+We include the README and CHANGELOG files (pulled from the top-level of the
+project) as first of the docs, to get devs going.
+
+For documentation of the code itself, we lean on the recent `sphinx-autoapi` to
+include the code's API reference.

@@ -10,3 +10,5 @@ documentation.
 
    Readme <readme>
    Changelog <changelog>
+   architecture
+   .. This toctree implicitly adds API reference as last entry (sphinx-autoapi)
