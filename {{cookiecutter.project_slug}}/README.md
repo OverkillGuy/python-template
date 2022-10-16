@@ -54,9 +54,9 @@ Once installed, the module's code can now be reached through running
 Python in Poetry:
 
 	$ poetry run python
-	>>> import {{cookiecutter.package_name}}
-	>>> print({{cookiecutter.package_name}}.version)
-	"0.1.0"
+	>>> from {{cookiecutter.package_name}} import main
+	>>> main("blabla")
+
 
 This codebase uses [pre-commit](https://pre-commit.com) to run linting
 tools like `flake8`. Use `pre-commit install` to install git
