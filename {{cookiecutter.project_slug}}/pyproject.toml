@@ -33,7 +33,7 @@ respx = "*"
 
 [tool.poetry.group.docs.dependencies]
 # Main documentation-as-code (HTML/PDF generator)
-Sphinx = "4.*"
+Sphinx = "5.*"
 # Read the docs (pretty) theme for sphinx
 sphinx-rtd-theme = "1.*"
 # Markdown parser for sphinx: Sphinx uses "RST" files, this adds markdown
