@@ -37,6 +37,23 @@ docker-build-release:
 docker-build-dev:
 	docker build -t ${DOCKER_IMAGE_NAME}-dev .
 
+# Make a release commit + tag, creating Changelog entry
+# Set BUMP variable to any of poetry-supported (major, minor, patch)
+# or number (1.2.3 etc), see 'poetry version' docs for details
+.PHONY: release
+# Default the bump to a patch (v1.2.3 -> v1.2.4)
+release: BUMP=patch
+release:
+# Set the new version Makefile variable after the version bump
+	$(eval NEW_VERSION := $(shell poetry version --short ${BUMP}))
+	sed -i \
+		"s/\(## \[Unreleased\]\)/\1\n\n\n## v${NEW_VERSION} - $(shell date -I)/" \
+		CHANGELOG.md
+	git add -A
+	git commit -m "Bump to version v${NEW_VERSION}"
+	git tag -a v${NEW_VERSION} \
+		-m "Release v${NEW_VERSION}"
+
 # Less commonly used commands
 
 # Generate/update the poetry.lock file

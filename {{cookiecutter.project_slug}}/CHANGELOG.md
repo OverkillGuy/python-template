@@ -6,6 +6,7 @@ The project uses semantic versioning (see [semver](https://semver.org)).
 
 ## [Unreleased]
 
+
 ## v0.1.0 - {% now 'local' %}
 
 ### Added
