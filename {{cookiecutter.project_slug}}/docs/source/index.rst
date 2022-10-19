@@ -11,4 +11,4 @@ documentation.
    Readme <readme>
    Changelog <changelog>
    architecture
-   .. This toctree implicitly adds API reference as last entry (sphinx-autoapi)
+   API Reference <autoapi/{{ cookiecutter.package_name }}/index>

@@ -62,6 +62,8 @@ html_static_path = ["_static"]
 autoapi_type = "python"
 autoapi_dirs = ["../../src"]
 
+# Do not hijack toctree to add entry
+autoapi_add_toctree_entry = False
 
 # Make sure the target is unique
 autosectionlabel_prefix_document = True
