@@ -263,3 +263,23 @@ project) as first of the docs, to get devs going.
 
 For documentation of the code itself, we lean on the recent `sphinx-autoapi` to
 include the code's API reference.
+### Release Dockerfile force-rebuilds package
+
+The Dockerfile for release is a standalone Dockerfile that force-rebuilds the
+binary package of the app, instead of using (via `COPY`) a wheel file built via
+`make build` beforehand.
+
+This is chosen because it allows self-contained (hermetic) builds of the
+released image, where we don't assume any available poetry dependency to build
+the wheel file itself.
+
+This decision is backtracking from a previous iteration of the template, where
+the package was assumed already built via `make build`, and COPY-ed in. The
+change of opinion came when adding support for Python 3.11, when the local
+python version on dev machine (3.10) wasn't able to build the package being
+tested (=3.11), contradicting the belief held beforehand that `poetry build` is
+a reliable command that always works, even with a difference of environments
+between template-target and local devenv. Combined with the need to change the
+`.dockerignore` (which was unpalatable already), the need for hermetic build
+pushed to reverse the decision and use self-contained docker build, even if it
+means being back to multi-stage builds.

@@ -47,8 +47,8 @@ def tests_template_renders_ok(template: Template):
 
 def tests_template_packages_ok(template: Template):
     """Checks we can run poetry build on rendered code to get a binary"""
-    subprocess.check_call(["make", "build"], cwd=template.path)
-    assert os.listdir(template.path + "/dist/"), "Nothing was built!"
+    out_path = template.run_in_dev(["poetry", "build"], template)
+    assert os.listdir(out_path + "/dist/"), "Nothing was built!"
 
 
 def tests_template_docs_ok(template: Template):
@@ -89,7 +89,6 @@ def tests_cli_runs_ok(template: Template):
 def tests_template_makes_docker_release_ok(template: Template):
     """Checks we can build the released docker image"""
     # Build the wheel file first, for releasing
-    subprocess.check_call(["make", "build"], cwd=template.path)
     subprocess.check_call(["make", "docker-build-release"], cwd=template.path)
     image_name = template.context["project_slug"] + ":0.1.0"
     subprocess.check_call(["docker", "image", "rm", image_name])

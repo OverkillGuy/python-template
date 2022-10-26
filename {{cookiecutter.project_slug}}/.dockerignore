@@ -23,9 +23,7 @@ __pycache__/
 .Python
 build/
 develop-eggs/
-# OVERRIDE: We need the build folder for the RELEASE docker image
-# dist/
-# END OVERRIDE
+dist/
 downloads/
 eggs/
 .eggs/

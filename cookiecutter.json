@@ -1,7 +1,7 @@
 {
     "project_name": "My Lovely Project",
     "description": "A python project to do Things",
-    "python_version": ["3.10"],
+    "python_version": ["3.10", "3.11"],
     "project_variant": ["REST_API_client", "just_a_CLI"],
     "project_slug": "{{ cookiecutter.project_name.strip().lower().replace(' ', '-') }}",
     "package_name": "{{ cookiecutter.project_slug.replace('-', '_') }}",
