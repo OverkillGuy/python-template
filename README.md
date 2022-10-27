@@ -1,10 +1,11 @@
-# Python project skeleton
+# My Python template
 
-A project skeleton for Python projects.
+An opinionated template for new Python projects
 
-> fill in your project name, description, and Python version, and you get a project!
+> Fill in your project name, description, and Python version, and you get a project!
 
-Template built out of code repeated at least thrice.
+Template built out of code repeated at least thrice, distilling years of
+experience.
 
 ## Usage
 
@@ -27,12 +28,10 @@ environment:
 
 ### Using the template
 
-Point the cookiecutter command to this repository to use it. This can be done by
-using the locally cloned version of it, or if uploaded to Github, directly via
-repo URL:
+Run cookiecutter with a URL to this repo. This can be done by cloning the repo,
+or directly via repo URL on Github:
 
-	# Assuming the python_skeleton lives at ~/git/python_skeleton
-	cookiecutter ~/git/python_skeleton
+	cookiecutter https://github.com/OverkillGuy/python-template
 
 It will then ask questions like python version and project name to get a fresh
 repository, ready for action!
@@ -52,9 +51,9 @@ A target called `make try` with optional parameters `PYTHON_VERSION` and
 `MAKE_TGT` is available to see the template expanded locally, running inside the
 templated repo the make target defined by `MAKE_TGT`:
 
-	make try  # defaults to PYTHON_VERSION=3.9 MAKE_TGT=all
+	make try  # defaults to PYTHON_VERSION=3.10 MAKE_TGT=all
 	# You can override these variables:
-	make try PYTHON_VERSION=3.10
+	make try PYTHON_VERSION=3.11
 	make try MAKE_TGT=docker-build  # to run make docker-build inside repo
 
 ## TODO list
