@@ -20,6 +20,7 @@ ROOT_COOKIECUTTER_JSON = cookiecutter_json()
 
 ProjectVariant = Literal["just_a_CLI", "REST_API_client"]
 
+
 @fixture
 @parametrize(runfunc=[run_native, run_docker_devimg])
 @parametrize(python_version=ROOT_COOKIECUTTER_JSON["python_version"])

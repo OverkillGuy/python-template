@@ -3,6 +3,7 @@ FROM python:{{ cookiecutter.python_version }} as builder
 # Bring poetry, our package manager
 ARG POETRY_VERSION=1.2.0
 RUN pip install --no-cache-dir poetry==${POETRY_VERSION}
+
 # Copy code in to build a package
 COPY . /workdir/
 WORKDIR /workdir
