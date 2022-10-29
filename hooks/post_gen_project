@@ -22,8 +22,8 @@ create_git_repository() {
     git add --all
     git commit \
         --message "Initial commit from cookiecutter template" \
-        --message "From python-skeleton repository in Github:" \
-        --message "https://github.com/OverkillGuy/python-skeleton" \
+        --message "From python-template repository in Github:" \
+        --message "https://github.com/OverkillGuy/python-template" \
         --message "at commit {% gitcommit %}"
     git tag v0.1.0 \
         --annotate \
