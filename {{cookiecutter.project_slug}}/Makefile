@@ -2,11 +2,16 @@ DOCKER_IMAGE_NAME={{ cookiecutter.project_slug }}
 APP_VERSION=$(shell poetry version --short)
 
 .PHONY: all
-all: install lint test docs build
+all: install lint test docs build install-hooks
 
 .PHONY: install
 install:
 	poetry install
+
+# Enforce the pre-commit hooks
+.PHONY: install-hooks
+install-hooks:
+	pre-commit install
 
 .PHONY: lint
 lint:  # Use all linters on all files (not just staged for commit)

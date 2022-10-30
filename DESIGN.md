@@ -42,6 +42,10 @@ Use the pre-commit hooks for language-specific linters and formatters too, as
 well as a few other useful generic hooks to run (such as `shellcheck` for
 maintaining some semblance of correctness in shell scripts).
 
+To make sure that everyone does run the pre-commit hooks without thinking about
+it, the hooks are automatically installed as part of running the default `make`
+command.
+
 ### CHANGELOG.md
 
 We write down the release notes of the project using a change log.
