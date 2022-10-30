@@ -10,7 +10,7 @@ experience.
 ## Usage
 
 Use the `cookiecutter` templating command.
-Read up on the template's design decisions in the [[DESIGN]] file.
+Read up on the template's design decisions in the [DESIGN.md](./DESIGN.md) file.
 
 ### Installing Cookiecutter
 
