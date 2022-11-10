@@ -90,6 +90,7 @@ documentation and serve it:
     make docs docs-serve
 
 
-### Templated
+### Templated repository
 
-This repo is templated, using commit hash: `{% gitcommit %}`
+This repo was created by the cookiecutter template available at
+https://github.com/OverkillGuy/python-template, using commit hash: `{% gitcommit %}`.
