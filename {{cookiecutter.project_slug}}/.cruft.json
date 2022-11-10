@@ -1,0 +1,10 @@
+{
+  "template": "https://github.com/OverkillGuy/python-template",
+  "commit": "{% gitcommit %}",
+  "checkout": "main",
+  "context": {
+    "cookiecutter":
+      {{ cookiecutter | tojson }}
+    },
+  "directory": null
+}
