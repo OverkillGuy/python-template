@@ -15,7 +15,7 @@ Install the module first:
 
     make install
     # or
-	poetry install
+    poetry install
 
 Then inside the virtual environment, launch the command:
 
