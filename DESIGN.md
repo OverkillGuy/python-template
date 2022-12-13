@@ -70,9 +70,12 @@ including all tools and developer-only dependencies.
 That file is useful to build code in CI, providing all tools required.
 
 Separately from that rather heavy docker image, we provide a release-only
-Dockerfile, called `Dockerfile.release`. This image has minimal footprint,
+Dockerfile, called `release.Dockerfile`. This image has minimal footprint,
 starting with the smallest possible base, and installing-in solely built
-package, for release purposes.
+package, for release purposes. The naming convention assumes that "Dockerfile"
+is a file suffix, which seems to align with Github conventions, as previous
+attempts at naming something `Dockerfile.release` failed to syntax-highlight on
+Github.
 
 The choice to make the dev Dockerfile "main" (using the well-known name
 `Dockerfile`) is because most developer activities done on the repository

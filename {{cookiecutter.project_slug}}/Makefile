@@ -37,7 +37,7 @@ build:
 docker-build-release:
 	docker build \
 		-t "${DOCKER_IMAGE_NAME}:${APP_VERSION}" \
-		-f Dockerfile.release \
+		-f release.Dockerfile \
 		.
 
 .PHONY: docker-build-dev
