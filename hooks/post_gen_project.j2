@@ -15,8 +15,8 @@ create_git_repository() {
     # Temporarily set commiter name.
     # Nicely solves problem of "missing git user" in CI by making all
     # template instantiation use a set user name/email combo
-    git config --local user.name "Jb Doyon"
-    git config --local user.email "jb@jiby.tech"
+    git config --get user.name > /dev/null || git config --local user.name "Jb Doyon"
+    git config --get user.email > /dev/null || git config --local user.email "jb@jiby.tech"
 
     # Commit
     git add --all
@@ -29,9 +29,9 @@ create_git_repository() {
         --annotate \
         --message "First releasable artefact, from template"
 
-    # Reset the user config after committing
-    git config --unset user.name
-    git config --unset user.email
+    # Reset the user config after committing if fallback values were used
+    git config --unset user.name || true
+    git config --unset user.email || true
 }
 
 # # Delete all unused files (marked via specific content string)
