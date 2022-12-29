@@ -4,7 +4,6 @@
 
 Requires Python {{cookiecutter.python_version}}
 
-
 ## Usage
 
 Depends on what the code in there does.
@@ -13,20 +12,24 @@ Depends on what the code in there does.
 
 Install the module first:
 
-    make install
-    # or
-    poetry install
+```shell
+make install
+# or
+poetry install
+```
 
 Then inside the virtual environment, launch the command:
 
-    # Run single command inside virtualenv
-    poetry run {{ cookiecutter.project_slug }}
+```shell
+# Run single command inside virtualenv
+poetry run {{ cookiecutter.project_slug }}
 
-    # or
-    # Load the virtualenv first
-    poetry shell
-    # Then launch the command, staying in virtualenv
-    {{ cookiecutter.project_slug }}
+# or
+# Load the virtualenv first
+poetry shell
+# Then launch the command, staying in virtualenv
+{{ cookiecutter.project_slug }}
+```
 
 ## Development
 
@@ -39,24 +42,26 @@ Python package inside `src/{{cookiecutter.package_name}}/`.
 `poetry` will create virtual environments if needed, fetch
 dependencies, and install them for development.
 
-
 For ease of development, a `Makefile` is provided, use it like this:
 
-	make  # equivalent to "make all" = install lint docs test build
-	# run only specific tasks:
-	make install
-	make lint
-	make test
-	# Combine tasks:
-	make install test
+```shell
+make  # equivalent to "make all" = install lint docs test build
+# run only specific tasks:
+make install
+make lint
+make test
+# Combine tasks:
+make install test
+```
 
 Once installed, the module's code can now be reached through running
 Python in Poetry:
 
-	$ poetry run python
-	>>> from {{cookiecutter.package_name}} import main
-	>>> main("blabla")
-
+```shell
+$ poetry run python
+>>> from {{cookiecutter.package_name}} import main
+>>> main("blabla")
+```
 
 This codebase uses [pre-commit](https://pre-commit.com) to run linting
 tools like `flake8`. Use `pre-commit install` to install git
@@ -76,21 +81,27 @@ generate API reference without headaches.
 
 To build the documentation, run
 
-    # Requires the project dependencies provided by "make install"
-    make docs
-	# Generates docs/build/html/
+```shell
+# Requires the project dependencies provided by "make install"
+make docs
+# Generates docs/build/html/
+```
 
-To browse the website version of the documentation you just built, run:
+To browse the web version of the documentation you just built, run:
 
-    make docs-serve
+```shell
+make docs-serve
+```
 
 And remember that `make` supports multiple targets, so you can generate the
 documentation and serve it:
 
-    make docs docs-serve
-
+```shell
+make docs docs-serve
+```
 
 ### Templated repository
 
-This repo was created by the cookiecutter template available at
-https://github.com/OverkillGuy/python-template, using commit hash: `{% gitcommit %}`.
+This repository was created by the cookiecutter template available at
+<https://github.com/OverkillGuy/python-template>,
+using commit hash: `{% gitcommit %}`.

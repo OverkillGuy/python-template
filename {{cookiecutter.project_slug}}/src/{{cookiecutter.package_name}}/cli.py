@@ -23,7 +23,9 @@ def parse_arguments(arguments: list[str]) -> argparse.Namespace:
     )
 {% if cookiecutter.project_variant == "REST_API_client" %}
     parser.add_argument(
-        "--token-file", help="File containing API Token", type=argparse.FileType("r")
+        "--token-file",
+        help="File containing API Token",
+        type=argparse.FileType("r"),
     )
 {% else %}
     parser.add_argument("foo", help="Some parameter")
@@ -43,7 +45,8 @@ def cli(arguments: Optional[list[str]] = None):
         token = os.getenv("API_TOKEN")
     if token is None:
         print(
-            "Missing API token: --token-file or set API_TOKEN envvar", file=sys.stderr
+            "Missing API token: --token-file or set API_TOKEN envvar",
+            file=sys.stderr,
         )
         exit(2)  # Simulate the argparse behaviour of exiting on bad args
     main(token)

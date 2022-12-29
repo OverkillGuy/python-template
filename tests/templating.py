@@ -1,15 +1,12 @@
 """Cookiecutter templating-related utilities"""
-
 import json
 from collections import namedtuple
 
+import faker_microservice
 from cookiecutter import main as ck
+from faker import Faker
 
 Template = namedtuple("Template", ["path", "context", "run_in_dev"])
-
-
-import faker_microservice
-from faker import Faker
 
 fake = Faker()
 fake.add_provider(faker_microservice.Provider)

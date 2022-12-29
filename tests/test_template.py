@@ -1,12 +1,11 @@
 import os
 import subprocess
-import sys
 from tempfile import TemporaryDirectory
 from typing import Callable, Literal
 
 from cookiecutter.generate import generate_context
 from cookiecutter.prompt import prompt_for_config
-from pytest_cases import fixture, parametrize, parametrize_with_cases
+from pytest_cases import fixture, parametrize
 
 from tests.docker import run_docker_devimg, run_native
 from tests.templating import (

@@ -33,7 +33,7 @@ def get_from_api(token: Secret) -> dict:
     api_response = api_get(headers)
     return api_response
 {% else %}
-{# Cookiecutter doesn't include files conditionally, but CAN set sentinel string and use
- # post-gen hooks to delete the file themselves #}
+{# Cookiecutter doesn't include files conditionally, but CAN set sentinel
+ # string and use post-gen hooks to delete the file themselves #}
 DELETE THIS FILE DURING POST_GEN HOOK
 {% endif %}
