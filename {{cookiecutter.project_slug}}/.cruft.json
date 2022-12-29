@@ -1,5 +1,5 @@
 {
-  "template": "https://github.com/OverkillGuy/python-template",
+  "template": "{{ cookiecutter.template_url }}",
   "commit": "{% gitcommit %}",
   "checkout": "main",
   "context": {

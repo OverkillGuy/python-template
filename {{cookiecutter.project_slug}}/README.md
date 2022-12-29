@@ -103,5 +103,5 @@ make docs docs-serve
 ### Templated repository
 
 This repository was created by the cookiecutter template available at
-<https://github.com/OverkillGuy/python-template>,
+<{{ cookiecutter.template_url }}>,
 using commit hash: `{% gitcommit %}`.
