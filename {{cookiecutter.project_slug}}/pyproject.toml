@@ -67,3 +67,4 @@ addopts = """-vv \
 
 [tool.mypy]
 python_version = "{{ cookiecutter.python_version }}"
+check_untyped_defs = true
