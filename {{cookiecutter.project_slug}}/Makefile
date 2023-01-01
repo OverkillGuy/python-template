@@ -11,11 +11,11 @@ install:
 # Enforce the pre-commit hooks
 .PHONY: install-hooks
 install-hooks:
-	pre-commit install
+	poetry run pre-commit install
 
 .PHONY: lint
 lint:  # Use all linters on all files (not just staged for commit)
-	pre-commit run --all --all-files
+	poetry run pre-commit run --all --all-files
 
 .PHONY: test
 test:
@@ -54,9 +54,9 @@ release:
 # Set the new version Makefile variable after the version bump
 	$(eval NEW_VERSION := $(shell poetry version --short ${BUMP}))
 	sed -i \
-		"s/\(## \[Unreleased\]\)/\1\n\n\n## v${NEW_VERSION} - $(shell date -I)/" \
+		"s/\(## \[Unreleased\]\)/\1\n\n## v${NEW_VERSION} - $(shell date -I)/" \
 		CHANGELOG.md
-	git add -A
+	git add CHANGELOG.md pyproject.toml
 	git commit -m "Bump to version v${NEW_VERSION}"
 	git tag -a v${NEW_VERSION} \
 		-m "Release v${NEW_VERSION}"

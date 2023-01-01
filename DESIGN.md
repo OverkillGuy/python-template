@@ -10,6 +10,7 @@ Aspects that aren't related to the template being a Python one.
 ### README.md structure
 
 Every repo needs a README file to explain the most basic things about it:
+
 - What is this?
 - What is it built with? (major dependencies)
 - How does one install/use it?
@@ -102,7 +103,7 @@ image with the python package (`make docker-build-release`).
 
 Because of this, we enforce the first commit of new repos, which is templated to
 inform users of the source of the template (down to commit hash of template
-used), to be tagged as `v0.1.0`. 
+used), to be tagged as `v0.1.0`.
 This decision also happens to line up the `CHANGELOG.md` content, which insists
 the current date is release of `v0.1.0`.
 
@@ -132,7 +133,6 @@ in that image is installing poetry itself. Note the release docker image does
 not contain poetry, nor does it need it, only installing the built package via
 `pip`, to minimize dependencies.
 
-
 ### Gitignore
 
 The `.gitignore` file is taken from [Github's gitignore
@@ -155,7 +155,7 @@ instead of disabling reproducibility by default for those who need it.
 ### Use Src folder for holding python package contents
 
 There are many reasons to use an `src/` folder for holding Python package
-source. 
+source.
 
 The simplest one is just to separate where the source code is clearly,
 regardless of the package name. When the package is called for instance
@@ -169,7 +169,7 @@ separate `tests/` folder (rather than encouraging tests inside the package, like
 than allowing relative imports like `from .. import xyz`.
 
 And finally, the most technical reason is the one defined in [Testing &
-packaging](https://hynek.me/articles/testing-packaging/): 
+packaging](https://hynek.me/articles/testing-packaging/):
 > If you use the "ad hoc" layout without an `src/` directory, *your tests do not
 > run against the package as it will be installed by its users*. They run
 > against whatever the situation in your project directory is.
@@ -178,7 +178,6 @@ packaging](https://hynek.me/articles/testing-packaging/):
 
 Since this template is meant for me to build for future work, I have no reason to
 allow older versions of Python to be used in new project.
-
 
 ### Formatters
 
@@ -212,7 +211,6 @@ Mark the package as typed for downstream users via presence of `py.typed` empty
 file.
 
 Use `mypy` to enforce all that typing. It works.
-
 
 ### Pre-commit hooks for linting and formatting
 
@@ -250,8 +248,7 @@ with no HTTP dependency.
 
 Default app has tests for the CLI under use, to prove the CLI can be invoked,
 and that the arguments given make sense. For the HTTP API client, we also test
-separately that the main entrypoint hits the (mocked) requested endpoint. 
-
+separately that the main entrypoint hits the (mocked) requested endpoint.
 
 ### Documentation
 
@@ -270,6 +267,7 @@ project) as first of the docs, to get devs going.
 
 For documentation of the code itself, we lean on the recent `sphinx-autoapi` to
 include the code's API reference.
+
 ### Release Dockerfile force-rebuilds package
 
 The Dockerfile for release is a standalone Dockerfile that force-rebuilds the

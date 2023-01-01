@@ -2,7 +2,7 @@
 name = "{{cookiecutter.package_name}}"
 version = "0.1.0"
 description = "{{cookiecutter.description}}"
-authors = ["Jb Doyon <jb@jiby.tech>"]
+authors = ["{{ cookiecutter.author_name }} <{{ cookiecutter.author_email }}>"]
 readme = "README.md"
 
 [tool.poetry.scripts]
@@ -41,6 +41,9 @@ myst-parser = "*"
 # Automatic Python module docs (javadoc-style)
 sphinx-autoapi = "*"
 
+[tool.poetry.group.dev.dependencies]
+pre-commit = "*"
+
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
@@ -67,3 +70,4 @@ addopts = """-vv \
 
 [tool.mypy]
 python_version = "{{ cookiecutter.python_version }}"
+check_untyped_defs = true

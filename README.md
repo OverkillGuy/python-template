@@ -17,21 +17,27 @@ Read up on the template's design decisions in the [DESIGN.md](./DESIGN.md) file.
 To install `cookiecutter`, consider using [pipx](https://pypa.github.io/pipx/)
 to isolate the executable from your system:
 
-	pipx install cookiecutter
-	# Inject the dependencies used in this particular template
-	pipx inject cookiecutter jinja2-git
+```shell
+pipx install cookiecutter
+# Inject the dependencies used in this particular template
+pipx inject cookiecutter jinja2-git
+```
 
 Otherwise install it normally via pip, though we encourage you use a virtual
 environment:
 
-	pip install cookiecutter jinja2-git
+```shell
+pip install cookiecutter jinja2-git
+```
 
 ### Using the template
 
-Run cookiecutter with a URL to this repo. This can be done by cloning the repo,
-or directly via repo URL on Github:
+Run cookiecutter with a URL to this repository. This can be done by cloning the
+repository, or directly via repository URL on Github:
 
-	cookiecutter https://github.com/OverkillGuy/python-template
+```shell
+cookiecutter https://github.com/OverkillGuy/python-template
+```
 
 It will then ask questions like python version and project name to get a fresh
 repository, ready for action!
@@ -44,17 +50,21 @@ actually build the project?")
 
 Use the convenient Makefile for testing:
 
-	make      # defaults to target "all"
-	make all  # equivalent
+```shell
+make      # defaults to target "all"
+make all  # equivalent
+```
 
 A target called `make try` with optional parameters `PYTHON_VERSION` and
 `MAKE_TGT` is available to see the template expanded locally, running inside the
-templated repo the make target defined by `MAKE_TGT`:
+templated repository the make target defined by `MAKE_TGT`:
 
-	make try  # defaults to PYTHON_VERSION=3.10 MAKE_TGT=all
-	# You can override these variables:
-	make try PYTHON_VERSION=3.11
-	make try MAKE_TGT=docker-build  # to run make docker-build inside repo
+```shell
+make try  # defaults to PYTHON_VERSION=3.10 MAKE_TGT=all
+# You can override these variables:
+make try PYTHON_VERSION=3.11
+make try MAKE_TGT=docker-build  # to run make docker-build inside repository
+```
 
 ## TODO list
 

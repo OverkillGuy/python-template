@@ -1,4 +1,4 @@
-"""Useful utilities relating to docker containers """
+"""Useful utilities relating to docker containers"""
 import subprocess
 import sys
 import tarfile
@@ -25,7 +25,8 @@ def print_docker_build_log(build_log_stream):
     # Exhaust the "stream" key while we aren't erroring
     while "error" not in log_item:
         log_acc += log_item["stream"]
-        if "\n" in log_acc:  # TODO: Print separate newline on multiple \n in log_acc
+        # TODO: Print separate newline on multiple \n in log_acc
+        if "\n" in log_acc:
             print(log_acc)
             log_acc = ""
         log_item = next(build_log_stream)
@@ -51,21 +52,24 @@ def python_dev_image(template: Template):
     docker_devimg_name = f"python-skeleton-testing:{py_version}"
     docker_client = docker_or_skip()
     try:
-        img = docker_client.images.build(
+        docker_client.images.build(
             path=str(template.path),
             tag=docker_devimg_name,  # FIXME: Clashing parallel builds
             rm=True,
         )
     except (docker.errors.BuildError) as e:
-        print(f"Failed to build the main templated Dockerfile. Build log:")
+        print("Failed to build the main templated Dockerfile. Build log:")
         print_docker_build_log(e.build_log)
         raise e
     return docker_devimg_name
 
 
-def run_docker_devimg(command, template: Template, raise_on_nonzero_exitcode=True):
+def run_docker_devimg(
+    command,
+    template: Template,
+    raise_on_nonzero_exitcode=True,
+):
     """Run the given command in the dev image
-
 
     Emulate a docker build + docker run + docker cp via docker-py
     """
@@ -86,7 +90,8 @@ def run_docker_devimg(command, template: Template, raise_on_nonzero_exitcode=Tru
             detach=True,
         )
         # Block till container completed
-        response = container.wait(timeout=90)  # TODO: Confirm timeout unit (sec?)
+        # TODO: Confirm timeout unit (sec?)
+        response = container.wait(timeout=90)
         exit_code = response["StatusCode"]
         print(container.logs())
         if exit_code > 0:
@@ -122,7 +127,8 @@ def run_native(command, template: Template):
         # breakpoint()
         if "ython version" in e.stderr.lower():
             pytest.skip(
-                f"Missing python executable for version {template.context['python_version']}"
+                "Missing python executable for version "
+                f"{template.context['python_version']}"
             )
         else:
             print(e.stdout)
@@ -130,7 +136,11 @@ def run_native(command, template: Template):
             raise e
     try:
         subprocess.run(
-            command, cwd=template.path, capture_output=True, text=True, check=True
+            command,
+            cwd=template.path,
+            capture_output=True,
+            text=True,
+            check=True,
         )
         return template.path
     except subprocess.CalledProcessError as e:
