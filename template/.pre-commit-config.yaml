@@ -74,7 +74,7 @@ repos:
   rev: v0.32.2
   hooks:
   - id: markdownlint
-    args: ["--config", ".markdown-lint.yml"]
+    args: ["--fix", "--config", ".markdown-lint.yml"]
 - repo: https://github.com/adrienverge/yamllint.git
   rev: v1.17.0
   hooks:
