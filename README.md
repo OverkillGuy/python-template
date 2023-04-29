@@ -4,30 +4,27 @@ An opinionated template for new Python projects
 
 > Fill in your project name, description, and Python version, and you get a project!
 
-Template built out of code repeated at least thrice, distilling years of
-experience.
+Template built out of code repeated at least thrice, distilling years of practice.
 
 ## Usage
 
-Use the `cookiecutter` templating command.
+Use the `copier` templating command.
 Read up on the template's design decisions in the [DESIGN.md](./DESIGN.md) file.
 
-### Installing Cookiecutter
+### Installing Copier
 
-To install `cookiecutter`, consider using [pipx](https://pypa.github.io/pipx/)
+To install `copier`, consider using [pipx](https://pypa.github.io/pipx/)
 to isolate the executable from your system:
 
 ```shell
-pipx install cookiecutter
-# Inject the dependencies used in this particular template
-pipx inject cookiecutter jinja2-git
+pipx install copier
 ```
 
 Otherwise install it normally via pip, though we encourage you use a virtual
 environment:
 
 ```shell
-pip install cookiecutter jinja2-git
+pip install copier
 ```
 
 ### Using the template
@@ -36,7 +33,7 @@ Run cookiecutter with a URL to this repository. This can be done by cloning the
 repository, or directly via repository URL on Github:
 
 ```shell
-cookiecutter https://github.com/OverkillGuy/python-template
+copier gh:OverkillGuy/python-template
 ```
 
 It will then ask questions like python version and project name to get a fresh
@@ -66,9 +63,3 @@ make try PYTHON_VERSION=3.11
 make try MAKE_TGT=docker-build  # to run make docker-build inside repository
 ```
 
-## TODO list
-
-- Fix non-unique docker image name causing clashes during parallel tests
-- Add a DESIGN.md to document big architectural decisions
-  - Create (Sphinx) docs for the template?
-- Use `CMD` in `Dockerfile.release` entrypoint to run our CLI.

@@ -3,6 +3,21 @@
 A discussion of the template of this repo, explaining the design choices that
 make up its content.
 
+## Template system decisions
+
+### copier, goodbye cookiecutter
+
+Cookiecutter is the package got us all in the templating business.
+But it's frozen in time, missing many features.
+
+Instead, we use [copier](https://copier.readthedocs.io/en/latest/).
+
+Copier can do what cookiecutter can, but by baking in the template answers in
+file, it enables project lifecycle, backporting the updates to template to
+generated code. Copier also contains many other features like conditional file
+inclusion, which were gripes of cookiecutter.
+
+
 ## Language-agnostic design choices
 
 Aspects that aren't related to the template being a Python one.
