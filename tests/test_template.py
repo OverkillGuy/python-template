@@ -4,40 +4,32 @@ import sys
 from tempfile import TemporaryDirectory
 from typing import Callable, Literal
 
-from cookiecutter.generate import generate_context
-from cookiecutter.prompt import prompt_for_config
-from pytest_cases import fixture, parametrize, parametrize_with_cases
+from pytest_cases import fixture, parametrize
 
 from tests.docker import run_docker_devimg, run_native
 from tests.templating import (
     RANDOMIZED_PROJECT_NAME,
     Template,
-    cookiecutter_json,
+    copier_config,
     expand_template,
 )
 
-ROOT_COOKIECUTTER_JSON = cookiecutter_json()
-
-ProjectVariant = Literal["just_a_CLI", "REST_API_client"]
+ROOT_CONFIG = copier_config()
+# ROOT_COOKIECUTTER_JSON = cookiecutter_json()
 
 
 @fixture
 @parametrize(runfunc=[run_native, run_docker_devimg])
-@parametrize(python_version=ROOT_COOKIECUTTER_JSON["python_version"])
-@parametrize(mode=["just_a_CLI", "REST_API_client"])
-def template(python_version: str, runfunc: Callable, mode: ProjectVariant):
+@parametrize(python_version=ROOT_CONFIG["python_version"]["choices"])
+def template(python_version: str, runfunc: Callable):
     """Template expansion fixture, parametrized by python version"""
     extra_context = {
         "python_version": python_version,
         "project_name": RANDOMIZED_PROJECT_NAME,
-        "project_variant": mode,
     }
-    conf = prompt_for_config(
-        generate_context(extra_context=extra_context), no_input=True
-    )
     with TemporaryDirectory() as tmp_path:
-        path = expand_template(tmp_path, extra_context)
-        yield Template(path, conf, runfunc)
+        path, config = expand_template(tmp_path, extra_context)
+        yield Template(path, config, runfunc)
 
 
 # TODO Separate the parametrization of runfunc to avoid testing twice basic features

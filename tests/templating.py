@@ -1,9 +1,12 @@
 """Cookiecutter templating-related utilities"""
 
-import json
 from collections import namedtuple
+from pathlib import Path
 
-from cookiecutter import main as ck
+import faker_microservice
+import yaml
+from copier import run_copy as copier
+from faker import Faker
 
 Template = namedtuple("Template", ["path", "context", "run_in_dev"])
 
@@ -22,12 +25,19 @@ RANDOMIZED_PROJECT_NAME = (
 
 def expand_template(tmp_path, extra_context=None):
     """Expand a single template"""
-    return ck.cookiecutter(
-        ".", extra_context=extra_context, output_dir=tmp_path, no_input=True
-    )
+    copier(src_path=".", dst_path=tmp_path, data=extra_context, defaults=True)
+    return tmp_path, copier_answers(tmp_path)
 
 
-def cookiecutter_json():
-    """Return the dict of the root cookiecutter.json"""
-    with open("cookiecutter.json", "r") as cookie_file:
-        return json.load(cookie_file)
+def copier_config():
+    with open("copier.yml", "r") as config_file:
+        return yaml.safe_load(config_file)
+
+
+def copier_answers(template_path):
+    if isinstance(template_path, str):
+        path = Path(template_path)
+    elif isinstance(template_path, Path):
+        path = template_path
+    with open(path / ".copier-answers.yml", "r") as answers_file:
+        return yaml.safe_load(answers_file)

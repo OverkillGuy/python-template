@@ -1,0 +1,62 @@
+_subdirectory: template
+_templates_suffix: .j2
+# No particular reason for this version, just what I used to start templating
+_min_copier_version: 7.0.1
+_skip_if_exists:
+  - CHANGELOG.md
+_tasks:
+  # Initialize git repo + commit + tag
+  - |
+    echo "Creating a git repo..."
+    # # If a git repo is already in place
+    # if [[ -d ".git/" ]];
+    # then
+    #     exit 0  # No action, exit early
+    # fi
+
+    git init --initial-branch main
+
+    # Temporarily set commiter name.
+    # Nicely solves problem of "missing git user" in CI by making all
+    # template instantiation use a set user name/email combo
+    git config --local user.name "Jb Doyon"
+    git config --local user.email "jb@jiby.tech"
+
+    # Commit
+    git add --all
+    git commit \
+        --message "Initial commit from cookiecutter template" \
+        --message "From python-template repository in Github:" \
+        --message "https://github.com/OverkillGuy/python-template" \
+        --message "from template version {{_copier_answers._commit}}"
+    git tag v0.1.0 \
+        --annotate \
+        --message "First releasable artefact, from template"
+
+    # Reset the user config after committing
+    git config --unset user.name
+    git config --unset user.email
+
+project_name:
+  type: str
+  help: "What is your project name? (format: Capitalized With Spaces)"
+  placeholder: My Lovely Project
+
+description:
+  type: str
+  placeholder: "A python project to do things"
+
+python_version:
+  type: str
+  default: "3.11"
+  choices:
+   - "3.10"
+   - "3.11"
+
+project_slug:
+  type: str
+  default: "{{project_name|trim|lower|replace(' ', '-')}}"
+
+package_name:
+  type: str
+  default: "{{project_slug|replace('-', '_')}}"

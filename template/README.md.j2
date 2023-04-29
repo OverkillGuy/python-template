@@ -1,8 +1,8 @@
-# {{cookiecutter.project_name}}
+# {{project_name}}
 
-{{cookiecutter.description}}
+{{description}}
 
-Requires Python {{cookiecutter.python_version}}
+Requires Python {{python_version}}
 
 
 ## Usage
@@ -20,21 +20,21 @@ Install the module first:
 Then inside the virtual environment, launch the command:
 
     # Run single command inside virtualenv
-    poetry run {{ cookiecutter.project_slug }}
+    poetry run {{project_slug}}
 
     # or
     # Load the virtualenv first
     poetry shell
     # Then launch the command, staying in virtualenv
-    {{ cookiecutter.project_slug }}
+    {{project_slug}}
 
 ## Development
 
 ### Python setup
 
-This repository uses Python{{ cookiecutter.python_version }}, using
+This repository uses Python{{python_version}}, using
 [Poetry](https://python-poetry.org) as package manager to define a
-Python package inside `src/{{cookiecutter.package_name}}/`.
+Python package inside `src/{{package_name}}/`.
 
 `poetry` will create virtual environments if needed, fetch
 dependencies, and install them for development.
@@ -54,7 +54,7 @@ Once installed, the module's code can now be reached through running
 Python in Poetry:
 
 	$ poetry run python
-	>>> from {{cookiecutter.package_name}} import main
+	>>> from {{package_name}} import main
 	>>> main("blabla")
 
 
@@ -92,5 +92,5 @@ documentation and serve it:
 
 ### Templated repository
 
-This repo was created by the cookiecutter template available at
-https://github.com/OverkillGuy/python-template, using commit hash: `{% gitcommit %}`.
+This repo was created by the template available at
+https://github.com/OverkillGuy/python-template.
