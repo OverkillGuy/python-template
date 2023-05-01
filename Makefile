@@ -35,10 +35,11 @@ try:
 # Wipe previous such templating if any
 	-rm -rf template_expanded
 # Re-expand with randomized vars
-	copier \
+	poetry run copier \
 		. \
 		'template_expanded/new_project/' \
 		--defaults \
+		-d "description=A cool project" \
 		-d "python_version='${PYTHON_VERSION}'" \
 		-d "project_name=${RANDOMIZED_PROJECT_NAME}"
 # Get in there and run make
