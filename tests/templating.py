@@ -10,10 +10,6 @@ from faker import Faker
 
 Template = namedtuple("Template", ["path", "context", "run_in_dev"])
 
-
-import faker_microservice
-from faker import Faker
-
 fake = Faker()
 fake.add_provider(faker_microservice.Provider)
 

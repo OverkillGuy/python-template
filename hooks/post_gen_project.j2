@@ -15,23 +15,23 @@ create_git_repository() {
     # Temporarily set commiter name.
     # Nicely solves problem of "missing git user" in CI by making all
     # template instantiation use a set user name/email combo
-    git config --local user.name "Jb Doyon"
-    git config --local user.email "jb@jiby.tech"
+    git config --get user.name > /dev/null || git config --local user.name "{{ cookiecutter.author_name }}"
+    git config --get user.email > /dev/null || git config --local user.email "{{ cookiecutter.author_email }}"
 
     # Commit
     git add --all
     git commit \
         --message "Initial commit from cookiecutter template" \
         --message "From python-template repository in Github:" \
-        --message "https://github.com/OverkillGuy/python-template" \
+        --message "{{ cookiecutter.template_url }}" \
         --message "at commit {{_copier_answers._commit}}"
     git tag v0.1.0 \
         --annotate \
         --message "First releasable artefact, from template"
 
-    # Reset the user config after committing
-    git config --unset user.name
-    git config --unset user.email
+    # Reset the user config after committing if fallback values were used
+    git config --unset user.name || true
+    git config --unset user.email || true
 }
 
 # # Delete all unused files (marked via specific content string)

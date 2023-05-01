@@ -2,7 +2,7 @@
 name = "{{package_name}}"
 version = "0.1.0"
 description = "{{description}}"
-authors = ["Jb Doyon <jb@jiby.tech>"]
+authors = ["{{author_name}} <{{author_email}}>"]
 readme = "README.md"
 
 [tool.poetry.scripts]
@@ -60,3 +60,4 @@ addopts = """-vv \
 
 [tool.mypy]
 python_version = "{{python_version}}"
+check_untyped_defs = true

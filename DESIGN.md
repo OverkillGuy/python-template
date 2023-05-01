@@ -3,6 +3,21 @@
 A discussion of the template of this repo, explaining the design choices that
 make up its content.
 
+## Template system decisions
+
+### copier, goodbye cookiecutter
+
+Cookiecutter is the package got us all in the templating business.
+But it's frozen in time, missing many features.
+
+Instead, we use [copier](https://copier.readthedocs.io/en/latest/).
+
+Copier can do what cookiecutter can, but by baking in the template answers in
+file, it enables project lifecycle, backporting the updates to template to
+generated code. Copier also contains many other features like conditional file
+inclusion, which were gripes of cookiecutter.
+
+
 ## Language-agnostic design choices
 
 Aspects that aren't related to the template being a Python one.
@@ -10,6 +25,7 @@ Aspects that aren't related to the template being a Python one.
 ### README.md structure
 
 Every repo needs a README file to explain the most basic things about it:
+
 - What is this?
 - What is it built with? (major dependencies)
 - How does one install/use it?
@@ -132,7 +148,6 @@ in that image is installing poetry itself. Note the release docker image does
 not contain poetry, nor does it need it, only installing the built package via
 `pip`, to minimize dependencies.
 
-
 ### Gitignore
 
 The `.gitignore` file is taken from [Github's gitignore
@@ -179,7 +194,6 @@ packaging](https://hynek.me/articles/testing-packaging/):
 Since this template is meant for me to build for future work, I have no reason to
 allow older versions of Python to be used in new project.
 
-
 ### Formatters
 
 Formatters avoids asking the question of code format. Black, the formatter, is a
@@ -212,7 +226,6 @@ Mark the package as typed for downstream users via presence of `py.typed` empty
 file.
 
 Use `mypy` to enforce all that typing. It works.
-
 
 ### Pre-commit hooks for linting and formatting
 
@@ -252,7 +265,6 @@ Default app has tests for the CLI under use, to prove the CLI can be invoked,
 and that the arguments given make sense. For the HTTP API client, we also test
 separately that the main entrypoint hits the (mocked) requested endpoint.
 
-
 ### Documentation
 
 Every project worth writing about is worth documenting.
@@ -270,6 +282,7 @@ project) as first of the docs, to get devs going.
 
 For documentation of the code itself, we lean on the recent `sphinx-autoapi` to
 include the code's API reference.
+
 ### Release Dockerfile force-rebuilds package
 
 The Dockerfile for release is a standalone Dockerfile that force-rebuilds the
