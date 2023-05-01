@@ -4,36 +4,37 @@ _templates_suffix: .j2
 _min_copier_version: 7.0.1
 _skip_if_exists:
   - CHANGELOG.md
-_tasks:
-  - |
-    echo "Creating a git repo..."
-    # # If a git repo is already in place
-    # if [[ -d ".git/" ]];
-    # then
-    #     exit 0  # No action, exit early
-    # fi
+# # Tasks (git init + commit + tag) interfere with the update process!
+# _tasks:
+#   - |
+#     echo "Creating a git repo..."
+#     # # If a git repo is already in place
+#     # if [[ -d ".git/" ]];
+#     # then
+#     #     exit 0  # No action, exit early
+#     # fi
 
-    # First create empty git repo
-    git init --initial-branch main
+#     # First create empty git repo
+#     git init --initial-branch main
 
-    # Temporarily set commiter name.
-    # Nicely solves problem of "missing git user" in CI by making all
-    # template instantiation use a set user name/email combo
-    git config --get user.name > /dev/null || git config --local user.name "{{author_name}}"
-    git config --get user.email > /dev/null || git config --local user.email "{{author_email}}"
+#     # Temporarily set commiter name.
+#     # Nicely solves problem of "missing git user" in CI by making all
+#     # template instantiation use a set user name/email combo
+#     git config --get user.name > /dev/null || git config --local user.name "{{author_name}}"
+#     git config --get user.email > /dev/null || git config --local user.email "{{author_email}}"
 
-    # Commit
-    git add --all
-    git commit \
-        --message "Initial commit from 'copier' template" \
-        --message "Coming from repo {{_copier_answers._src_path}} at version {{_copier_answers._commit}}"
-    git tag v0.1.0 \
-        --annotate \
-        --message "First releasable artefact, from template"
+#     # Commit
+#     git add --all
+#     git commit \
+#         --message "Initial commit from 'copier' template" \
+#         --message "Coming from repo {{_copier_answers._src_path}} at version {{_copier_answers._commit}}"
+#     # git tag v0.1.0 \
+#     #     --annotate \
+#     #     --message "First releasable artefact, from template"
 
-    # Reset the user config after committing if fallback values were used
-    git config --unset user.name || true
-    git config --unset user.email || true
+#     # Reset the user config after committing if fallback values were used
+#     git config --unset user.name || true
+#     git config --unset user.email || true
 
 
 project_name:

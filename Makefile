@@ -46,6 +46,9 @@ try:
 # Get in there and run make
 	cd template_expanded/ \
 		&& cd * \
+		&& git init --initial-branch main \
+		&& git add --all \
+		&& git commit -m "Initial commit from template" \
 		&& make ${MAKE_TGT}
 
 .PHONY: try-update
