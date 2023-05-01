@@ -1,18 +1,15 @@
 [tool.poetry]
-name = "{{cookiecutter.package_name}}"
+name = "{{package_name}}"
 version = "0.1.0"
-description = "{{cookiecutter.description}}"
+description = "{{description}}"
 authors = ["Jb Doyon <jb@jiby.tech>"]
 readme = "README.md"
 
 [tool.poetry.scripts]
-{{ cookiecutter.project_slug}} = "{{ cookiecutter.package_name }}.cli:cli"
+{{project_slug}} = "{{package_name}}.cli:cli"
 
 [tool.poetry.dependencies]
-python = "^{{cookiecutter.python_version}}"
-{% if cookiecutter.project_variant == "REST_API_client" %}
-httpx = "*"
-{% endif %}
+python = "^{{python_version}}"
 
 
 # Note: Linters not defined in this file but .pre-commit-config.yaml, which
@@ -26,10 +23,6 @@ pytest-cov = "3.*"
 pytest-clarity = "1.*"
 # Expose unittest.Mocker in pytest
 pytest-mock = "*"
-{% if cookiecutter.project_variant == "REST_API_client" %}
-# httpx Mocker, enabling API mocks during testing
-respx = "*"
-{% endif %}
 
 [tool.poetry.group.docs.dependencies]
 # Main documentation-as-code (HTML/PDF generator)
@@ -59,11 +52,11 @@ disable = ["logging-fstring-interpolation"]
 [tool.pytest.ini_options]
 addopts = """-vv \
       --doctest-modules \
-      --cov={{cookiecutter.package_name}} \
+      --cov={{package_name}} \
       --cov-report=xml:test_results/coverage.xml \
       --cov-report=html:test_results/coverage.html \
       --cov-report=term \
       --junit-xml=test_results/results.xml"""
 
 [tool.mypy]
-python_version = "{{ cookiecutter.python_version }}"
+python_version = "{{python_version}}"

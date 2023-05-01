@@ -9,12 +9,10 @@ format:
 
 # Run a (fast, native) test suite which covers most test cases
 # See also: make slow-test, make slow-test-parallel, make try
-TEST_VARIANT1="mode=just_a_CLI-python_version=3.10-runfunc=run_native"
-TEST_VARIANT2="mode=REST_API_client-python_version=3.10-runfunc=run_native"
+TEST_VARIANT="python_version=3.10-runfunc=run_native"
 test:
 	poetry run pytest \
-		"tests/test_template.py::tests_template_makes_ok[${TEST_VARIANT1}]" \
-		"tests/test_template.py::tests_template_makes_ok[${TEST_VARIANT2}]"
+		"tests/test_template.py::tests_template_makes_ok[${TEST_VARIANT}]"
 
 # Runs ALL tests, slow (~30mins) (matrix-ing python version x test case x native-or-dockerized)
 slow-test:
@@ -37,11 +35,12 @@ try:
 # Wipe previous such templating if any
 	-rm -rf template_expanded
 # Re-expand with randomized vars
-	cookiecutter \
-		--no-input \
-		--output-dir template_expanded \
+	copier \
 		. \
-		'python_version=${PYTHON_VERSION}' 'project_name=${RANDOMIZED_PROJECT_NAME}'
+		'template_expanded/new_project/' \
+		--defaults \
+		-d "python_version='${PYTHON_VERSION}'" \
+		-d "project_name=${RANDOMIZED_PROJECT_NAME}"
 # Get in there and run make
 	cd template_expanded/ \
 		&& cd * \

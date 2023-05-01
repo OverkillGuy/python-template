@@ -24,7 +24,7 @@ create_git_repository() {
         --message "Initial commit from cookiecutter template" \
         --message "From python-template repository in Github:" \
         --message "https://github.com/OverkillGuy/python-template" \
-        --message "at commit {% gitcommit %}"
+        --message "at commit {{_copier_answers._commit}}"
     git tag v0.1.0 \
         --annotate \
         --message "First releasable artefact, from template"
@@ -34,22 +34,22 @@ create_git_repository() {
     git config --unset user.email
 }
 
-# Delete all unused files (marked via specific content string)
-# Such as api.py in non-api projects.
-# Workaround for cookiecutter limitation (cannot conditionally include files)
-delete_unused_files() {
-    echo "Deleting unused files..."
-    DELETION_MARKER="DELETE THIS FILE DURING POST_GEN HOOK"
-    # Compute the string's SHA256 digest
-    MARKER_SHA256=$(echo "${DELETION_MARKER}" | sha256sum | cut -d' ' -f1)
-    # echo "Marker SHA256sum = ${MARKER_SHA256}"
-    # Compute all files checksum
-    ALL_FILES_SHA256=$(find . -type f -exec sha256sum {} \;)
-    # Look for matching content digest
-    MARKED_FILES=$(echo "${ALL_FILES_SHA256}" | awk "\$1 == \"${MARKER_SHA256}\" {print \$NF}")
-    # echo "Unused files to delete: ${MARKED_FILES}"
-    echo "${MARKED_FILES}" | xargs -I % rm %
-}
+# # Delete all unused files (marked via specific content string)
+# # Such as api.py in non-api projects.
+# # Workaround for cookiecutter limitation (cannot conditionally include files)
+# delete_unused_files() {
+#     echo "Deleting unused files..."
+#     DELETION_MARKER="DELETE THIS FILE DURING POST_GEN HOOK"
+#     # Compute the string's SHA256 digest
+#     MARKER_SHA256=$(echo "${DELETION_MARKER}" | sha256sum | cut -d' ' -f1)
+#     # echo "Marker SHA256sum = ${MARKER_SHA256}"
+#     # Compute all files checksum
+#     ALL_FILES_SHA256=$(find . -type f -exec sha256sum {} \;)
+#     # Look for matching content digest
+#     MARKED_FILES=$(echo "${ALL_FILES_SHA256}" | awk "\$1 == \"${MARKER_SHA256}\" {print \$NF}")
+#     # echo "Unused files to delete: ${MARKED_FILES}"
+#     echo "${MARKED_FILES}" | xargs -I % rm %
+# }
 
-delete_unused_files
+# delete_unused_files
 create_git_repository

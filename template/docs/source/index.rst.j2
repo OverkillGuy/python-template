@@ -1,5 +1,5 @@
-{{cookiecutter.project_name}}
-{% for _ in range(cookiecutter.project_name|length) %}={% endfor %}
+{{project_name}}
+{% for _ in range(project_name|length) %}={% endfor %}
 
 Below is the rendered version of the project's :code:`README.md` file, found at the
 root of the code repository.
@@ -13,4 +13,4 @@ root of the code repository.
 
    Changelog <changelog>
    architecture
-   API Reference <autoapi/{{ cookiecutter.package_name }}/index>
+   API Reference <autoapi/{{package_name}}/index>

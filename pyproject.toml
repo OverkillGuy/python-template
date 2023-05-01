@@ -5,13 +5,13 @@ description = "A project skeleton for Python projects, using Cookiecutter lib"
 authors = ["Jb Doyon <jb@jiby.tech>"]
 # Known poetry issue causes the project_slug folder to not be included
 # properly in wheel. See https://github.com/python-poetry/poetry/issues/2685
-include = ["{{cookiecutter.project_slug}}/*", "cookiecutter.json"]
+include = ["template/*", "copier.yaml"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
-# Templating lib; Need v2.x _jinja2_env_vars feature
-cookiecutter = "2.*"
-jinja2-git = "*"
+# Templating lib
+copier = "*"
+
 
 [tool.poetry.dev-dependencies]
 pytest = "7.*"
