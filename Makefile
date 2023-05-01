@@ -26,6 +26,7 @@ slow-test-parallel:
 build:
 	poetry build
 
+.PHONY: try
 # Expands the template in a local folder, for experimenting
 PYTHON_VERSION=3.10
 MAKE_TGT=all
@@ -46,3 +47,8 @@ try:
 	cd template_expanded/ \
 		&& cd * \
 		&& make ${MAKE_TGT}
+
+.PHONY: try-update
+try-update:
+	poetry run copier update \
+		'template_expanded/new_project/'
