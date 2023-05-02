@@ -54,4 +54,5 @@ try:
 .PHONY: try-update
 try-update:
 	poetry run copier update \
+		--conflict inline \
 		'template_expanded/new_project/'

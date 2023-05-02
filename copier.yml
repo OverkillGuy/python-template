@@ -1,7 +1,7 @@
 _subdirectory: template
 _templates_suffix: .j2
-# No particular reason for this version, just what I used to start templating
-_min_copier_version: 7.0.1
+# Require template update "conflict" flag:
+_min_copier_version: 7.1.0
 _skip_if_exists:
   - CHANGELOG.md
 # # Tasks (git init + commit + tag) interfere with the update process!
