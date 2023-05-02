@@ -15,7 +15,6 @@ from tests.templating import (
 )
 
 ROOT_CONFIG = copier_config()
-# ROOT_COOKIECUTTER_JSON = cookiecutter_json()
 
 
 @fixture
@@ -34,7 +33,7 @@ def template(python_version: str, runfunc: Callable):
 
 # TODO Separate the parametrization of runfunc to avoid testing twice basic features
 def tests_template_renders_ok(template: Template):
-    """Checks we can invoke cookiecutter simply without specific arguments"""
+    """Checks we can invoke copier simply without specific arguments"""
     pass  # Checking the "template" fixture doesn't fail the test
 
 

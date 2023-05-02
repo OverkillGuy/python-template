@@ -29,7 +29,7 @@ pip install copier
 
 ### Using the template
 
-Run cookiecutter with a URL to this repository. This can be done by cloning the
+Run copier with a URL to this repository. This can be done by cloning the
 repository, or directly via repository URL on Github:
 
 ```shell
