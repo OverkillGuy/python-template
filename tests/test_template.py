@@ -25,6 +25,7 @@ def template(python_version: str, runfunc: Callable):
     extra_context = {
         "python_version": python_version,
         "project_name": RANDOMIZED_PROJECT_NAME,
+        "description": "A cool project",
     }
     with TemporaryDirectory() as tmp_path:
         path, config = expand_template(tmp_path, extra_context)

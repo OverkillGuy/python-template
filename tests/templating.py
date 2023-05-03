@@ -21,7 +21,7 @@ RANDOMIZED_PROJECT_NAME = (
 
 def expand_template(tmp_path, extra_context=None):
     """Expand a single template"""
-    copier(src_path=".", dst_path=tmp_path, data=extra_context, defaults=True)
+    copier(src_path=".", dst_path=tmp_path, data=extra_context, defaults=True, vcs_ref="HEAD")
     return tmp_path, copier_answers(tmp_path)
 
 

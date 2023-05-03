@@ -9,6 +9,9 @@ templating versions are not perfect matches for semantic versions.
 ### Added
 - Update `pytest-coverage` to `4.*`, fixing pytest warnings.
 
+### Fixed
+- Tests now refer properly to current `HEAD` commit, not last tagged.
+
 
 ## v1.0.0 - 2023-05-02
 
