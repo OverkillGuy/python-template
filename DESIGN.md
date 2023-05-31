@@ -280,8 +280,9 @@ projects.
 We include the README and CHANGELOG files (pulled from the top-level of the
 project) as first of the docs, to get devs going.
 
-For documentation of the code itself, we lean on the recent `sphinx-autoapi` to
-include the code's API reference.
+For documentation of the code itself, we lean on the recent `sphinx-autodoc2` to
+include the code's API reference, in particular for its support of markdown
+docstrings.
 
 ### Release Dockerfile force-rebuilds package
 

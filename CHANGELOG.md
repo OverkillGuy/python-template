@@ -8,6 +8,8 @@ templating versions are not perfect matches for semantic versions.
 
 ### Added
 - Update `pytest-coverage` to `4.*`, fixing pytest warnings.
+- Markdown support in python docstrings, via
+  [myst-parser](myst-parser.readthedocs.io/) and [sphinx-autodoc2](https://sphinx-autodoc2.readthedocs.io/en/latest/quickstart.html#using-markdown-myst-docstrings)
 
 ### Fixed
 - Tests now refer properly to current `HEAD` commit, not last tagged.
