@@ -62,5 +62,9 @@ html_static_path = ["_static"]
 autodoc2_packages = [
     "../../src/{{package_name}}",
 ]
+# Enable all docstrings as Myst Markdown
+autodoc2_docstring_parser_regexes = [
+    (r".*", "myst"),
+]
 
 myst_heading_anchors = 2
