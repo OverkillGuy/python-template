@@ -203,19 +203,27 @@ fantastic tool, and is opinionated, as its tagline shows:
 While 79 lines, per PEP8, is the default choice for anything else, black's 88
 characters is fine enough, and not worth changing.
 
-To complement it, use `isort` to sort imports into a sensible, deterministic
-pattern.
+To complement formatting, we use import sorters to group stdlib vs first vs
+third party imports, see "Linters" section below for how.
 
 ### Linters
 
-Use the `flake8` linter, with extensions. Linter `pylint`, the competitor,
-seemed to be on its way out, and doesn't support plugins in as extensive a
-fashion.
+Every language has a few gotchas, or untidy practices. To counter that, we have
+linters, to warn/fix if possible.
 
-Extensions include `bandit`, a tool for checking for possible security issues,
-`bugbear` for annoying patterns in Python, and `flake8-docstrings` for
-integrating `pydocstyle`, specifically for checking docstrings (presence and
-conformity).
+We recommend the brand new mega-linter `ruff`, which is ridiculously fast, and
+replaces all of previous `flake8`, `pylint`, `isort`, and most of the popular
+flake8 extensions. This single package also avoids having to pin and update many
+packages.
+
+Note that ruff is still quite new on the Python scene, and may seem to lack
+complex features, but its very fast development speed has taken by storm the
+Python world.
+
+As Tiangolo (FastAPI creator) says:
+> Ruff is so fast that sometimes I add an intentional bug in the code just to
+> confirm it's actually running and checking the code.
+
 
 ### Use of typing
 
