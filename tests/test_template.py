@@ -62,9 +62,6 @@ def tests_template_makes_ok(template: Template):
     assert os.path.isfile(
         out_path + "/test_results/coverage.xml"
     ), "Coverage report not saved"
-    assert os.path.isfile(
-        out_path + "/test_results/flake8.txt"
-    ), "Linter results not saved"
     git_changes_post_make = subprocess.run(
         ["git", "status", "--short"],
         cwd=out_path,

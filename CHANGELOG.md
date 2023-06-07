@@ -6,6 +6,8 @@ templating versions are not perfect matches for semantic versions.
 
 ## [Unreleased]
 
+## v1.1.0 - 2023-06-07
+
 ### Added
 - Faster linting via `ruff`, replacing `flake8` and `isort` pre-commit hooks 
 - Dash/Zeal docsets are now generated in `docs/build/docset` via `make docs`
