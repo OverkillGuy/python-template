@@ -1,5 +1,6 @@
 """Cookiecutter templating-related utilities"""
 
+import subprocess
 from collections import namedtuple
 from pathlib import Path
 
@@ -21,7 +22,13 @@ RANDOMIZED_PROJECT_NAME = (
 
 def expand_template(tmp_path, extra_context=None):
     """Expand a single template"""
-    copier(src_path=".", dst_path=tmp_path, data=extra_context, defaults=True, vcs_ref="HEAD")
+    copier(
+        src_path=".",
+        dst_path=tmp_path,
+        data=extra_context,
+        defaults=True,
+        vcs_ref="HEAD",
+    )
     return tmp_path, copier_answers(tmp_path)
 
 
@@ -37,3 +44,32 @@ def copier_answers(template_path):
         path = template_path
     with open(path / ".copier-answers.yml", "r") as answers_file:
         return yaml.safe_load(answers_file)
+
+
+def git_init(path: Path, author_name: str, author_email: str):
+    """Create a git repo with initial commit at path"""
+    ENV = {"GIT_AUTHOR_NAME": author_name, "GIT_AUTHOR_EMAIL": author_email}
+    subprocess.check_call(["git", "init"], cwd=path)
+    subprocess.check_call(["git", "add", "--all"], cwd=path)
+    subprocess.check_call(
+        ["git", "config", "--local", "user.name", author_name], cwd=path
+    )
+    subprocess.check_call(
+        ["git", "config", "--local", "user.email", author_email], cwd=path
+    )
+    subprocess.check_call(
+        ["git", "commit", "--message", "Initial commit from 'copier' template"],
+        cwd=path,
+    )
+    subprocess.check_call(
+        [
+            "git",
+            "tag",
+            "v0.1.0",
+            "--message",
+            "First releasable artefact, from template",
+        ],
+        cwd=path,
+    )
+    subprocess.check_call(["git", "config", "--unset", "user.name"], cwd=path)
+    subprocess.check_call(["git", "config", "--unset", "user.email"], cwd=path)
