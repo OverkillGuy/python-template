@@ -292,6 +292,12 @@ For documentation of the code itself, we lean on the recent `sphinx-autodoc2` to
 include the code's API reference, in particular for its support of markdown
 docstrings.
 
+Docs are only useful if read. One of the most convenient way to consume
+developer documentation is Dash/Zeal "docsets", a derivative of HTML docs,
+pre-indexed by keyword, for offline use. We use `doc2dash` to automatically
+build such docsets via `make docs`, generating a folder under
+`docs/build/docset/`, ready for copy into your local docset tooling.
+
 ### Release Dockerfile force-rebuilds package
 
 The Dockerfile for release is a standalone Dockerfile that force-rebuilds the

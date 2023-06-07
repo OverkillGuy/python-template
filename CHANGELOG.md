@@ -8,6 +8,7 @@ templating versions are not perfect matches for semantic versions.
 
 ### Added
 - Faster linting via `ruff`, replacing `flake8` and `isort` pre-commit hooks 
+- Dash/Zeal docsets are now generated in `docs/build/docset` via `make docs`
 - Markdown support in python docstrings, via
   [myst-parser](myst-parser.readthedocs.io/) and [sphinx-autodoc2](https://sphinx-autodoc2.readthedocs.io/en/latest/quickstart.html#using-markdown-myst-docstrings)
 
