@@ -36,7 +36,7 @@ try:
 # Wipe previous such templating if any
 	-rm -rf template_expanded
 # Re-expand with randomized vars
-	poetry run copier \
+	poetry run copier copy \
 		. \
 		'template_expanded/new_project/' \
 		--vcs-ref HEAD \
