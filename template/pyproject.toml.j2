@@ -62,6 +62,16 @@ addopts = """-vv \
 
 
 [tool.ruff]
+# Always fix what you can, without needing CLI flags
+fix = true
+unfixable = [
+    "ERA", # do not autoremove commented out code
+]
+# Black compat:
+line-length = 88
+extend-exclude = ["docs/*"]
+
+
 # Enable pycodestyle (`E`) and Pyflakes (`F`) codes by default.
 # Add I = isort (import sorter), to remove need for isort itself
 # And D = pydocstyle for docstrings
@@ -71,7 +81,6 @@ ignore = ["D400", "D415"]
 
 # Allow autofix for all enabled rules (when `--fix`) is provided.
 fixable = ["A", "B", "C", "D", "E", "F", "G", "I", "N", "Q", "S", "T", "W", "ANN", "ARG", "BLE", "COM", "DJ", "DTZ", "EM", "ERA", "EXE", "FBT", "ICN", "INP", "ISC", "NPY", "PD", "PGH", "PIE", "PL", "PT", "PTH", "PYI", "RET", "RSE", "RUF", "SIM", "SLF", "TCH", "TID", "TRY", "UP", "YTT"]
-unfixable = []
 
 
 [tool.mypy]
