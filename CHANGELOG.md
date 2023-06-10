@@ -6,6 +6,11 @@ templating versions are not perfect matches for semantic versions.
 
 ## [Unreleased]
 
+### Fixed
+- `make build` now builds sdists (`source.tar.gz`) as well as bdist (wheels,
+  binary package). This fixes `poetry publish` after `make (build)` uploading
+  only a binary package without source
+
 ## v1.1.0 - 2023-06-07
 
 ### Added
