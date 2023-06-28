@@ -206,6 +206,13 @@ characters is fine enough, and not worth changing.
 To complement formatting, we use import sorters to group stdlib vs first vs
 third party imports, see "Linters" section below for how.
 
+For docstrings style, we prefer Google's style to NumPy's, for readability
+purposes. See [a visual comparison of the two
+styles](https://sphinxcontrib-napoleon.readthedocs.io/en/latest/index.html#google-vs-numpy).
+When docstrings are parsed by documentation tooling (see dedicated
+"Documentation" section), these docstring conventions turn pretty text files
+into wonderful documentation pages.
+
 ### Linters
 
 Every language has a few gotchas, or untidy practices. To counter that, we have
