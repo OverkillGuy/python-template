@@ -33,7 +33,7 @@ Run copier with a URL to this repository. This can be done by cloning the
 repository, or directly via repository URL on Github:
 
 ```shell
-copier gh:OverkillGuy/python-template
+copier copy gh:OverkillGuy/python-template TARGET_DIR
 ```
 
 It will then ask questions like python version and project name to get a fresh
