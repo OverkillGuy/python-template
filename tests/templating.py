@@ -28,6 +28,7 @@ def expand_template(tmp_path, extra_context=None):
         data=extra_context,
         defaults=True,
         vcs_ref="HEAD",
+        unsafe=True,
     )
     return tmp_path, copier_answers(tmp_path)
 
@@ -48,7 +49,6 @@ def copier_answers(template_path):
 
 def git_init(path: Path, author_name: str, author_email: str):
     """Create a git repo with initial commit at path"""
-    ENV = {"GIT_AUTHOR_NAME": author_name, "GIT_AUTHOR_EMAIL": author_email}
     subprocess.check_call(["git", "init"], cwd=path)
     subprocess.check_call(["git", "add", "--all"], cwd=path)
     subprocess.check_call(

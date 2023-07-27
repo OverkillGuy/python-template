@@ -5,7 +5,8 @@ description = "A project skeleton for Python projects, using Copier lib"
 authors = ["Jb Doyon <jb@jiby.tech>"]
 # Known poetry issue causes the project_slug folder to not be included
 # properly in wheel. See https://github.com/python-poetry/poetry/issues/2685
-include = ["template/*", "copier.yaml"]
+include = ["template", "copier.yaml", "hooks", "CHANGELOG.md"]
+readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.8"

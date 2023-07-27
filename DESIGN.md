@@ -17,7 +17,6 @@ file, it enables project lifecycle, backporting the updates to template to
 generated code. Copier also contains many other features like conditional file
 inclusion, which were gripes of cookiecutter.
 
-
 ## Language-agnostic design choices
 
 Aspects that aren't related to the template being a Python one.
@@ -230,7 +229,6 @@ Python world.
 As Tiangolo (FastAPI creator) says:
 > Ruff is so fast that sometimes I add an intentional bug in the code just to
 > confirm it's actually running and checking the code.
-
 
 ### Use of typing
 

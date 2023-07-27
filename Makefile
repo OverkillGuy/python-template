@@ -41,15 +41,13 @@ try:
 		'template_expanded/new_project/' \
 		--vcs-ref HEAD \
 		--defaults \
+		--UNSAFE \
 		-d "description=A cool project" \
 		-d "python_version=${PYTHON_VERSION}" \
 		-d "project_name=${RANDOMIZED_PROJECT_NAME}"
 # Get in there and run make
 	cd template_expanded/ \
 		&& cd * \
-		&& git init --initial-branch main \
-		&& git add --all \
-		&& git commit -m "Initial commit from template" \
 		&& make ${MAKE_TGT}
 
 .PHONY: try-update

@@ -57,7 +57,7 @@ def python_dev_image(template: Template):
             tag=docker_devimg_name,  # FIXME: Clashing parallel builds
             rm=True,
         )
-    except (docker.errors.BuildError) as e:
+    except docker.errors.BuildError as e:
         print("Failed to build the main templated Dockerfile. Build log:")
         print_docker_build_log(e.build_log)
         raise e

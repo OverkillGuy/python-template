@@ -1,8 +1,7 @@
 import os
 import subprocess
-import sys
 from tempfile import TemporaryDirectory
-from typing import Callable, Literal
+from typing import Callable
 
 from pytest_cases import fixture, parametrize
 
@@ -12,7 +11,6 @@ from tests.templating import (
     Template,
     copier_config,
     expand_template,
-    git_init,
 )
 
 ROOT_CONFIG = copier_config()
@@ -30,7 +28,7 @@ def template(python_version: str, runfunc: Callable):
     }
     with TemporaryDirectory() as tmp_path:
         path, config = expand_template(tmp_path, extra_context)
-        git_init(path, config["author_name"], config["author_email"])
+        # git_init(path, config["author_name"], config["author_email"])
         yield Template(path, config, runfunc)
 
 
