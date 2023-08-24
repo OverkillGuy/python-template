@@ -55,3 +55,19 @@ try-update:
 	poetry run copier update \
 		--conflict inline \
 		'template_expanded/new_project/'
+
+# Make a release commit + tag, creating Changelog entry
+# Set BUMP variable to any of poetry-supported (major, minor, patch)
+# or number (1.2.3 etc), see 'poetry version' docs for details
+.PHONY: release
+# Default the bump to a patch (v1.2.3 -> v1.2.4)
+release: BUMP=patch
+release:
+# Set the new version Makefile variable after the version bump
+	$(eval NEW_VERSION := $(shell poetry version --short ${BUMP}))
+	sed -i \
+		"s/\(## \[Unreleased\]\)/\1\n\n## v${NEW_VERSION} - $(shell date -I)/" \
+		CHANGELOG.md
+	git add CHANGELOG.md pyproject.toml
+	git commit -m "Bump version for template v${NEW_VERSION}"
+	git tag "v${NEW_VERSION}"
