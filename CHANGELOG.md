@@ -6,6 +6,8 @@ templating versions are not perfect matches for semantic versions.
 
 ## [Unreleased]
 
+## v1.2.0 - 2023-08-24
+
 ### Added
 
 - Explicit choice of "Google" docstring style
