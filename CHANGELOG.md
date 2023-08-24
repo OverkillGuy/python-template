@@ -6,6 +6,12 @@ templating versions are not perfect matches for semantic versions.
 
 ## [Unreleased]
 
+### Added
+
+- Update `Dockerfile`, used as base dev image
+  - Debian version bookworm
+  - `poetry` to `1.6.1`
+  - `pre-commit` to `3.3.3`
 ## v1.2.0 - 2023-08-24
 
 ### Added
