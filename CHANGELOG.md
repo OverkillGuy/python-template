@@ -13,6 +13,13 @@ templating versions are not perfect matches for semantic versions.
   - Debian version bookworm
   - `poetry` to `1.6.1`
   - `pre-commit` to `3.3.3`
+
+### Removed
+
+- `yamllint` pre-commit hook: yaml validator already packed in default hooks, no
+  need for yaml pretty-printer
+
+
 ## v1.2.0 - 2023-08-24
 
 ### Added
