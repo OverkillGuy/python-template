@@ -17,6 +17,10 @@ project_name:
   type: str
   help: "What is your project name? (format: Capitalized With Spaces)"
   placeholder: My Lovely Project
+  validator: >-
+    {% if not (project_name | regex_search('^[A-Z][a-zA-Z0-9\' ]+$')) %}
+    Project_name must be capitalized
+    {% endif %}
 
 description:
   type: str

@@ -3,6 +3,8 @@ import subprocess
 from tempfile import TemporaryDirectory
 from typing import Callable
 
+import pytest
+from prompt_toolkit.validation import ValidationError
 from pytest_cases import fixture, parametrize
 
 from tests.docker import run_docker_devimg, run_native
@@ -82,3 +84,24 @@ def tests_template_makes_docker_release_ok(template: Template):
     subprocess.check_call(["make", "docker-build-release"], cwd=template.path)
     image_name = template.context["project_slug"] + ":0.1.0"
     subprocess.check_call(["docker", "image", "rm", image_name])
+
+
+@parametrize(
+    bad_project_name=[
+        "",
+        "lower-kebab-case",
+        "Upper-kebab-case",
+    ]
+)
+def tests_bad_projectname(bad_project_name):
+    """Scenario: Bad project name gets rejected"""
+    # Given a bad project name
+    extra_context = {
+        "project_name": bad_project_name,
+        "description": "A cool project",
+    }
+    # When I render the template
+    # Then I get a validation error
+    with pytest.raises(ValidationError):
+        with TemporaryDirectory() as tmp_path:
+            _path, _config = expand_template(tmp_path, extra_context)

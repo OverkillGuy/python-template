@@ -13,6 +13,7 @@ templating versions are not perfect matches for semantic versions.
   - Debian version bookworm
   - `poetry` to `1.6.1`
   - `pre-commit` to `3.3.3`
+- New project-name validator rules, enforcing 'Capitalized With Spaces' rule
 
 ### Removed
 
