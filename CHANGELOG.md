@@ -6,6 +6,8 @@ templating versions are not perfect matches for semantic versions.
 
 ## [Unreleased]
 
+## v1.3.0 - 2023-08-29
+
 ### Added
 
 - New pre-commit hook `poetry-check` and `poetry-lock`, validating poetry setup
