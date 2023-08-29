@@ -15,10 +15,14 @@ templating versions are not perfect matches for semantic versions.
   - `pre-commit` to `3.3.3`
 - New project-name validator rules, enforcing 'Capitalized With Spaces' rule
 
+### Fixed
+
+- `make lock` no longer updates dependencies, via `--no-update` flag.
+
 ### Removed
 
-- `yamllint` pre-commit hook: yaml validator already packed in default hooks, no
-  need for yaml pretty-printer
+- `yamllint` pre-commit hook: yaml _validator_ already packed in default hooks,
+  no need for yaml pretty-printer!
 
 
 ## v1.2.0 - 2023-08-24
