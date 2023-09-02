@@ -259,19 +259,6 @@ Using `argparse` (solid tool, not worth bringing a new package over for
 `click`), define a basic CLI interface to prepare for whatever function we'll
 build.
 
-### Default app is a HTTP API client
-
-Beyond building "mostly a CLI app", the author found it necessary to repeat a
-few times the same code for importing an HTTP client library, parsing some kind
-of secret token from file or envvar, and hitting an API with it, with tests that
-mock such a request.
-
-Make the very most default app such an HTTP API client, keeping the CLI
-entrypoint for convenience.
-
-For users not wanting the full HTTP API client, the alternative is "just" a CLI
-with no HTTP dependency.
-
 ### Test everything
 
 Default app has tests for the CLI under use, to prove the CLI can be invoked,
