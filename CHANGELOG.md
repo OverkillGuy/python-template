@@ -6,9 +6,13 @@ templating versions are not perfect matches for semantic versions.
 
 ## [Unreleased]
 
+### Fixed
+- Documentation's index is now Markdown, not RsT. No RsT document left, all MD.
+
 ### Removed
 
 - Unnecessary file `.flake8` removed, not needed since move to `ruff`
+
 
 
 ## v1.3.0 - 2023-08-29
