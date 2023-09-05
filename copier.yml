@@ -42,6 +42,10 @@ author_email:
   type: str
   help: The email of author
   default: "jb@jiby.tech"
+  validator: >-
+    {% if not (author_email | regex_search('^[^@]+@[^@]+\.[^@]+$')) %}
+    Email invalid
+    {% endif %}
 
 project_slug:
   type: str

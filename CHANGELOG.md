@@ -8,7 +8,7 @@ templating versions are not perfect matches for semantic versions.
 
 ### Fixed
 
-- Documentation's index is now Markdown, not RsT. No RsT document left, all md.
+- Replaced `docs/source/index.rst` to `index.md`. Docs all Markdown via myst.
 
 ### Removed
 
