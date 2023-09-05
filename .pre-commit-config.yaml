@@ -1,0 +1,43 @@
+---
+exclude: '^template/'
+repos:
+- repo: https://github.com/pre-commit/pre-commit-hooks
+  rev: v4.4.0
+  hooks:
+  - id: trailing-whitespace
+  - id: end-of-file-fixer
+  - id: check-added-large-files
+  - id: check-executables-have-shebangs
+  - id: check-case-conflict
+  - id: check-vcs-permalinks
+  - id: forbid-new-submodules
+  - id: mixed-line-ending
+  - id: check-merge-conflict
+  - id: detect-private-key
+  - id: detect-aws-credentials
+    args: ['--allow-missing-credentials']  # Avoid failure on CI
+  - id: check-toml
+  - id: check-yaml
+  - id: check-json
+- repo: https://github.com/shellcheck-py/shellcheck-py
+  rev: v0.9.0.5
+  hooks:
+  - id: shellcheck
+    name: Shellcheck
+    args: ["-f", "gcc"]  # output filename:linenum:colnum (clickable)
+# Actual Python Linters
+- repo: https://github.com/python-poetry/poetry
+  rev: 1.6.1
+  hooks:  # Validate poetry package + ensure lockfile updated
+  - id: poetry-check
+  - id: poetry-lock
+- repo: https://github.com/psf/black
+  rev: 23.7.0
+  hooks:
+  - id: black
+    name: Black (Python formatter)
+- repo: https://github.com/igorshubovych/markdownlint-cli
+  rev: v0.35.0
+  hooks:
+  - id: markdownlint
+    args: ["--fix", "--config", ".markdown-lint.yml"]

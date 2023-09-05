@@ -1,11 +1,10 @@
-all: install format test build
+all: install lint test build
 
 install:
 	poetry install
 
-format:
-	poetry run isort tests/
-	poetry run black tests/
+lint:
+	pre-commit run --all
 
 # Run a (fast, native) test suite which covers most test cases
 # See also: make slow-test, make slow-test-parallel, make try

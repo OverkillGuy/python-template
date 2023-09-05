@@ -7,13 +7,12 @@ templating versions are not perfect matches for semantic versions.
 ## [Unreleased]
 
 ### Fixed
-- Documentation's index is now Markdown, not RsT. No RsT document left, all MD.
+
+- Documentation's index is now Markdown, not RsT. No RsT document left, all md.
 
 ### Removed
 
 - Unnecessary file `.flake8` removed, not needed since move to `ruff`
-
-
 
 ## v1.3.0 - 2023-08-29
 
@@ -34,7 +33,6 @@ templating versions are not perfect matches for semantic versions.
 
 - `yamllint` pre-commit hook: yaml _validator_ already packed in default hooks,
   no need for yaml pretty-printer!
-
 
 ## v1.2.0 - 2023-08-24
 
