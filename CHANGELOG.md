@@ -6,6 +6,8 @@ templating versions are not perfect matches for semantic versions.
 
 ## [Unreleased]
 
+## v1.3.1 - 2023-09-05
+
 ### Fixed
 
 - Replaced `docs/source/index.rst` to `index.md`. Docs all Markdown via myst.
