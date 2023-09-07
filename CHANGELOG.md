@@ -6,6 +6,11 @@ templating versions are not perfect matches for semantic versions.
 
 ## [Unreleased]
 
+### Added
+
+- Release-oriented dockerfile uses built CLI as entrypoint.
+  Can now run `docker run {{ project-slug }}:0.1.0 foo`.
+
 ## v1.3.1 - 2023-09-05
 
 ### Fixed

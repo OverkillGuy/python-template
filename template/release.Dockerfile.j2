@@ -16,3 +16,5 @@ FROM python:{{python_version}}-slim as runner
 COPY --from=builder /workdir/dist /app
 
 RUN pip install --no-cache-dir /app/*.whl
+
+ENTRYPOINT ["{{project_slug}}"]
