@@ -8,8 +8,11 @@ templating versions are not perfect matches for semantic versions.
 
 ### Added
 
+- Release-oriented Dockerfile now uses the `poetry.lock` contents as deps.
+  Via new impl of `make export-requirements`, copied into image.
+- New `make check-requirements`, verifies `requirements.txt` == `poetry.lock`.
 - Release-oriented dockerfile uses built CLI as entrypoint.
-  Can now run `docker run {{ project-slug }}:0.1.0 foo`.
+  Can now run `docker run {{ project-slug }}:0.1.0 --help`.
 
 ## v1.3.1 - 2023-09-05
 
