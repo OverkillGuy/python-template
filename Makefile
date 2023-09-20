@@ -69,4 +69,4 @@ release:
 		CHANGELOG.md
 	git add CHANGELOG.md pyproject.toml
 	git commit -m "Bump version for template v${NEW_VERSION}"
-	git tag "v${NEW_VERSION}"
+	git tag -am "Release v${NEW_VERSION}" "v${NEW_VERSION}"

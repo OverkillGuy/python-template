@@ -6,6 +6,11 @@ templating versions are not perfect matches for semantic versions.
 
 ## [Unreleased]
 
+### Changed
+
+- Now generates annotated git tags instead of lightweight tags on `make
+  release`.
+
 ## v1.4.0 - 2023-10-06
 
 ### Added
