@@ -8,7 +8,10 @@ templating versions are not perfect matches for semantic versions.
 
 ### Fixed
 
-- `make release` now portable to all UNIX (relied on GNU date and GNU sed)
+- `make release` now uses annotated git tags instead of lightweight tags (per
+  `man git-tag(1)`, non-annotated tags are for "private or temporary object
+  labels", and won't show up in `git describe` by default).
+- `make release` now more portable (previously relied on GNU date and GNU sed)
 
 ## v1.4.0 - 2023-10-06
 
