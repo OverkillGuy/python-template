@@ -8,6 +8,9 @@ templating versions are not perfect matches for semantic versions.
 
 ### Added
 
+- Allow setting a container registry when building. Run `make
+  DOCKER_REGISTRY=docker.io/example/ docker-build-release` to automatically tag
+  the image with a specific registry.
 - Gitignore's "Python files" section is now auto-fetched from latest
   Github/gitignore repo, see `make python-gitignore`.
 - Git/docker ignore files are now shared via jinja templating, clearly
