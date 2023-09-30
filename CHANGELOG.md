@@ -13,6 +13,9 @@ templating versions are not perfect matches for semantic versions.
 - New `make check-requirements`, verifies `requirements.txt` == `poetry.lock`.
 - Release-oriented dockerfile uses built CLI as entrypoint.
   Can now run `docker run {{ project-slug }}:0.1.0 --help`.
+- Allow setting a container registry when building. Run `make
+  DOCKER_REGISTRY=docker.io/example/ docker-build-release` to automatically tag
+  the image with a specific registry.
 
 ## v1.3.1 - 2023-09-05
 
