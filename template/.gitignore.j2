@@ -6,4 +6,8 @@ poetry.lock
 # do matter a lot, and you'll want to keep Poetry.lock tracked = keep
 # commented
 
+# requirements.txt is exported during the docker build, it does not need to be
+# committed in the repo
+requirements.txt
+
 {% include "data/ignores.j2" -%}
