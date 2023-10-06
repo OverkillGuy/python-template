@@ -6,6 +6,10 @@ templating versions are not perfect matches for semantic versions.
 
 ## [Unreleased]
 
+### Fixed
+
+- `make release` now portable to all UNIX (relied on GNU date and GNU sed)
+
 ## v1.4.0 - 2023-10-06
 
 ### Added
