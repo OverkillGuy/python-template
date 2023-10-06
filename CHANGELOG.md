@@ -15,6 +15,8 @@ templating versions are not perfect matches for semantic versions.
 
 ### Fixed
 
+- Project name validator now allows more than lowercase characters (validating
+  regex now `^[A-Z0-9].+$` instead of old `^[A-Z][a-zA-Z0-9\' ]+$`).
 - `make release` now uses annotated git tags instead of lightweight tags (per
   `man git-tag(1)`, non-annotated tags are for "private or temporary object
   labels", and won't show up in `git describe` by default).
