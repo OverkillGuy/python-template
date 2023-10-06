@@ -14,6 +14,11 @@ templating versions are not perfect matches for semantic versions.
 - Release-oriented dockerfile uses built CLI as entrypoint.
   Can now run `docker run {{ project-slug }}:0.1.0 --help`.
 
+### Fixed
+
+- `make docs` no longer crashes with exception: 'Module' object has no
+  attribute 'doc'. Dep astroid v3.0.0 is breaking, pinned for the moment.
+
 ## v1.3.1 - 2023-09-05
 
 ### Fixed
