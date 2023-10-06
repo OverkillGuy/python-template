@@ -55,6 +55,11 @@ try-update:
 		--conflict inline \
 		'template_expanded/new_project/'
 
+.PHONY: python-gitignore
+python-gitignore:
+	wget -O data/Python.gitignore \
+		https://raw.githubusercontent.com/github/gitignore/main/Python.gitignore
+
 # Make a release commit + tag, creating Changelog entry
 # Set BUMP variable to any of poetry-supported (major, minor, patch)
 # or number (1.2.3 etc), see 'poetry version' docs for details

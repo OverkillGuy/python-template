@@ -1,0 +1,22 @@
+################################################################################
+# Global ignore list, common in BOTH .dockerignore, and .gitignore
+# Make sure that whatever is done below is copied to the other file
+################################################################################
+
+test_results/
+
+# Do not track the code-extracted docs page from 'make docs'
+docs/source/apidocs/
+
+#################### Python gitignore from github/gitignore ####################
+## Download via:
+## wget -O data/Python.gitignore \
+##     https://raw.githubusercontent.com/github/gitignore/main/Python.gitignore
+{% include "data/Python.gitignore" %}
+################ Above is Python gitignore from github/gitignore ###############
+
+
+################################################################################
+# End of shared block between .dockerignore and .gitignore.
+# Make sure that whatever is done above is copied to the other file
+################################################################################
