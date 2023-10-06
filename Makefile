@@ -76,5 +76,5 @@ release:
 	mv --force ${TMP_CHANGELOG} CHANGELOG.md
 	git add CHANGELOG.md pyproject.toml
 	git commit -m "Bump to version v${NEW_VERSION}"
-	git tag --anotate "v${NEW_VERSION}" \
+	git tag --annotate "v${NEW_VERSION}" \
 		--message "Release v${NEW_VERSION}"
