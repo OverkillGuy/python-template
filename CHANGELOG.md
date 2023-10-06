@@ -13,6 +13,11 @@ templating versions are not perfect matches for semantic versions.
   labels", and won't show up in `git describe` by default).
 - `make release` now more portable (previously relied on GNU date and GNU sed)
 
+### Removed
+
+- Internal `make lint` no longer runs `poetry-lock` hook, useless for a
+  template-oriented `pyproject.toml`. No change for template users!
+
 ## v1.4.0 - 2023-10-06
 
 ### Added
