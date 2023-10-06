@@ -6,6 +6,8 @@ templating versions are not perfect matches for semantic versions.
 
 ## [Unreleased]
 
+## v1.4.0 - 2023-10-06
+
 ### Added
 
 - Release-oriented Dockerfile now uses the `poetry.lock` contents as deps.
