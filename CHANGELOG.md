@@ -21,6 +21,8 @@ templating versions are not perfect matches for semantic versions.
   `man git-tag(1)`, non-annotated tags are for "private or temporary object
   labels", and won't show up in `git describe` by default).
 - `make release` now more portable (previously relied on GNU date and GNU sed)
+- Git/docker ignore files now properly ignore text editor swap/backup files.
+- Docker context (cache) no longer gets invalidated due to git operations.
 
 ### Removed
 

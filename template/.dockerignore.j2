@@ -6,4 +6,7 @@
 # do matter a lot, and you'll want to keep Poetry.lock tracked = keep
 # commented
 
+# Avoid arbitrary git changes invalidating docker context
+.git
+
 {% include "data/ignores.j2" -%}
