@@ -50,7 +50,3 @@ author_email:
 project_slug:
   type: str
   default: "{{project_name|trim|lower|replace(' ', '-')}}"
-
-package_name:
-  type: str
-  default: "{{project_slug|replace('-', '_')}}"

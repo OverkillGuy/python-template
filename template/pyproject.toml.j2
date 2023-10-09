@@ -1,12 +1,12 @@
 [tool.poetry]
-name = "{{package_name}}"
+name = "{% include "vars/package_name.j2" %}"
 version = "0.1.0"
 description = "{{description}}"
 authors = ["{{author_name}} <{{author_email}}>"]
 readme = "README.md"
 
 [tool.poetry.scripts]
-{{project_slug}} = "{{package_name}}.cli:cli"
+{{project_slug}} = "{% include "vars/package_name.j2" %}.cli:cli"
 
 [tool.poetry.dependencies]
 python = "^{{python_version}}"
@@ -56,7 +56,7 @@ disable = ["logging-fstring-interpolation"]
 [tool.pytest.ini_options]
 addopts = """-vv \
       --doctest-modules \
-      --cov={{package_name}} \
+      --cov={% include "vars/package_name.j2" %} \
       --cov-report=xml:test_results/coverage.xml \
       --cov-report=html:test_results/coverage.html \
       --cov-report=term \

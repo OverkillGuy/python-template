@@ -37,7 +37,7 @@ poetry shell
 
 This repository uses Python{{python_version}}, using
 [Poetry](https://python-poetry.org) as package manager to define a
-Python package inside `src/{{package_name}}/`.
+Python package inside `src/{% include "vars/package_name.j2" %}/`.
 
 `poetry` will create virtual environments if needed, fetch
 dependencies, and install them for development.
@@ -59,7 +59,7 @@ Python in Poetry:
 
 ```shell
 $ poetry run python
->>> from {{package_name}} import main
+>>> from {% include "vars/package_name.j2" %} import main
 >>> main("blabla")
 ```
 

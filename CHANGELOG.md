@@ -6,6 +6,12 @@ templating versions are not perfect matches for semantic versions.
 
 ## [Unreleased]
 
+### Changed
+
+- No longer asking `package_name` as question with a default that's
+  overrideable, now derived from `project_name` (converted to
+  lowercase_with_underscore) without asking, as it was always intended.
+
 ### Added
 
 - Allow setting a container registry when building. Run `make

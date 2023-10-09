@@ -15,7 +15,7 @@ def parse_arguments(arguments: list[str]) -> argparse.Namespace:
 
 
 def cli(arguments: Optional[list[str]] = None):
-    """Run the {{package_name}} cli"""
+    """Run the {% include "vars/package_name.j2" %} cli"""
     if arguments is None:
         arguments = sys.argv[1:]
     args = parse_arguments(arguments)
