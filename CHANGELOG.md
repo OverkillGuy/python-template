@@ -6,6 +6,8 @@ templating versions are not perfect matches for semantic versions.
 
 ## [Unreleased]
 
+## v1.5.0 - 2024-01-26
+
 ### Changed
 
 - No longer asking `package_name` as question with a default that's
