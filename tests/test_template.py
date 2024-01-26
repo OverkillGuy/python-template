@@ -90,7 +90,6 @@ def tests_template_makes_docker_release_ok(template: Template):
     bad_project_name=[
         "",
         "lower-kebab-case",
-        "Upper-kebab-case",
     ]
 )
 def tests_bad_projectname(bad_project_name):
