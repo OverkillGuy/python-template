@@ -9,6 +9,7 @@ templating versions are not perfect matches for semantic versions.
 ### Fixed
 
 - Test file name no longer mangled by templating engine (as `tests/test_.py`)
+- Markdownlint pre-commit hook no longer fails with "punycode dependency warn"
 
 ## v1.5.0 - 2024-01-26
 

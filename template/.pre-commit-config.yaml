@@ -54,7 +54,7 @@ repos:
     # Uncomment below if mypy requires extra type stub packages
     # additional_dependencies: [types-PyYAML==6.0.12.2]
 - repo: https://github.com/igorshubovych/markdownlint-cli
-  rev: v0.38.0
+  rev: v0.39.0
   hooks:
   - id: markdownlint
     args: ["--fix", "--config", ".markdown-lint.yml"]
