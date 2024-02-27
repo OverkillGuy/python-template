@@ -6,6 +6,10 @@ templating versions are not perfect matches for semantic versions.
 
 ## [Unreleased]
 
+### Fixed
+
+- Test file name no longer mangled by templating engine (as `tests/test_.py`)
+
 ## v1.5.0 - 2024-01-26
 
 ### Changed
