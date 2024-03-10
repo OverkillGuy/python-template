@@ -40,17 +40,6 @@ doc2dash = "*"
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
-# Make isort work with Black
-# Avoids conflicting imports
-# As per https://pycqa.github.io/isort/docs/configuration/black_compatibility/#using-a-config-file-such-as-isortcfg
-[tool.isort]
-profile = "black"
-multi_line_output = 3
-
-# Avoid pointless warning about performance hit of f-string in loggers
-[tool.pylint.message_control]
-disable = ["logging-fstring-interpolation"]
-
 [tool.pytest.ini_options]
 addopts = """-vv \
       --doctest-modules \
