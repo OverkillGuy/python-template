@@ -8,6 +8,7 @@ templating versions are not perfect matches for semantic versions.
 
 ### Fixed
 
+- Remove astroid pinning from v1.4.0, upstream updated, no longer breaks
 - Test file name no longer mangled by templating engine (as `tests/test_.py`)
 - Markdownlint pre-commit hook no longer fails with "punycode dependency warn"
 
