@@ -6,6 +6,10 @@ templating versions are not perfect matches for semantic versions.
 
 ## [Unreleased]
 
+### Added
+
+- Python 3.12 now supported, default version of the template
+
 ### Fixed
 
 - Remove astroid pinning from v1.4.0, upstream updated, no longer breaks
