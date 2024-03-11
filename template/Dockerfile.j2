@@ -7,8 +7,10 @@ RUN pip install --no-cache-dir \
     poetry==${POETRY_VERSION} \
     pre-commit==${PRECOMMIT_VERSION}
 
-# Already in docker, no venv needed
-ENV POETRY_VIRTUALENVS_CREATE=false
+# We may be in docker, but the package's dependecies we install may clash with
+# the poetry/pre-commit dependencies (mostly requests version).
+# Set up a venv anyway here:
+ENV POETRY_VIRTUALENVS_CREATE=true
 
 
 # Workaround critical-level CVEs in Python image
