@@ -12,9 +12,6 @@ readme = "README.md"
 python = "^{{python_version}}"
 
 
-# Note: Linters not defined in this file but .pre-commit-config.yaml, which
-# installs/manages each tool in its own isolated virtualenv
-
 [tool.poetry.group.test.dependencies]
 pytest = "7.*"
 # Test coverage
@@ -56,8 +53,7 @@ fix = true
 unfixable = [
     "ERA", # do not autoremove commented out code
 ]
-# Black compat:
-line-length = 88
+line-length = 88  # Like black
 extend-exclude = ["docs/*"]
 
 
