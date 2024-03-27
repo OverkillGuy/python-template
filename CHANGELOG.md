@@ -9,6 +9,7 @@ templating versions are not perfect matches for semantic versions.
 ### Added
 
 - Python 3.12 now supported, default version of the template
+- Updated pre-commit hook versions
 
 ### Fixed
 
