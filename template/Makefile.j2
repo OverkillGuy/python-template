@@ -1,27 +1,40 @@
+# Run 'make help' to see guidance on usage of this Makefile
+
 DOCKER_IMAGE_NAME={{project_slug}}
 DOCKER_REGISTRY=
 APP_VERSION=$(shell poetry version --short)
 
+
+## Default command, run via 'make' or 'make all'
 .PHONY: all
 all: install lint test docs build install-hooks
 
+## Generate the help message by reading the Makefile
+.PHONY: help
+help:
+	@echo "This makefile contains the following targets, from most commonly used to least: (docs first, then target name)"
+	@awk \
+		'/^##/ {sub(/## */,""); print} \
+		/^[a-z0-9-]+:/ && !/.PHONY:/ \
+			{sub(/:.*/, ""); print "⮡   \033[31;1;4m" $$0 "\033[0m\n" }' \
+		Makefile
+
+## Set up the virtualenv and install the package + dependencies
 .PHONY: install
 install:
 	poetry install
 
-##  Enforce the pre-commit hooks
-.PHONY: install-hooks
-install-hooks:
-	pre-commit install
-
+## Run the linters and formatters on all files (not just staged for commit)
 .PHONY: lint
-lint:  ##  Use all linters on all files (not just staged for commit)
+lint:
 	pre-commit run --all --all-files
 
+## Run the tests
 .PHONY: test
 test:
 	poetry run pytest
 
+## Generate the docs, both HTML and docsets
 .PHONY: docs
 docs:
 	cd docs && make html
@@ -31,14 +44,22 @@ docs:
 		docs/build/html \
 		--destination docs/build/docset
 
+## Serve the generated docs on a port of localhost
 .PHONY: docs-serve
 docs-serve:
 	cd docs/build/html && python3 -m http.server
 
+## Build the wheel/tarball package
 .PHONY: build
 build:
 	poetry build
 
+## Set up the pre-commit hooks to execute on next git commit
+.PHONY: install-hooks
+install-hooks:
+	pre-commit install
+
+## Build the 'release' docker image (just the package installed)
 .PHONY: docker-build-release
 docker-build-release: export-requirements
 	docker build \
@@ -46,6 +67,7 @@ docker-build-release: export-requirements
 		-f release.Dockerfile \
 		.
 
+## Build the 'dev' docker image (all tools and code)
 .PHONY: docker-build-dev
 docker-build-dev:
 	docker build -t ${DOCKER_IMAGE_NAME}-dev .
@@ -116,11 +138,3 @@ poetry-venv-local:
 .PHONY: poetry-venv-nuke
 poetry-venv-nuke:
 	find .venv -delete
-
-.PHONY: help
-help:
-	@echo "This makefile contains the following targets, from most commonly used to least: (docs first, then target name)"
-	@awk \
-		'/^##/ {sub(/## */,""); print} \
-		/^[a-z0-9-]+:/ && !/.PHONY:/ {sub(/:.*/, ""); print "⮡   \033[31;1;4m" $$0 "\033[0m\n" }' \
-		Makefile
