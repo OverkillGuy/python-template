@@ -1,9 +1,18 @@
 # Run 'make help' to see guidance on usage of this Makefile
 
-DOCKER_IMAGE_NAME={{project_slug}}
-DOCKER_REGISTRY=
-APP_VERSION=$(shell poetry version --short)
+# Load .env file if any, for secrets+values (string value, scripts fail in .env)
+ifneq (,$(wildcard ./.env))
+	include .env
+	export
+endif
 
+# Variables set as fallback: descending priority is:
+# - 'make' invocation-level overrides
+# - values stored in .env, loaded
+# - Fallback values using ?=, see below:
+DOCKER_IMAGE_NAME?={{project_slug}}
+DOCKER_REGISTRY?=
+APP_VERSION?=$(shell poetry version --short)
 
 ## Default command, run via 'make' or 'make all'
 .PHONY: all
@@ -19,6 +28,10 @@ help:
 			{sub(/:.*/, ""); print "⮡   \033[31;1;4m" $$0 "\033[0m\n" }' \
 		Makefile
 
+## Print version
+.PHONY: print-version
+print-version:
+	@echo "Bla bla ${APP_VERSION}, got a password: ${PASSWORD_GITEA}"
 ## Set up the virtualenv and install the package + dependencies
 .PHONY: install
 install:

@@ -8,6 +8,8 @@ templating versions are not perfect matches for semantic versions.
 
 ### Added
 
+- New `make help` shows command help in repo
+- `Makefile` now loads `.env` contents as variables
 - Python 3.12 now supported, default version of the template
 - Updated pre-commit hook versions
 
