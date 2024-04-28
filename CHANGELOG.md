@@ -8,8 +8,12 @@ templating versions are not perfect matches for semantic versions.
 
 ### Added
 
+- New parameter `dynamic_version`, defaulting to `True`. Enable to use proximity
+  to a git tag as package version. On git tags, package version is tag. On
+  non-tagged commits, version is last tag + number of commits as post. Uses
+  `poetry-dynamic-versioning`, using `dunamai` library
 - New `make help` shows command help in repo
-- `Makefile` now loads `.env` contents as variables
+- `Makefile` now loads `.env` contents as variables, if file exists
 - Python 3.12 now supported, default version of the template
 - Updated pre-commit hook versions
 

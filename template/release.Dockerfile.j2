@@ -2,7 +2,14 @@ FROM python:{{python_version}} as builder
 
 # Bring poetry, our package manager
 ARG POETRY_VERSION=1.6.1
-RUN pip install --no-cache-dir poetry==${POETRY_VERSION}
+{%- if dynamic_version %}
+ARG POETRY_DYNAMIC_VERSION=1.2.0
+{%- endif %}
+RUN pip install --no-cache-dir \
+{%- if dynamic_version %}
+    poetry-dynamic-versioning==${POETRY_DYNAMIC_VERSION} \
+{%- endif %}
+    poetry==${POETRY_VERSION}
 
 # Copy code in to build a package
 COPY . /workdir/

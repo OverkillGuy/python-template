@@ -93,13 +93,13 @@ BUMP=patch
 .PHONY: release
 release:
 # Set the new version Makefile variable after the version bump
-	$(eval NEW_VERSION := $(shell poetry version --short ${BUMP}))
+	$(eval NEW_VERSION := $(shell poetry version --short{% if dynamic_version %} --dry-run{% endif %} ${BUMP}))
 	$(eval TMP_CHANGELOG := $(shell mktemp))
 	sed \
 		"s/\(## \[Unreleased\]\)/\1\n\n## v${NEW_VERSION} - $(shell date +%Y-%m-%d)/" \
 		CHANGELOG.md > ${TMP_CHANGELOG}
 	mv --force ${TMP_CHANGELOG} CHANGELOG.md
-	git add CHANGELOG.md pyproject.toml
+	git add CHANGELOG.md{% if not dynamic_version %} pyproject.toml{% endif %}
 	git commit -m "Bump to version v${NEW_VERSION}"
 	git tag --annotate "v${NEW_VERSION}" \
 		--message "Release v${NEW_VERSION}"

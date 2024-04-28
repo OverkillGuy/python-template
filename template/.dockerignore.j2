@@ -6,7 +6,10 @@
 # do matter a lot, and you'll want to keep Poetry.lock tracked = keep
 # commented
 
+{%- if not dynamic_version %}
+{# Dynamic-version requires the git repo in docker context to know version #}
 # Avoid arbitrary git changes invalidating docker context
 .git
+{%- endif %}
 
 {% include "data/ignores.j2" -%}

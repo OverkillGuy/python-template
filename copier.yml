@@ -51,3 +51,8 @@ author_email:
 project_slug:
   type: str
   default: "{{project_name|trim|lower|replace(' ', '-')}}"
+
+dynamic_versioning:
+  type: bool
+  help: Do we use git tags + a commits hasheds to get package version
+  default: True

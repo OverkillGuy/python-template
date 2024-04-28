@@ -1,9 +1,19 @@
 [tool.poetry]
 name = "{% include "vars/package_name.j2" %}"
-version = "0.1.0"
 description = "{{description}}"
 authors = ["{{author_name}} <{{author_email}}>"]
 readme = "README.md"
+{%- if dynamic_version %}
+version = "0.0.0"  # Overriden by dynamic-versioning below!
+
+[tool.poetry-dynamic-versioning]
+# Use a poetry plugin to determine how the package is versioned
+# We use the default = git tag as number
+enable = true
+vcs = "git"
+{% else %}
+version = "0.1.0"
+{% endif %}
 
 [tool.poetry.scripts]
 {{project_slug}} = "{% include "vars/package_name.j2" %}.cli:cli"
@@ -34,8 +44,14 @@ doc2dash = "*"
 
 
 [build-system]
+{%- if dynamic_version %}
+# Small override of default Poetry build system, using dynamic version plugin
+requires = ["poetry-core>=1.0.0", "poetry-dynamic-versioning>=1.0.0,<2.0.0"]
+build-backend = "poetry_dynamic_versioning.backend"
+{% else %}
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+{% endif %}
 
 [tool.pytest.ini_options]
 addopts = """-vv \
