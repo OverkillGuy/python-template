@@ -131,12 +131,17 @@ export-requirements: lock
 check-requirements:
 	head -n1 requirements.txt | sed 's/^# //' | sha256sum -c
 
-## Install poetry from pip
-## IMPORTANT: Make sure "pip" resolves to a virtualenv
-## Or that you are happy with poetry installed system-wide
-.PHONY: install-poetry
-install-poetry:
-	pip install poetry
+## Install tools (poetry, pre-commit) via pipx
+## Assumes you have pipx installed
+# See https://jiby.tech/post/my-python-toolbox/#pipx-for-cli-installs-not-pip
+.PHONY: install-tools
+install-tools:
+	pipx install poetry
+	pipx inject poetry poetry-plugin-export
+{%- if dynamic_versioning %}
+	pipx inject poetry poetry-dynamic-versioning
+{%- endif %}
+	pipx install pre-commit
 
 ## Ensure Poetry will generate virtualenv inside the git repo /.venv/
 ## rather than in a centralized location. This makes it possible to
