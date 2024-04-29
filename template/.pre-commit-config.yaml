@@ -1,7 +1,7 @@
 ---
 repos:
 - repo: https://github.com/pre-commit/pre-commit-hooks
-  rev: v4.5.0
+  rev: v4.6.0
   hooks:
   - id: trailing-whitespace
   - id: end-of-file-fixer
@@ -25,18 +25,18 @@ repos:
     name: Shellcheck
     args: ["-f", "gcc"]  # output filename:linenum:colnum (clickable)
 - repo: https://github.com/AleksaC/hadolint-py
-  rev: v2.12.0.3
+  rev: v2.12.1b3
   hooks:
   - id: hadolint
     name: Hadolint (Dockerfile checker)
 # Actual Python Linters
 - repo: https://github.com/astral-sh/ruff-pre-commit
-  rev: v0.3.4
+  rev: v0.4.2
   hooks:
   - id: ruff
-    args: ["--fix", "--exit-non-zero-on-fix"]
+    args: ["--fix"]
 - repo: https://github.com/pre-commit/mirrors-mypy
-  rev: v1.9.0
+  rev: v1.10.0
   hooks:
   - id: mypy
     name: Mypy (Python type-checker)
