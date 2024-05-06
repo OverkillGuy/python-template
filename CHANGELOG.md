@@ -6,6 +6,8 @@ templating versions are not perfect matches for semantic versions.
 
 ## [Unreleased]
 
+## v1.6.0 - 2024-05-07
+
 ### Added
 
 - New parameter `dynamic_version`, defaulting to `True`. Enable to use proximity
