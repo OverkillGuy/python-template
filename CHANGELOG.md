@@ -6,6 +6,11 @@ templating versions are not perfect matches for semantic versions.
 
 ## [Unreleased]
 
+### Fixed
+
+- No more duplicate label warnings during `make docs`. Done by removing the
+  (old) autodoc and using (new) autodoc2 exclusively, resolving the clash.
+
 ### Changed
 
 - `package_name` variable is now derived from a python script. No functional
