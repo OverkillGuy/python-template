@@ -32,6 +32,7 @@ MAKE_TGT=all
 # MAKE_TGT=docker-build docker-build-release
 RANDOMIZED_PROJECT_NAME=$(shell poetry run python -c 'import faker_microservice;from faker import Faker;fake = Faker();fake.add_provider(faker_microservice.Provider);print(fake.microservice().replace("-", " ").replace("_", " ").capitalize())')
 DYN_VERSION=True
+ARGS?=
 try:
 # Wipe previous such templating if any
 	-rm -rf template_expanded
@@ -45,7 +46,7 @@ try:
 		-d "description=A cool project" \
 		-d "python_version=${PYTHON_VERSION}" \
 		-d "dynamic_version=${DYN_VERSION}" \
-		-d "project_name=${RANDOMIZED_PROJECT_NAME}"
+		-d "project_name=${RANDOMIZED_PROJECT_NAME}" ${ARGS}
 # Get in there and run make
 	cd template_expanded/ \
 		&& cd * \
