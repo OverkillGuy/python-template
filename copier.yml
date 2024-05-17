@@ -58,5 +58,9 @@ project_slug:
 
 dynamic_versioning:
   type: bool
-  help: Do we use git tags + a commits hasheds to get package version
+  help: |
+    Should we use dynamic package versioning?
+    If yes, python package version depends on nearest git tag + number of
+    commits since as suffix, if any. If no, package version is a hard value
+    stored in pyproject.toml, regardless of git tag
   default: True

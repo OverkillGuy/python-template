@@ -3,7 +3,7 @@ name = "{{ package_name }}"
 description = "{{description}}"
 authors = ["{{author_name}} <{{author_email}}>"]
 readme = "README.md"
-{%- if dynamic_version %}
+{%- if dynamic_versioning %}
 version = "0.0.0"  # Overriden by dynamic-versioning below!
 
 [tool.poetry-dynamic-versioning]

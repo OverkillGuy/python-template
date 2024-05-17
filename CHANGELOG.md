@@ -10,6 +10,9 @@ templating versions are not perfect matches for semantic versions.
 
 - No more duplicate label warnings during `make docs`. Done by removing the
   (old) autodoc and using (new) autodoc2 exclusively, resolving the clash.
+- Typo in use of `dynamic_versioning` inside `pyproject.toml` causing
+  `dynamic_versioning=True` to be ignored, effectively set as if
+  `dynamic_versioning=False`.
 
 ### Changed
 
