@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "{% include "vars/package_name.j2" %}"
+name = "{{ package_name }}"
 description = "{{description}}"
 authors = ["{{author_name}} <{{author_email}}>"]
 readme = "README.md"
@@ -16,7 +16,7 @@ version = "0.1.0"
 {% endif %}
 
 [tool.poetry.scripts]
-{{project_slug}} = "{% include "vars/package_name.j2" %}.cli:cli"
+{{project_slug}} = "{{ package_name }}.cli:cli"
 
 [tool.poetry.dependencies]
 python = "^{{python_version}}"
@@ -56,7 +56,7 @@ build-backend = "poetry.core.masonry.api"
 [tool.pytest.ini_options]
 addopts = """-vv \
       --doctest-modules \
-      --cov={% include "vars/package_name.j2" %} \
+      --cov={{ package_name }} \
       --cov-report=xml:test_results/coverage.xml \
       --cov-report=html:test_results/coverage.html \
       --cov-report=term \

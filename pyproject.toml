@@ -12,7 +12,8 @@ readme = "README.md"
 python = "^3.8"
 # Templating lib
 copier = ">=7.1.0"
-
+# Enhance Jinja context with package_name and other derived things
+copier-templates-extensions = "*"
 
 [tool.poetry.dev-dependencies]
 pytest = "7.*"

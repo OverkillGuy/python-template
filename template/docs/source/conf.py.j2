@@ -60,7 +60,7 @@ html_static_path = ["_static"]
 
 
 autodoc2_packages = [
-    "../../src/{% include "vars/package_name.j2" %}",
+    "../../src/{{ package_name }}",
 ]
 # Enable all docstrings as Myst Markdown
 autodoc2_docstring_parser_regexes = [

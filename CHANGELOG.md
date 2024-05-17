@@ -6,6 +6,12 @@ templating versions are not perfect matches for semantic versions.
 
 ## [Unreleased]
 
+### Changed
+
+- `package_name` variable is now derived from a python script. No functional
+  change in the template, just how the value was computed.
+
+
 ## v1.6.0 - 2024-05-07
 
 ### Added

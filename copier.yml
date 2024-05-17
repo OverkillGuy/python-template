@@ -12,6 +12,10 @@ _tasks:
     export TEMPLATE="{{project_slug}}";
     {{_copier_conf.src_path}}/hooks/git_init_project
 
+# Load the variables from context.py here via copier-template-extensions
+_jinja_extensions:
+- copier_templates_extensions.TemplateExtensionLoader
+- context.py:ContextUpdater
 
 project_name:
   type: str
