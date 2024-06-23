@@ -28,10 +28,6 @@ help:
 			{sub(/:.*/, ""); print "⮡   \033[31;1;4m" $$0 "\033[0m\n" }' \
 		Makefile
 
-## Print version
-.PHONY: print-version
-print-version:
-	@echo "Bla bla ${APP_VERSION}, got a password: ${PASSWORD_GITEA}"
 ## Set up the virtualenv and install the package + dependencies
 .PHONY: install
 install:
