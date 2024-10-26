@@ -66,13 +66,13 @@ addopts = """-vv \
 [tool.ruff]
 # Always fix what you can, without needing CLI flags
 fix = true
-unfixable = [
-    "ERA", # do not autoremove commented out code
-]
 line-length = 88  # Like black
 extend-exclude = ["docs/*"]
 
-
+[tool.ruff.lint]
+unfixable = [
+    "ERA", # do not autoremove commented out code
+]
 # Enable pycodestyle (`E`) and Pyflakes (`F`) codes by default.
 # Add I = isort (import sorter), to remove need for isort itself
 # And D = pydocstyle for docstrings

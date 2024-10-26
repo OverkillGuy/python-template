@@ -1,7 +1,7 @@
 ---
 repos:
 - repo: https://github.com/pre-commit/pre-commit-hooks
-  rev: v4.6.0
+  rev: v5.0.0
   hooks:
   - id: trailing-whitespace
   - id: end-of-file-fixer
@@ -31,12 +31,13 @@ repos:
     name: Hadolint (Dockerfile checker)
 # Actual Python Linters
 - repo: https://github.com/astral-sh/ruff-pre-commit
-  rev: v0.4.2
+  rev: v0.7.0
   hooks:
+  - id: ruff-format
   - id: ruff
     args: ["--fix"]
 - repo: https://github.com/pre-commit/mirrors-mypy
-  rev: v1.10.0
+  rev: v1.12.1
   hooks:
   - id: mypy
     name: Mypy (Python type-checker)
@@ -44,7 +45,6 @@ repos:
     # Uncomment below if mypy requires extra type stub packages
     # additional_dependencies: [types-PyYAML==6.0.12.2]
 - repo: https://github.com/igorshubovych/markdownlint-cli
-  rev: v0.39.0
+  rev: v0.42.0
   hooks:
-  - id: markdownlint
-    args: ["--fix", "--config", ".markdown-lint.yml"]
+  - id: markdownlint-fix
