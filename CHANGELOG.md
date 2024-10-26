@@ -6,6 +6,8 @@ templating versions are not perfect matches for semantic versions.
 
 ## [Unreleased]
 
+## v1.7.0 - 2024-10-26
+
 ### Added
 
 - Updated pre-commit hook versions
