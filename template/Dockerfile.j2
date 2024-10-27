@@ -1,24 +1,17 @@
 FROM python:{{python_version}}-bookworm
 
-# Bring poetry, our package manager, and pre-commit hooks
-ARG POETRY_VERSION=1.8.1
+# Bring uv, our package manager, and pre-commit hooks
+ARG UV_VERSION=0.5.26
 ARG PRECOMMIT_VERSION=4.1.0
 {%- if dynamic_version %}
-ARG POETRY_DYNAMIC_VERSION=1.4.1
+ARG UV_DYNAMIC_VERSION=0.5.0
 {%- endif %}
 RUN pip install --no-cache-dir \
-    poetry==${POETRY_VERSION} \
+    "uv==${UV_VERSION}" \
 {%- if dynamic_version %}
-    poetry-dynamic-versioning==${POETRY_DYNAMIC_VERSION} \
+    "uv-dynamic-versioning==${UV_DYNAMIC_VERSION}" \
 {%- endif %}
-    pre-commit==${PRECOMMIT_VERSION}
-
-
-# We may be in docker, but the package's dependecies we install may clash with
-# the poetry/pre-commit dependencies (mostly requests version).
-# Set up a venv anyway here:
-ENV POETRY_VIRTUALENVS_CREATE=true
-
+    "pre-commit==${PRECOMMIT_VERSION}"
 
 # Workaround critical-level CVEs in Python image
 # By forcing just security update (no featureful updates, as part of apt conf)
@@ -33,4 +26,4 @@ COPY . /workdir
 WORKDIR /workdir
 
 # Install the local package dependencies (dev-mode)
-RUN poetry install
+RUN uv sync

@@ -12,7 +12,7 @@ endif
 # - Fallback values using ?=, see below:
 DOCKER_IMAGE_NAME?={{project_slug}}
 DOCKER_REGISTRY?=
-APP_VERSION?=$(shell poetry version --short)
+APP_VERSION?=$(shell uv tree -q --depth=0 | awk '{print $$2}' | tr -d ' ')
 
 ## Default command, run via 'make' or 'make all'
 .PHONY: all
@@ -31,7 +31,7 @@ help:
 ## Set up the virtualenv and install the package + dependencies
 .PHONY: install
 install:
-	poetry install
+	uv sync --all-extras
 
 ## Run the linters and formatters on all files (not just staged for commit)
 .PHONY: lint
@@ -41,17 +41,18 @@ lint:
 ## Run the tests
 .PHONY: test
 test:
-	poetry run pytest
+	uv run --all-extras pytest
 
 ## Generate the docs, both HTML and docsets
 .PHONY: docs
 docs:
 	cd docs && make html
-	poetry run doc2dash \
-		--force \
-		--name {{project_slug}} \
-		docs/build/html \
-		--destination docs/build/docset
+	uv run --all-extras \
+		doc2dash \
+			--force \
+			--name {{project_slug}} \
+			docs/build/html \
+			--destination docs/build/docset
 
 ## Serve the generated docs on a port of localhost
 .PHONY: docs-serve
@@ -61,7 +62,7 @@ docs-serve:
 ## Build the wheel/tarball package
 .PHONY: build
 build:
-	poetry build
+	uv build
 
 ## Set up the pre-commit hooks to execute on next git commit
 .PHONY: install-hooks
@@ -81,59 +82,52 @@ docker-build-release:
 docker-build-dev:
 	docker build -t ${DOCKER_IMAGE_NAME}-dev .
 
-##  Make a release commit + tag, creating Changelog entry
-##  Set BUMP variable to any of poetry-supported (major, minor, patch)
-##  or number (1.2.3 etc), see 'poetry version' docs for details
-##  Default the bump to a patch (v1.2.3 -> v1.2.4)
-BUMP=patch
-.PHONY: release
-release:
-# Set the new version Makefile variable after the version bump
-	$(eval NEW_VERSION := $(shell poetry version --short{% if dynamic_version %} --dry-run{% endif %} ${BUMP}))
-	$(eval TMP_CHANGELOG := $(shell mktemp))
-	sed \
-		"s/\(## \[Unreleased\]\)/\1\n\n## v${NEW_VERSION} - $(shell date +%Y-%m-%d)/" \
-		CHANGELOG.md > ${TMP_CHANGELOG}
-	mv --force ${TMP_CHANGELOG} CHANGELOG.md
-	git add CHANGELOG.md{% if not dynamic_version %} pyproject.toml{% endif %}
-	git commit -m "Bump to version v${NEW_VERSION}"
-	git tag --annotate "v${NEW_VERSION}" \
-		--message "Release v${NEW_VERSION}"
+{# ##  Make a release commit + tag, creating Changelog entry #}
+{# ##  Set BUMP variable to any of poetry-supported (major, minor, patch) #}
+{# ##  or number (1.2.3 etc), see 'poetry version' docs for details #}
+{# ##  Default the bump to a patch (v1.2.3 -> v1.2.4) #}
+{# BUMP=patch #}
+{# .PHONY: release #}
+{# release: #}
+{# # Set the new version Makefile variable after the version bump #}
+{# 	$(eval NEW_VERSION := $(shell poetry version --short{% if dynamic_version %} --dry-run{% endif %} ${BUMP})) #}
+{# 	$(eval TMP_CHANGELOG := $(shell mktemp)) #}
+{# 	sed \ #}
+{# 		"s/\(## \[Unreleased\]\)/\1\n\n## v${NEW_VERSION} - $(shell date +%Y-%m-%d)/" \ #}
+{# 		CHANGELOG.md > ${TMP_CHANGELOG} #}
+{# 	mv --force ${TMP_CHANGELOG} CHANGELOG.md #}
+{# 	git add CHANGELOG.md{% if not dynamic_version %} pyproject.toml{% endif %} #}
+{# 	git commit -m "Bump to version v${NEW_VERSION}" #}
+{# 	git tag --annotate "v${NEW_VERSION}" \ #}
+{# 		--message "Release v${NEW_VERSION}" #}
 
 ##  Less commonly used commands
 
 ##  Generate/update the poetry.lock file
 .PHONY: lock
 lock:
-	poetry lock --no-update
+	uv lock
 
 ##  Update dependencies (within pyproject.toml specs)
 ##  Update the lock-file at the same time
 .PHONY: update
 update:
-	poetry update --lock
+	uv lock --upgrade
 
-## Install tools (poetry, pre-commit) via pipx
+
+## Install tools (uv, pre-commit) via pipx
 ## Assumes you have pipx installed
 # See https://jiby.tech/post/my-python-toolbox/#pipx-for-cli-installs-not-pip
 .PHONY: install-tools
 install-tools:
-	pipx install poetry
+	pipx install uv
 {%- if dynamic_versioning %}
-	pipx inject poetry poetry-dynamic-versioning
+	pipx inject uv uv-dynamic-versioning
 {%- endif %}
 	pipx install pre-commit
 
-## Ensure Poetry will generate virtualenv inside the git repo /.venv/
-## rather than in a centralized location. This makes it possible to
-## manipulate venv more simply
-.PHONY: poetry-venv-local
-poetry-venv-local:
-	poetry config virtualenvs.in-project true
-
 ## Delete the virtualenv to clean dependencies
 ## Useful when switching to a branch with less dependencies
-## Requires the virtualenv to be local (see "poetry-venv-local")
-.PHONY: poetry-venv-nuke
-poetry-venv-nuke:
+.PHONY: venv-nuke
+venv-nuke:
 	find .venv -delete

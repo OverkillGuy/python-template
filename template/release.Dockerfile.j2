@@ -1,21 +1,23 @@
 FROM python:{{python_version}} as builder
 
-# Bring poetry, our package manager
-ARG POETRY_VERSION=1.8.1
+# Bring uv, our package manager, and pre-commit hooks
+ARG UV_VERSION=0.4.27
+ARG PRECOMMIT_VERSION=3.6.2
 {%- if dynamic_version %}
-ARG POETRY_DYNAMIC_VERSION=1.4.1
+ARG UV_DYNAMIC_VERSION=0.2.0
 {%- endif %}
 RUN pip install --no-cache-dir \
+    "uv==${UV_VERSION}" \
 {%- if dynamic_version %}
-    poetry-dynamic-versioning==${POETRY_DYNAMIC_VERSION} \
+    "uv-dynamic-versioning==${UV_DYNAMIC_VERSION}" \
 {%- endif %}
-    poetry==${POETRY_VERSION}
+    "pre-commit==${PRECOMMIT_VERSION}"
 
 # Copy code in to build a package
 COPY . /workdir/
 WORKDIR /workdir
 
-RUN poetry build -f wheel
+RUN uv build --wheel
 
 # Start over with just the binary package install
 FROM python:{{python_version}}-slim as runner
