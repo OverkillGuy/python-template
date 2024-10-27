@@ -1,9 +1,9 @@
 FROM python:{{python_version}} as builder
 
 # Bring poetry, our package manager
-ARG POETRY_VERSION=1.6.1
+ARG POETRY_VERSION=1.8.1
 {%- if dynamic_version %}
-ARG POETRY_DYNAMIC_VERSION=1.2.0
+ARG POETRY_DYNAMIC_VERSION=1.4.1
 {%- endif %}
 RUN pip install --no-cache-dir \
 {%- if dynamic_version %}

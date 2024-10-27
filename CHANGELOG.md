@@ -6,6 +6,11 @@ templating versions are not perfect matches for semantic versions.
 
 ## [Unreleased]
 
+## Fixed
+
+- Fixed mismatching `poetry` version in `release.Dockerfile` to match main
+  `Dockerfile`.
+
 ## v1.7.0 - 2024-10-26
 
 ### Added
