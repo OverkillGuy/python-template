@@ -12,11 +12,6 @@ _tasks:
     export TEMPLATE="{{project_slug}}";
     {{_copier_conf.src_path}}/hooks/git_init_project
 
-# Load the variables from context.py here via copier-template-extensions
-_jinja_extensions:
-- copier_templates_extensions.TemplateExtensionLoader
-- context.py:ContextUpdater
-
 project_name:
   type: str
   help: "What is your project name? (format: Capitalized With Spaces)"
@@ -55,6 +50,10 @@ author_email:
 project_slug:
   type: str
   default: "{{project_name|trim|lower|replace(' ', '-')}}"
+
+package_name:
+  type: str
+  default: "{{ project_slug | lower | replace('-', '_') }}"
 
 dynamic_versioning:
   type: bool

@@ -6,6 +6,11 @@ templating versions are not perfect matches for semantic versions.
 
 ## [Unreleased]
 
+### Fixed
+
+- Simplified `package_name` variable, removed the need to run `context.py` to
+  generate it. This should mean no need for unsafe calls
+
 ## v1.7.1 - 2024-10-27
 
 ## Fixed
