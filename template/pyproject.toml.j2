@@ -62,6 +62,11 @@ addopts = """-vv \
       --cov-report=term \
       --junit-xml=test_results/results.xml"""
 
+[tool.coverage.run]
+omit = [
+  "src/{{ package_name }}/tests/**",
+  "tests/**",
+]
 
 [tool.ruff]
 # Always fix what you can, without needing CLI flags

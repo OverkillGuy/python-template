@@ -10,6 +10,7 @@ templating versions are not perfect matches for semantic versions.
 
 - Simplified `package_name` variable, removed the need to run `context.py` to
   generate it. This should mean no need for unsafe calls
+- Properly ignore test folders from coverage measurement
 
 ## v1.7.1 - 2024-10-27
 
