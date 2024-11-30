@@ -13,6 +13,7 @@ Template = namedtuple("Template", ["path", "context", "run_in_dev"])
 
 fake = Faker()
 fake.add_provider(faker_microservice.Provider)
+Faker.seed(1)  # Fixed seed to get consistent tests
 
 # Use the Faker lib to generate a plausible project name
 RANDOMIZED_PROJECT_NAME = (

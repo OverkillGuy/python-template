@@ -4,7 +4,6 @@ from tempfile import TemporaryDirectory
 from typing import Callable
 
 import pytest
-from prompt_toolkit.validation import ValidationError
 from pytest_cases import fixture, parametrize
 
 from tests.docker import run_docker_devimg, run_native
@@ -21,8 +20,8 @@ ROOT_CONFIG = copier_config()
 @fixture
 @parametrize(runfunc=[run_native, run_docker_devimg])
 @parametrize(python_version=ROOT_CONFIG["python_version"]["choices"])
-def template(python_version: str, runfunc: Callable):
-    """Template expansion fixture, parametrized by python version"""
+def template(python_version: str, dynamic_versioning: bool, runfunc: Callable):
+    """Template expansion fixture, parametrized by python version etc"""
     extra_context = {
         "python_version": python_version,
         "project_name": RANDOMIZED_PROJECT_NAME,
@@ -39,29 +38,25 @@ def tests_template_renders_ok(template: Template):
     """Checks we can invoke copier simply without specific arguments"""
     pass  # Checking the "template" fixture doesn't fail the test
 
-
-def tests_template_packages_ok(template: Template):
-    """Checks we can run poetry build on rendered code to get a binary"""
-    out_path = template.run_in_dev(["poetry", "build"], template)
-    assert os.listdir(out_path + "/dist/"), "Nothing was built!"
-
-
-def tests_template_docs_ok(template: Template):
-    """Checks we can run make docson rendered code to get HTML"""
-    out_path = template.run_in_dev(["make", "docs"], template)
-    assert os.listdir(out_path + "/docs/build/html/"), "Docs not built"
-
-
 def tests_template_makes_ok(template: Template):
-    """Checks we can run make on rendered code to get a binary/tests"""
-    out_path = template.run_in_dev("make", template)
-    assert os.listdir(out_path + "/dist/"), "Nothing was built!"
+    """Scenario: Running 'make' on template applies full build process"""
+    # Given a template
+    # When I run 'make'
+    out_path = template.run_in_dev(["make"], template)
+    # Then the command succeeds
+    # And I get test results
     assert os.path.isfile(
         out_path + "/test_results/results.xml"
-    ), "Test results not saved"
+    ), "Should save test results jUnit results"
+    # And I get test coverage
     assert os.path.isfile(
         out_path + "/test_results/coverage.xml"
-    ), "Coverage report not saved"
+    ), "Should save coverage"
+    # And I get generated docs in HTML
+    assert os.listdir(out_path + "/docs/build/html/"), "Should build docs"
+    # And I get built packages
+    assert os.listdir(out_path + "/dist/"), "Should build package"
+    # And 'git status' doesn't show any file to edit
     git_changes_post_make = subprocess.run(
         ["git", "status", "--short"],
         cwd=out_path,
@@ -70,12 +65,12 @@ def tests_template_makes_ok(template: Template):
     )
     assert (
         not git_changes_post_make.stdout
-    ), "Git found unstaged files after running 'make'"
+    ), "Should have no unstaged files after running 'make'"
 
 
 def tests_cli_runs_ok(template: Template):
     """Runs the generated CLI's help works"""
-    template.run_in_dev([template.context["project_slug"], "--help"], template)
+    template.run_in_dev(["poetry", "run", template.context['project_slug'],"--help"], template)
 
 
 def tests_template_makes_docker_release_ok(template: Template):
@@ -101,6 +96,6 @@ def tests_bad_projectname(bad_project_name):
     }
     # When I render the template
     # Then I get a validation error
-    with pytest.raises(ValidationError):
+    with pytest.raises(ValueError):
         with TemporaryDirectory() as tmp_path:
             _path, _config = expand_template(tmp_path, extra_context)
