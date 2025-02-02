@@ -6,6 +6,8 @@ templating versions are not perfect matches for semantic versions.
 
 ## [Unreleased]
 
+## v1.8.0 - 2025-02-02
+
 ### Added
 
 - Support for python 3.13
