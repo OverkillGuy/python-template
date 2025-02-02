@@ -8,7 +8,7 @@ lint:
 
 # Run a (fast, native) test suite which covers most test cases
 # See also: make slow-test, make slow-test-parallel, make try
-TEST_VARIANT="python_version=3.10-runfunc=run_native"
+TEST_VARIANT="python_version=3.10-dynamic_versioning=False-runfunc=run_native"
 test:
 	poetry run pytest \
 		"tests/test_template.py::tests_template_makes_ok[${TEST_VARIANT}]"
