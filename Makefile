@@ -18,9 +18,9 @@ slow-test:
 	poetry run pytest tests/
 
 # Run ALL tests but a few at a time (<10min). Adjust WORKERS to ~CPU count
-WORKERS=4
+WORKERS=auto
 slow-test-parallel:
-	poetry run pytest tests/ --workers ${WORKERS}
+	poetry run pytest tests/ -n ${WORKERS}
 
 build:
 	poetry build

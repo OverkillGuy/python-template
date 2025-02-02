@@ -18,7 +18,7 @@ pytest = "*"
 # Manage test cases for complex parameterized fixtures (such as templates)
 pytest-cases = "*"
 # Parralellize the pytest builds
-pytest-parallel = "^0.1.1"
+pytest-xdist = { version = "*", extras = ["psutil"] }
 # Run containers as part of tests (simulate other python versions)
 testcontainers = "*"
 # Generate fake microservice names for validating the template expansion
