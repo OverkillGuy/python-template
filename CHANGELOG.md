@@ -10,6 +10,7 @@ templating versions are not perfect matches for semantic versions.
 
 - Support for python 3.13
 - `make docs` now renders google-style docstrings properly
+- Update `pre-commit` tool version inside `Dockerfile` used as base dev image
 
 ## v1.7.2 - 2024-11-04
 

@@ -2,7 +2,7 @@ FROM python:{{python_version}}-bookworm
 
 # Bring poetry, our package manager, and pre-commit hooks
 ARG POETRY_VERSION=1.8.1
-ARG PRECOMMIT_VERSION=3.6.2
+ARG PRECOMMIT_VERSION=4.1.0
 {%- if dynamic_version %}
 ARG POETRY_DYNAMIC_VERSION=1.4.1
 {%- endif %}
