@@ -66,8 +66,8 @@ python-gitignore:
 # Make a release commit + tag, creating Changelog entry
 # Set BUMP variable to any of poetry-supported (major, minor, patch)
 # or number (1.2.3 etc), see 'poetry version' docs for details
+# Variable BUMP defaults to 'patch' (v1.2.3 -> v1.2.4)
 .PHONY: release
-# Default the bump to a patch (v1.2.3 -> v1.2.4)
 release: BUMP=patch
 release:
 # Set the new version Makefile variable after the version bump
