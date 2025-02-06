@@ -45,7 +45,7 @@ try:
 		--UNSAFE \
 		-d "description=A cool project" \
 		-d "python_version=${PYTHON_VERSION}" \
-		-d "dynamic_version=${DYN_VERSION}" \
+		-d "dynamic_versioning=${DYN_VERSION}" \
 		-d "project_name=${RANDOMIZED_PROJECT_NAME}" ${ARGS}
 # Get in there and run make
 	cd template_expanded/ \
