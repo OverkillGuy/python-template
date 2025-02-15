@@ -6,6 +6,10 @@ templating versions are not perfect matches for semantic versions.
 
 ## [Unreleased]
 
+### Changed
+
+- Dynamic versioning feature defaults to Off, to reflect its experimental status
+
 ## v1.8.0 - 2025-02-02
 
 ### Added

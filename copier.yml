@@ -60,7 +60,7 @@ dynamic_versioning:
   type: bool
   help: |
     Should we use dynamic package versioning?
-    If yes, python package version depends on nearest git tag + number of
+    If yes, python package version is computed from nearest git tag + number of
     commits since as suffix, if any. If no, package version is a hard value
     stored in pyproject.toml, regardless of git tag
-  default: True
+  default: False
