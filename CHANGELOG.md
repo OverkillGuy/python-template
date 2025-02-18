@@ -10,6 +10,11 @@ templating versions are not perfect matches for semantic versions.
 
 - Dynamic versioning feature defaults to Off, to reflect its experimental status
 
+### Fixed
+
+- Docstrings are again valid markdown, instead of reStructuredText. Regression
+  was caused by the google-style docstrings parsing.
+
 ## v1.8.0 - 2025-02-02
 
 ### Added

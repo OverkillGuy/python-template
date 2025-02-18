@@ -66,3 +66,9 @@ autodoc2_docstring_parser_regexes = [
 ]
 
 myst_heading_anchors = 2
+
+myst_enable_extensions = [
+    "dollarmath",
+    "fieldlist",
+    "colon_fence",
+]
