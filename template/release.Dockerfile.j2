@@ -23,6 +23,10 @@ FROM python:{{python_version}}-slim as runner
 # Bring the wheel file and the pinned dependency list
 COPY --from=builder /workdir/dist /workdir/requirements.lock.txt /app/
 
+# Compile Python source files to bytecode [...] tends to improve startup time
+# (at the cost of increased installation time)
+ENV UV_COMPILE_BYTECODE=1
+
 # Install the package
 RUN pip install --no-deps --no-cache-dir -r /app/requirements.lock.txt && \
     pip install --no-deps --no-cache-dir /app/*.whl
