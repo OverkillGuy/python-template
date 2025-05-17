@@ -1,13 +1,10 @@
-FROM python:{{python_version}}-bookworm
+FROM ghcr.io/astral-sh/uv:python{{python_version}}-bookworm
 
-# Bring uv, our package manager, and pre-commit hooks
-ARG UV_VERSION=0.5.26
-ARG PRECOMMIT_VERSION=4.1.0
+ARG PRECOMMIT_VERSION=4.2.0
 {%- if dynamic_version %}
-ARG UV_DYNAMIC_VERSION=0.5.0
+ARG UV_DYNAMIC_VERSION=0.8.2
 {%- endif %}
 RUN pip install --no-cache-dir \
-    "uv==${UV_VERSION}" \
 {%- if dynamic_version %}
     "uv-dynamic-versioning==${UV_DYNAMIC_VERSION}" \
 {%- endif %}
@@ -22,8 +19,10 @@ RUN apt-get update \
     && apt-get upgrade -y \
     && rm -rf /var/lib/apt/lists/*
 
-COPY . /workdir
+# Copy the project into the image
 WORKDIR /workdir
+COPY . /workdir
 
-# Install the local package dependencies (dev-mode)
-RUN uv sync
+# Install dependencies (with caching), ensuring lockfile is still identical
+RUN --mount=type=cache,target=/root/.cache/uv \
+    uv sync --locked
