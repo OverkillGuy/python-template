@@ -4,7 +4,9 @@ description = "{{description}}"
 authors = [ { name= "{{author_name}}", email= "{{author_email}}" } ]
 readme = "README.md"
 {%- if dynamic_versioning %}
-# Using uv-dynamic-versioning
+
+# Using uv-dynamic-versioning to generate version number from closest git tag
+# Generate the version number via 'uvx dunamai from git'
 dynamic = ["version"]
 {% else %}
 version = "0.1.0"

@@ -12,7 +12,11 @@ endif
 # - Fallback values using ?=, see below:
 DOCKER_IMAGE_NAME?={{project_slug}}
 DOCKER_REGISTRY?=
-APP_VERSION?=$(shell uv tree -q --depth=0 | awk '{print $$2}' | tr -d ' ')
+{%- if dynamic_versioning %}
+APP_VERSION?=$(shell uvx dunamai from git | sed 's/+/-/g')
+{% else %}
+APP_VERSION?=$(shell uv version --short)
+{% endif %}
 
 ## Default command, run via 'make' or 'make all'
 .PHONY: all
@@ -82,24 +86,23 @@ docker-build-release:
 docker-build-dev:
 	docker build -t ${DOCKER_IMAGE_NAME}-dev .
 
-{# ##  Make a release commit + tag, creating Changelog entry #}
-{# ##  Set BUMP variable to any of poetry-supported (major, minor, patch) #}
-{# ##  or number (1.2.3 etc), see 'poetry version' docs for details #}
-{# ##  Default the bump to a patch (v1.2.3 -> v1.2.4) #}
-{# BUMP=patch #}
-{# .PHONY: release #}
-{# release: #}
-{# # Set the new version Makefile variable after the version bump #}
-{# 	$(eval NEW_VERSION := $(shell poetry version --short{% if dynamic_version %} --dry-run{% endif %} ${BUMP})) #}
-{# 	$(eval TMP_CHANGELOG := $(shell mktemp)) #}
-{# 	sed \ #}
-{# 		"s/\(## \[Unreleased\]\)/\1\n\n## v${NEW_VERSION} - $(shell date +%Y-%m-%d)/" \ #}
-{# 		CHANGELOG.md > ${TMP_CHANGELOG} #}
-{# 	mv --force ${TMP_CHANGELOG} CHANGELOG.md #}
-{# 	git add CHANGELOG.md{% if not dynamic_version %} pyproject.toml{% endif %} #}
-{# 	git commit -m "Bump to version v${NEW_VERSION}" #}
-{# 	git tag --annotate "v${NEW_VERSION}" \ #}
-{# 		--message "Release v${NEW_VERSION}" #}
+##  Make a release commit + tag, creating Changelog entry
+##  Set BUMP variable to any of uv-supported (major, minor, patch)
+##  Default the bump to a patch (v1.2.3 -> v1.2.4)
+BUMP=patch
+.PHONY: release
+release:
+# Set the new version Makefile variable after the version bump
+	$(eval NEW_VERSION := $(shell uv version --short{% if dynamic_version %} --dry-run{% endif %} --bump ${BUMP}))
+	$(eval TMP_CHANGELOG := $(shell mktemp))
+	@sed \
+		"s;\(## \[Unreleased\]\);\1\n\n## v${NEW_VERSION} - $(shell date +%Y-%m-%d);" \
+		CHANGELOG.md > ${TMP_CHANGELOG}
+	@mv --force ${TMP_CHANGELOG} CHANGELOG.md
+	git add CHANGELOG.md{% if not dynamic_version %} pyproject.toml{% endif %}
+	git commit -m "Bump to version v${NEW_VERSION}"
+	git tag --annotate "v${NEW_VERSION}" \
+		--message "Release v${NEW_VERSION}"
 
 ##  Less commonly used commands
 
