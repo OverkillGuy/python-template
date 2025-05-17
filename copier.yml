@@ -6,6 +6,7 @@ _skip_if_exists:
   - CHANGELOG.md
 # # Tasks (git init + commit + tag) interfere with the update process!
 _tasks:
+  - uv lock
   - >-
     export AUTHOR_NAME="{{author_name}}";
     export AUTHOR_EMAIL="{{author_email}}";
