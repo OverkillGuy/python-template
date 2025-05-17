@@ -6,6 +6,15 @@ templating versions are not perfect matches for semantic versions.
 
 ## [Unreleased]
 
+### Changed
+
+- The template now uses [uv](https://docs.astral.sh/uv/) exclusively rather than
+  [Poetry](https://python-poetry.org/).
+  - `uv` is _much_ faster than Poetry, and provides critically missing features
+    like workspaces (multiple sub-packages in one repo), and it now replaces
+    pipx and pyenv needs into one package.
+  - All `Makefile` commands updated so it should be transparent on upgrade
+
 ### Fixed
 
 - Project now explicitly licensed under GPLv3 or later, as was always meant, but
