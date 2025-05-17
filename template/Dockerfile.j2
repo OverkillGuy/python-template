@@ -23,6 +23,10 @@ RUN apt-get update \
 WORKDIR /workdir
 COPY . /workdir
 
+# Changing the default UV_LINK_MODE silences warnings about not being able to
+# use hard links since the cache and sync target are on separate file systems.
+ENV UV_LINK_MODE=copy
+
 # Install dependencies (with caching), ensuring lockfile is still identical
 RUN --mount=type=cache,target=/root/.cache/uv \
     uv sync --locked
