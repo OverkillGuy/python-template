@@ -15,18 +15,18 @@ Install the module first:
 ```shell
 make install
 # or
-poetry install
+uv sync
 ```
 
 Then inside the virtual environment, launch the command:
 
 ```shell
 # Run single command inside virtualenv
-poetry run {{project_slug}}
+uv run {{project_slug}}
 
 # or
 # Load the virtualenv first
-poetry shell
+source .venv/bin/activate
 # Then launch the command, staying in virtualenv
 {{project_slug}}
 ```
@@ -36,10 +36,10 @@ poetry shell
 ### Python setup
 
 This repository uses Python{{python_version}}, using
-[Poetry](https://python-poetry.org) as package manager to define a
+[uv](https://docs.astral.sh/uv/) as package manager to define a
 Python package inside `src/{{ package_name }}/`.
 
-`poetry` will create virtual environments if needed, fetch
+`uv` will create virtual environments if needed, fetch
 dependencies, and install them for development.
 
 For ease of development, a `Makefile` is provided, use it like this:
@@ -55,10 +55,10 @@ make install test
 ```
 
 Once installed, the module's code can now be reached through running
-Python in Poetry:
+Python in uv:
 
 ```shell
-$ poetry run python
+$ uv run python
 >>> from {{ package_name }} import main
 >>> main("blabla")
 ```
