@@ -19,14 +19,22 @@ RUN apt-get update \
     && apt-get upgrade -y \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy the project into the image
+
 WORKDIR /workdir
-COPY . /workdir
 
 # Changing the default UV_LINK_MODE silences warnings about not being able to
 # use hard links since the cache and sync target are on separate file systems.
 ENV UV_LINK_MODE=copy
 
-# Install dependencies (with caching), ensuring lockfile is still identical
+# Install dependencies only, as they don't change often (note bindmount deplist)
+RUN --mount=type=cache,target=/root/.cache/uv \
+    --mount=type=bind,source=uv.lock,target=uv.lock \
+    --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
+    uv sync --locked --no-install-project
+
+# Copy the actual project contents into the image
+COPY . /workdir
+
+# Sync the project now the code is present
 RUN --mount=type=cache,target=/root/.cache/uv \
     uv sync --locked
