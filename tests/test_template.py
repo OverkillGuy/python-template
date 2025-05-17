@@ -72,7 +72,7 @@ def tests_template_makes_ok(template: Template):
 
 def tests_cli_runs_ok(template: Template):
     """Runs the generated CLI's help works"""
-    template.run_in_dev(["poetry", "run", template.context['project_slug'],"--help"], template)
+    template.run_in_dev(["uv", "run", template.context['project_slug'],"--help"], template)
 
 
 def tests_template_makes_docker_release_ok(template: Template):

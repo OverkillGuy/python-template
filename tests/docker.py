@@ -50,20 +50,25 @@ def run_docker_devimg(
     py_version = template.context["python_version"]
     copy_source_path = "/workdir"
     docker_devimg_name = f"python-skeleton-testing:{py_version}"
-    with DockerImage(
-        path=template.path, tag=docker_devimg_name, clean_up=True
-    ) as image:
-        with DockerContainer(str(image)).with_command(command).with_env(
-            "XDG_CACHE_HOME", "/caches/"
-        ).with_volume_mapping(
-            f"python-skeleton-test-{context['python_version']}", "/caches", "rw"
-        )as container:
-# .with_volume_mapping(template.path + "/.git/", "/workdir/.git/", "ro")
-            wait_container_is_ready()
-            exit_code = container.get_wrapped_container().wait()["StatusCode"]
-            logs = container.get_logs()
-            print(logs)
-            copy_container_path_out(container, copy_source_path, workdir)
+    try:
+        with DockerImage(
+            path=template.path, tag=docker_devimg_name, clean_up=True
+        ) as image:
+            with DockerContainer(str(image)).with_command(command).with_env(
+                "XDG_CACHE_HOME", "/caches/"
+            ).with_volume_mapping(
+                f"python-skeleton-test-{context['python_version']}", "/caches", "rw"
+            )as container:
+    # .with_volume_mapping(template.path + "/.git/", "/workdir/.git/", "ro")
+                wait_container_is_ready()
+                exit_code = container.get_wrapped_container().wait()["StatusCode"]
+                logs = container.get_logs()
+                print(logs)
+                copy_container_path_out(container, copy_source_path, workdir)
+    except docker.errors.BuildError as e:
+        if "requires BuildKit." in e.args[0]:
+            pytest.skip("Buildkit required for complex docker build")
+        raise
     if exit_code > 0:
         pytest.fail(f"Build unsuccessful, container exited {exit_code}")
     # Successful run: copy data back out for analysis
@@ -75,7 +80,7 @@ def run_native(command: list[str], template: Template):
     # Ensure the deps are installed already
     try:
         subprocess.run(
-            ["poetry", "install"],
+            ["uv", "sync"],
             cwd=template.path,
             capture_output=True,
             text=True,
