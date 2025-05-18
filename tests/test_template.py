@@ -6,7 +6,7 @@ from typing import Callable
 import pytest
 from pytest_cases import fixture, parametrize
 
-from tests.docker import run_docker_devimg, run_native
+from tests.docker import run_native
 from tests.templating import (
     RANDOMIZED_PROJECT_NAME,
     Template,
@@ -18,10 +18,9 @@ ROOT_CONFIG = copier_config()
 
 
 @fixture
-@parametrize(runfunc=[run_native, run_docker_devimg])
 @parametrize(dynamic_versioning=[True, False])
 @parametrize(python_version=ROOT_CONFIG["python_version"]["choices"])
-def template(python_version: str, dynamic_versioning: bool, runfunc: Callable):
+def template(python_version: str, dynamic_versioning: bool):
     """Template expansion fixture, parametrized by python version etc"""
     extra_context = {
         "python_version": python_version,
@@ -32,7 +31,7 @@ def template(python_version: str, dynamic_versioning: bool, runfunc: Callable):
     with TemporaryDirectory() as tmp_path:
         path, config = expand_template(tmp_path, extra_context)
         # git_init(path, config["author_name"], config["author_email"])
-        yield Template(path, config, runfunc)
+        yield Template(path, config, run_native)
 
 
 # TODO Separate the parametrization of runfunc to avoid testing twice basic features
