@@ -123,29 +123,25 @@ the current date is release of `v0.1.0`.
 
 ## Python-specific design choices
 
-### Use of Poetry
+### Use of uv, beyond Poetry
 
-As many have noted before, `pip` and `virtualenv` are absolutely sufficient to make
-python code flow.
-But having experienced other languages and their well-integrated tooling for
-package creation, virtual environment management, build and release, `poetry` is
-just too convenient.
+As many have noted before, `pip` and `virtualenv` are absolutely sufficient to
+make python code flow. But having experienced other languages and their
+well-integrated tooling for package creation, virtual environment management,
+build and release, standalone tools like `uv` are just too convenient.
 
 It covers the package definition (much, much more simply than obscure
 `setup.py`, with a well defined specification, and declaratively, avoiding
 arbitrary code execution that `setup.py` somehow encourages).
-It covers the virtual-environment management too. We recommend the setting
-`virtualenvs.in-project` be set to `true` (see `make poetry-venv-local`), to
-allow for easy inspection and wipe of the `.venv/` (see `make
-poetry-venv-nuke`).
+
+It covers the virtual-environment management too, and replaces both `pipx` and `pyenv` in terms of replacing the  allow for easy inspection and wipe of the `.venv/` (see `make
+venv-nuke`).
 
 All in all, these features are too good to ignore, just wrap all commands in
-`poetry run` to ensure venv is respected, and move on.
+`uv run` to ensure venv is respected, and move on.
 
-There is no well-known Docker image with `poetry` installed, so the first step
-in that image is installing poetry itself. Note the release docker image does
-not contain poetry, nor does it need it, only installing the built package via
-`pip`, to minimize dependencies.
+Note the release docker image does not contain uv, nor does it need it, only
+installing the built package via `pip`, to minimize installed dependencies.
 
 ### Gitignore
 
