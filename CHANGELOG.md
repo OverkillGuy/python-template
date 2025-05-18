@@ -6,6 +6,8 @@ templating versions are not perfect matches for semantic versions.
 
 ## [Unreleased]
 
+## v2.0.0a1 - 2025-05-18
+
 ## v2.0.0a0 - 2025-05-17
 
 ### Changed
