@@ -77,10 +77,16 @@ def tests_cli_runs_ok(template: Template):
 
 def tests_template_makes_docker_release_ok(template: Template):
     """Checks we can build the released docker image"""
-    # Build the wheel file first, for releasing
     subprocess.check_call(["make", "docker-build-release"], cwd=template.path)
     image_name = template.context["project_slug"] + ":0.1.0"
     subprocess.check_call(["docker", "image", "rm", image_name])
+
+def tests_template_makes_docker_dev_ok(template: Template):
+    """Checks we can build the dev docker image"""
+    subprocess.check_call(["make", "docker-build-dev"], cwd=template.path)
+    image_name = template.context["project_slug"] + "-dev"
+    subprocess.check_call(["docker", "image", "rm", image_name])
+
 
 
 @parametrize(
