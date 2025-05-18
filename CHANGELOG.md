@@ -83,7 +83,7 @@ templating versions are not perfect matches for semantic versions.
 
 ### Added
 
-- New parameter `dynamic_version`, defaulting to `True`. Enable to use proximity
+- New parameter `dynamic_versioning`, defaulting to `True`. Enable to use proximity
   to a git tag as package version. On git tags, package version is tag. On
   non-tagged commits, version is last tag + number of commits as post. Uses
   `poetry-dynamic-versioning`, using `dunamai` library

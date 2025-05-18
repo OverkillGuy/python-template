@@ -1,12 +1,21 @@
 FROM ghcr.io/astral-sh/uv:python{{python_version}}-bookworm
 
+# Ensure tools installed by UV are on PATH right away
+# Per https://github.com/astral-sh/uv/issues/13057#issuecomment-2832631407
+ENV UV_TOOL_BIN_DIR=/usr/local/bin
+
+# Disable python version downloading, use what we got!
+ENV UV_PYTHON_DOWNLOADS=0
+
+
 ARG PRECOMMIT_VERSION=4.2.0
-{%- if dynamic_version %}
+{%- if dynamic_versioning %}
 ARG UV_DYNAMIC_VERSION=0.8.2
-{%- endif %}
-RUN pip install --no-cache-dir \
-{%- if dynamic_version %}
-    "uv-dynamic-versioning==${UV_DYNAMIC_VERSION}" \
+RUN uv pip install --system \
+    "uv-dynamic-versioning==${UV_DYNAMIC_VERSION}" && \
+    uv tool install \
+{%- else %}
+RUN uv tool install \
 {%- endif %}
     "pre-commit==${PRECOMMIT_VERSION}"
 
