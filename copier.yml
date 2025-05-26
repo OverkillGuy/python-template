@@ -16,10 +16,9 @@ _tasks:
     export TEMPLATE="{{project_slug}}";
     {{_copier_conf.src_path}}/hooks/git_init_project
 _migrations:
-  - version: v2.0.0a2
+  - version: v2.0.0a3
     before:
       - uvx migrate-to-uv
-    after:
       - uv lock
 
 project_name:
