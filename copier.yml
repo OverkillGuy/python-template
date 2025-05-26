@@ -4,6 +4,7 @@ _templates_suffix: .j2
 _min_copier_version: 9.4.1
 _skip_if_exists:
   - CHANGELOG.md
+  - pyproject.toml
 # # Tasks (git init + commit + tag) interfere with the update process!
 _tasks:
   - git init --initial-branch main
@@ -13,6 +14,12 @@ _tasks:
     export AUTHOR_EMAIL="{{author_email}}";
     export TEMPLATE="{{project_slug}}";
     {{_copier_conf.src_path}}/hooks/git_init_project
+_migrations:
+  - version: v2.0.0a2
+    before:
+      - uvx migrate-to-uv
+    after:
+      - uv lock
 
 project_name:
   type: str
