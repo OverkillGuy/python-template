@@ -20,6 +20,7 @@ _migrations:
     before:
       - uvx migrate-to-uv
       - uv lock
+# - sed -i -e 's;[tool\.entry-points\.;[project.entry-points.;g' pyproject.toml
 
 project_name:
   type: str
