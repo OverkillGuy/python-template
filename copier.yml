@@ -19,7 +19,7 @@ _migrations:
   - version: v2.0.0a3
     before:
       # Poetry plugins -> uv plugins, not covered by migrate-to-uv
-      - sed -i -e 's;\[tool\.poetry\.plugins\.;\[project.entry-points.;g' pyproject.toml
+      - sed -i -e s/tool\.poetry\.plugins/project.entry-points/g pyproject.toml
       - uvx migrate-to-uv
       - uv lock
 project_name:
