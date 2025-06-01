@@ -33,6 +33,7 @@ MAKE_TGT=all
 RANDOMIZED_PROJECT_NAME=$(shell poetry run python -c 'import faker_microservice;from faker import Faker;fake = Faker();fake.add_provider(faker_microservice.Provider);print(fake.microservice().replace("-", " ").replace("_", " ").capitalize())')
 DYN_VERSION=true
 ARGS?=
+REF=HEAD
 try:
 # Wipe previous such templating if any
 	-rm -rf template_expanded
@@ -40,7 +41,7 @@ try:
 	poetry run copier copy \
 		. \
 		'template_expanded/new_project/' \
-		--vcs-ref HEAD \
+		--vcs-ref ${REF} \
 		--defaults \
 		--UNSAFE \
 		-d "description=A cool project" \
