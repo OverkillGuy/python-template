@@ -29,13 +29,20 @@ create_git_repository() {
             exit 0  # No action, exit early
         fi
     fi
+}
+
+uv_lock () {
+    uv lock
+}
+
+commit_and_tag() {
     # Temporarily set commiter name.
     # Nicely solves problem of "missing git user" in CI by making all
     # template instantiation use a set user name/email combo
     git config --get user.name > /dev/null || git config --local user.name "${AUTHOR_NAME}"
     git config --get user.email > /dev/null || git config --local user.email "${AUTHOR_EMAIL}"
 
-    # Commit
+    # Commit and tag
     git add --all
     git commit \
         --message "Initial commit from 'copier' template"
@@ -50,3 +57,5 @@ create_git_repository() {
 
 
 create_git_repository
+uv_lock
+commit_and_tag

@@ -8,13 +8,12 @@ _skip_if_exists:
   - docs/source/index.md
 # # Tasks (git init + commit + tag) interfere with the update process!
 _tasks:
-  - git init --initial-branch main
-  - uv lock
-  - >-
-    export AUTHOR_NAME="{{author_name}}";
-    export AUTHOR_EMAIL="{{author_email}}";
-    export TEMPLATE="{{project_slug}}";
-    {{_copier_conf.src_path}}/hooks/git_init_project
+  - when: "{{ _copier_operation == 'copy' }}"
+    command: >-
+      export AUTHOR_NAME="{{author_name}}";
+      export AUTHOR_EMAIL="{{author_email}}";
+      export TEMPLATE="{{project_slug}}";
+      {{_copier_conf.src_path}}/hooks/git_init_project
 _migrations:
   - version: v2.0.0a8
     before:
