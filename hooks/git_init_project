@@ -11,8 +11,8 @@ create_git_repository() {
     # AUTHOR_NAME=$1
     # AUTHOR_EMAIL=$2
 
-    if [[ ! -d ".git/" ]];
-    then
+   if (git rev-parse --is-inside-work-tree >/dev/null 2>&1);
+   then
         # No git repo exists
         echo "Creating a git repo..."
         git init --initial-branch main
