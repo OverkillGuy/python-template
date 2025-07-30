@@ -16,11 +16,7 @@ _tasks:
       {{_copier_conf.src_path}}/hooks/git_init_project
 _migrations:
   - version: v2.0.0a8
-    command:
-      # Poetry plugins -> uv plugins, not covered by migrate-to-uv
-      # - ["sed", "-i", "-e", "s/tool.poetry.plugins/project.entry-points/g", "pyproject.toml"]
-      - uvx migrate-to-uv
-      - uv lock
+    command: uvx migrate-to-uv && uv lock
 project_name:
   type: str
   help: "What is your project name? (format: Capitalized With Spaces)"
