@@ -17,7 +17,7 @@ _tasks:
       {{_copier_conf.src_path}}/hooks/git_init_project
 _migrations:
   - version: v2.0.0a8
-    command: uvx migrate-to-uv && uv lock
+    command: cat pyproject.toml && uvx migrate-to-uv && uv lock
     when: "{{ _stage == 'before' }}"
 project_name:
   type: str
