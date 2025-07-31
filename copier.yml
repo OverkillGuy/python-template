@@ -9,7 +9,7 @@ _skip_if_exists:
 _exclude:
   # pyproject.toml is updated via migration task = excluded
   # But only in updates from v1 to v2 = migration poetry -> uv
-  - "{% if _copier_operation == 'update' and _version_from.startswith('v1') and  _version_to.startswith('v2') -%}pyproject.toml{% endif %}"
+  - "{% if _copier_operation == 'update' and _copier_answer._commit.startswith('v1') -%}pyproject.toml{% endif %}"
 
 # # Tasks (git init + commit + tag) interfere with the update process!
 _tasks:
