@@ -6,11 +6,11 @@ _skip_if_exists:
   - CHANGELOG.md
   - README.md
   - docs/source/index.md
-_exclude:
   # pyproject.toml is updated via migration task = excluded
   # But only in updates from v1 to v2 = migration poetry -> uv
 # FIXME: Refine the filter for excluding pyproject.toml ONLY on update AND when moving from v1 to v2 of template (other cases should be empty)
   - "{% if _copier_operation == 'update' -%}pyproject.toml{% endif %}"
+
 # and _copier_answers._commit.startswith('v1')
 # # Tasks (git init + commit + tag) interfere with the update process!
 _tasks:
