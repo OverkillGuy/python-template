@@ -10,9 +10,10 @@ RUN uv pip install --system \
 WORKDIR /workdir
 COPY . /workdir
 
-# Generate both pinned dependencies list from lockfile
+# Generate both pinned dependencies list from lockfile (no dev-deps)
 # And the distribution binary (wheel) package
 RUN uv export \
+    --no-default-groups \
     --locked --no-emit-workspace --no-editable \
     --output-file requirements.lock.txt \
     && uv build --wheel

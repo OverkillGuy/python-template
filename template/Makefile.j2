@@ -35,7 +35,7 @@ help:
 ## Set up the virtualenv and install the package + dependencies
 .PHONY: install
 install:
-	uv sync --all-extras
+	uv sync
 
 ## Run the linters and formatters on all files (not just staged for commit)
 .PHONY: lint
@@ -45,13 +45,13 @@ lint:
 ## Run the tests
 .PHONY: test
 test:
-	uv run --all-extras pytest
+	uv run pytest
 
 ## Generate the docs, both HTML and docsets
 .PHONY: docs
 docs:
 	cd docs && make html
-	uv run --all-extras \
+	uv run \
 		doc2dash \
 			--force \
 			--name {{project_slug}} \
