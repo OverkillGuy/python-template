@@ -10,13 +10,14 @@ templating versions are not perfect matches for semantic versions.
 
 - Update base image Debian to Trixie (from Bookworm)
 - Update pre-commit hook versions
+- Update docs + test dependencies
 
 ### Removed
 
 - Dynamic versioning feature is removed, too hard to support in template
-  - Overall concept is sound, but there are obscure issues to having to include
-    the full git tool + history available in Dockerfile, interacts with git mirrors in CI, and overall is a pain.
-  - I never liked this feature anyway (added as a challenge), learn to version!
+  - There are obscure issues when depending on the full git history in
+    Dockerfile, which interacts badly with git mirrors in CI, and overall it's a
+    pain to support properly, not worth it: Use git tags instead!
 
 ## v2.0.0a24 - 2025-11-30
 
