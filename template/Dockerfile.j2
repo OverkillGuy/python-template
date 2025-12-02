@@ -9,14 +9,7 @@ ENV UV_PYTHON_DOWNLOADS=0
 
 
 ARG PRECOMMIT_VERSION=4.2.0
-{%- if dynamic_versioning %}
-ARG UV_DYNAMIC_VERSION=0.8.2
-RUN uv pip install --system \
-    "uv-dynamic-versioning==${UV_DYNAMIC_VERSION}" && \
-    uv tool install \
-{%- else %}
 RUN uv tool install \
-{%- endif %}
     "pre-commit==${PRECOMMIT_VERSION}"
 
 # Workaround critical-level CVEs in Python image

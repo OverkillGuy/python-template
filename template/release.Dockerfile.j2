@@ -1,11 +1,5 @@
 FROM ghcr.io/astral-sh/uv:python{{python_version}}-bookworm as builder
 
-{%- if dynamic_versioning %}
-ARG UV_DYNAMIC_VERSION=0.8.2
-RUN uv pip install --system \
-    "uv-dynamic-versioning==${UV_DYNAMIC_VERSION}"
-{%- endif %}
-
 # Copy the project into the image
 WORKDIR /workdir
 COPY . /workdir

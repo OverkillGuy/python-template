@@ -3,14 +3,7 @@ name = "{{ package_name }}"
 description = "{{description}}"
 authors = [ { name= "{{author_name}}", email= "{{author_email}}" } ]
 readme = "README.md"
-{%- if dynamic_versioning %}
-
-# Using uv-dynamic-versioning to generate version number from closest git tag
-# Generate the version number via 'uvx dunamai from git'
-dynamic = ["version"]
-{% else %}
 version = "0.1.0"
-{% endif %}
 requires-python = ">={{python_version}}"
 dependencies = []
 
@@ -40,17 +33,8 @@ test = [
 
 
 [build-system]
-{%- if dynamic_versioning %}
-# Override of default uv build system, using dynamic version plugin
-requires = ["hatchling", "uv-dynamic-versioning"]
-build-backend = "hatchling.build"
-
-[tool.hatch.version]
-source = "uv-dynamic-versioning"
-{% else %}
 requires = ["hatchling"]
 build-backend = "hatchling.build"
-{% endif %}
 
 [tool.pytest.ini_options]
 addopts = """-vv \

@@ -6,6 +6,13 @@ templating versions are not perfect matches for semantic versions.
 
 ## [Unreleased]
 
+### Removed
+
+- Dynamic versioning feature is removed, too hard to support in template
+  - Overall concept is sound, but there are obscure issues to having to include
+    the full git tool + history available in Dockerfile, interacts with git mirrors in CI, and overall is a pain.
+  - I never liked this feature anyway (added as a challenge), learn to version!
+
 ## v2.0.0a24 - 2025-11-30
 
 ## v2.0.0a9 - 2025-06-01

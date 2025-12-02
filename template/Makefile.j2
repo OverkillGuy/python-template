@@ -12,11 +12,7 @@ endif
 # - Fallback values using ?=, see below:
 DOCKER_IMAGE_NAME?={{project_slug}}
 DOCKER_REGISTRY?=
-{%- if dynamic_versioning %}
-APP_VERSION?=$(shell uvx dunamai from git | sed 's/+/-/g')
-{% else %}
 APP_VERSION?=$(shell uv version --short)
-{% endif %}
 
 ## Default command, run via 'make' or 'make all'
 .PHONY: all
@@ -93,13 +89,13 @@ BUMP=patch
 .PHONY: release
 release:
 # Set the new version Makefile variable after the version bump
-	$(eval NEW_VERSION := $(shell uv version --short{% if dynamic_versioning %} --dry-run{% endif %} --bump ${BUMP}))
+	$(eval NEW_VERSION := $(shell uv version --short --bump ${BUMP}))
 	$(eval TMP_CHANGELOG := $(shell mktemp))
 	@sed \
 		"s;\(## \[Unreleased\]\);\1\n\n## v${NEW_VERSION} - $(shell date +%Y-%m-%d);" \
 		CHANGELOG.md > ${TMP_CHANGELOG}
 	@mv --force ${TMP_CHANGELOG} CHANGELOG.md
-	git add CHANGELOG.md{% if not dynamic_versioning %} pyproject.toml uv.lock{% endif %}
+	git add CHANGELOG.md pyproject.toml uv.lock
 	git commit -m "Bump to version v${NEW_VERSION}"
 	git tag --annotate "v${NEW_VERSION}" \
 		--message "Release v${NEW_VERSION}"
@@ -124,9 +120,6 @@ update:
 .PHONY: install-tools
 install-tools:
 	uv self version
-{%- if dynamic_versioning %}
-	uv tool install uv-dynamic-versioning
-{%- endif %}
 	uv tool install pre-commit
 
 ## Delete the virtualenv to clean dependencies

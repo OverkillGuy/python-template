@@ -8,7 +8,7 @@ lint:
 
 # Run a (fast, native) test suite which covers most test cases
 # See also: make slow-test, make slow-test-parallel, make try
-TEST_VARIANT="python_version=3.10-dynamic_versioning=False-runfunc=run_native"
+TEST_VARIANT="python_version=3.10-runfunc=run_native"
 test:
 	poetry run pytest \
 		"tests/test_template.py::tests_template_makes_ok[${TEST_VARIANT}]"
@@ -31,7 +31,6 @@ PYTHON_VERSION=3.12
 MAKE_TGT=all
 # MAKE_TGT=docker-build docker-build-release
 RANDOMIZED_PROJECT_NAME=$(shell poetry run python -c 'import faker_microservice;from faker import Faker;fake = Faker();fake.add_provider(faker_microservice.Provider);print(fake.microservice().replace("-", " ").replace("_", " ").capitalize())')
-DYN_VERSION=true
 ARGS?=
 REF=HEAD
 try:
@@ -46,7 +45,6 @@ try:
 		--UNSAFE \
 		-d "description=A cool project" \
 		-d "python_version=${PYTHON_VERSION}" \
-		-d "dynamic_versioning=${DYN_VERSION}" \
 		-d "project_name=${RANDOMIZED_PROJECT_NAME}" ${ARGS}
 # Get in there and run make
 	cd template_expanded/ \

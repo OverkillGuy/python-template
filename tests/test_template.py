@@ -19,7 +19,6 @@ ROOT_CONFIG = copier_config()
 
 
 @fixture
-@parametrize(dynamic_versioning=[True, False])
 @parametrize(python_version=ROOT_CONFIG["python_version"]["choices"])
 @parametrize(run_func=[run_native# , run_docker_devimg
                        ])
@@ -29,7 +28,6 @@ def template(python_version: str, run_func: Callable):
         "python_version": python_version,
         "project_name": RANDOMIZED_PROJECT_NAME,
         "description": "A cool project",
-        "dynamic_versioning": dynamic_versioning,
     }
     with TemporaryDirectory() as tmp_path:
         path, config = expand_template(tmp_path, extra_context)
