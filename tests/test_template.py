@@ -12,7 +12,6 @@ from tests.templating import (
     Template,
     copier_config,
     expand_template,
-    git_init,
 )
 
 ROOT_CONFIG = copier_config()
@@ -31,8 +30,6 @@ def template(python_version: str, run_func: Callable):
     }
     with TemporaryDirectory() as tmp_path:
         path, config = expand_template(tmp_path, extra_context)
-        # FIXME: Git init should be covered by the template hook!
-        git_init(path, config["author_name"], config["author_email"])
         yield Template(path, config, run_func)
 
 

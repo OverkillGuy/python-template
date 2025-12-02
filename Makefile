@@ -33,13 +33,14 @@ MAKE_TGT=all
 RANDOMIZED_PROJECT_NAME=$(shell poetry run python -c 'import faker_microservice;from faker import Faker;fake = Faker();fake.add_provider(faker_microservice.Provider);print(fake.microservice().replace("-", " ").replace("_", " ").capitalize())')
 ARGS?=
 REF=HEAD
+TGTDIR=../template_expanded
 try:
 # Wipe previous such templating if any
-	-rm -rf template_expanded
+	-rm -rf ${TGTDIR}
 # Re-expand with randomized vars
 	poetry run copier copy \
 		. \
-		'template_expanded/new_project/' \
+		${TGTDIR} \
 		--vcs-ref ${REF} \
 		--defaults \
 		--UNSAFE \
@@ -47,15 +48,14 @@ try:
 		-d "python_version=${PYTHON_VERSION}" \
 		-d "project_name=${RANDOMIZED_PROJECT_NAME}" ${ARGS}
 # Get in there and run make
-	cd template_expanded/ \
-		&& cd * \
+	cd ${TGTDIR} \
 		&& make ${MAKE_TGT}
 
 .PHONY: try-update
 try-update:
 	poetry run copier update \
 		--conflict inline \
-		'template_expanded/new_project/'
+		${TGTDIR}
 
 .PHONY: python-gitignore
 python-gitignore:

@@ -19,6 +19,7 @@ _tasks:
       export AUTHOR_NAME="{{author_name}}";
       export AUTHOR_EMAIL="{{author_email}}";
       export TEMPLATE="{{project_slug}}";
+      export TGTDIR="{{ _copier_conf.dst_path }}";
       {{_copier_conf.src_path}}/hooks/git_init_project
 _migrations:
   - version: v2.0.0a8
