@@ -35,6 +35,7 @@ def copy_container_path_out(container, path, destination):
 
 def python_dev_image(template: Template):
     """Build the python image of the template's dockerfile"""
+    pass
 
 
 def run_docker_devimg(

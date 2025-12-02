@@ -87,6 +87,28 @@ def tests_template_makes_docker_dev_ok(template: Template):
     subprocess.check_call(["docker", "image", "rm", image_name])
 
 
+@parametrize(bump=["major", "minor", "patch"])
+def tests_releases_ok(template: Template, bump: str):
+    """Attempts to release the project, check empty repo"""
+    subprocess.check_call(
+        ["git", "commit", "--allow-empty", "--message", "Empty change before release"],
+        cwd=template.path,
+    )
+    template.run_in_dev(["make", "release", f"BUMP={bump}"], template)
+    git_changes_post_release = subprocess.run(
+        ["git", "status", "--short"],
+        cwd=template.path,
+        capture_output=True,
+        text=True,
+    )
+    assert (
+        not git_changes_post_release.stdout
+    ), "Should have no unstaged files after running 'make release'"
+
+
+
+
+
 
 @parametrize(
     bad_project_name=[
