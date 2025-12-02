@@ -6,6 +6,8 @@ templating versions are not perfect matches for semantic versions.
 
 ## [Unreleased]
 
+## v2.0.0a25 - 2025-12-02
+
 ### Added
 
 - Update base image Debian to Trixie (from Bookworm)
