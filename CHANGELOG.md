@@ -6,6 +6,10 @@ templating versions are not perfect matches for semantic versions.
 
 ## [Unreleased]
 
+### Added
+
+- Update base image Debian to Trixie (from Bookworm)
+
 ### Removed
 
 - Dynamic versioning feature is removed, too hard to support in template
