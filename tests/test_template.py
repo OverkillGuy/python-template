@@ -1,17 +1,18 @@
 import os
 import subprocess
 from tempfile import TemporaryDirectory
-from typing import Callable
 
+from typing import Callable
 import pytest
 from pytest_cases import fixture, parametrize
 
-from tests.docker import run_native
+from tests.docker import run_native# , run_docker_devimg
 from tests.templating import (
     RANDOMIZED_PROJECT_NAME,
     Template,
     copier_config,
     expand_template,
+    git_init,
 )
 
 ROOT_CONFIG = copier_config()
@@ -20,7 +21,9 @@ ROOT_CONFIG = copier_config()
 @fixture
 @parametrize(dynamic_versioning=[True, False])
 @parametrize(python_version=ROOT_CONFIG["python_version"]["choices"])
-def template(python_version: str, dynamic_versioning: bool):
+@parametrize(run_func=[run_native# , run_docker_devimg
+                       ])
+def template(python_version: str, run_func: Callable):
     """Template expansion fixture, parametrized by python version etc"""
     extra_context = {
         "python_version": python_version,
@@ -30,8 +33,9 @@ def template(python_version: str, dynamic_versioning: bool):
     }
     with TemporaryDirectory() as tmp_path:
         path, config = expand_template(tmp_path, extra_context)
-        # git_init(path, config["author_name"], config["author_email"])
-        yield Template(path, config, run_native)
+        # FIXME: Git init should be covered by the template hook!
+        git_init(path, config["author_name"], config["author_email"])
+        yield Template(path, config, run_func)
 
 
 # TODO Separate the parametrization of runfunc to avoid testing twice basic features
