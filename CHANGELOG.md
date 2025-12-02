@@ -9,8 +9,9 @@ templating versions are not perfect matches for semantic versions.
 ### Added
 
 - Update base image Debian to Trixie (from Bookworm)
-- Update pre-commit hook versions
 - Update docs + test dependencies
+- Update pre-commit hook versions
+- Update `pre-commit` tool version inside `Dockerfile` used as base dev image
 
 ### Removed
 
