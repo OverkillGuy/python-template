@@ -20,22 +20,6 @@ templating versions are not perfect matches for semantic versions.
     Dockerfile, which interacts badly with git mirrors in CI, and overall it's a
     pain to support properly, not worth it: Use git tags instead!
 
-## v2.0.0a24 - 2025-11-30
-
-## v2.0.0a9 - 2025-06-01
-
-## v2.0.0a8 - 2025-06-01
-
-## v2.0.0a7 - 2025-06-01
-
-## v2.0.0a5 - 2025-05-27
-
-## v2.0.0a3 - 2025-05-26
-
-## v2.0.0a2 - 2025-05-26
-
-## v2.0.0a1 - 2025-05-18
-
 ## v2.0.0a0 - 2025-05-17
 
 ### Changed
