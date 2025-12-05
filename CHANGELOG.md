@@ -6,6 +6,10 @@ templating versions are not perfect matches for semantic versions.
 
 ## [Unreleased]
 
+### Fixed
+
+- `make release` ensures lockfile is updated before tagging the released changes 
+
 ## v2.0.0a25 - 2025-12-02
 
 ### Added
