@@ -9,11 +9,16 @@ repos:
   - id: end-of-file-fixer
   - id: check-added-large-files
   - id: check-executables-have-shebangs
+  - id: check-shebang-scripts-are-executable
   - id: check-case-conflict
+  - id: check-symlinks
+  - id: destroyed-symlinks
   - id: check-vcs-permalinks
   - id: forbid-new-submodules
   - id: mixed-line-ending
+  - id: fix-byte-order-marker
   - id: check-merge-conflict
+    args: ["--assume-in-merge" ]  # Run the check also when not merging
   - id: detect-private-key
   - id: detect-aws-credentials
     args: ['--allow-missing-credentials']  # Avoid failure on CI

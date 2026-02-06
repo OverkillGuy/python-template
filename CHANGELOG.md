@@ -6,6 +6,10 @@ templating versions are not perfect matches for semantic versions.
 
 ## [Unreleased]
 
+### Added
+
+- New basic pre-commit hooks from upstream
+
 ### Fixed
 
 - `make release` ensures lockfile is updated before tagging the released changes 
