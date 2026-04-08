@@ -59,8 +59,8 @@ def run_docker_devimg(
                 "XDG_CACHE_HOME", "/caches/"
             ).with_volume_mapping(
                 f"python-skeleton-test-{context['python_version']}", "/caches", "rw"
-            )as container:
-    # .with_volume_mapping(template.path + "/.git/", "/workdir/.git/", "ro")
+            ) as container:
+                # .with_volume_mapping(template.path + "/.git/", "/workdir/.git/", "ro")
                 wait_container_is_ready()
                 exit_code = container.get_wrapped_container().wait()["StatusCode"]
                 logs = container.get_logs()

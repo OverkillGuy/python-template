@@ -134,7 +134,9 @@ It covers the package definition (much, much more simply than obscure
 `setup.py`, with a well defined specification, and declaratively, avoiding
 arbitrary code execution that `setup.py` somehow encourages).
 
-It covers the virtual-environment management too, and replaces both `pipx` and `pyenv` in terms of replacing the  allow for easy inspection and wipe of the `.venv/` (see `make
+It covers the virtual-environment management too, and replaces both `pipx` and
+`pyenv` in terms of replacing the  allow for easy inspection and wipe of the
+`.venv/` (see `make
 venv-nuke`).
 
 All in all, these features are too good to ignore, just wrap all commands in

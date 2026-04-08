@@ -68,4 +68,3 @@ project_slug:
 package_name:
   type: str
   default: "{{ project_slug | lower | replace('-', '_') }}"
-

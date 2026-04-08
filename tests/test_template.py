@@ -6,7 +6,7 @@ from typing import Callable
 import pytest
 from pytest_cases import fixture, parametrize
 
-from tests.docker import run_native# , run_docker_devimg
+from tests.docker import run_native  # , run_docker_devimg
 from tests.templating import (
     RANDOMIZED_PROJECT_NAME,
     Template,
@@ -19,8 +19,7 @@ ROOT_CONFIG = copier_config()
 
 @fixture
 @parametrize(python_version=ROOT_CONFIG["python_version"]["choices"])
-@parametrize(run_func=[run_native# , run_docker_devimg
-                       ])
+@parametrize(run_func=[run_native])  # , run_docker_devimg
 def template(python_version: str, run_func: Callable):
     """Template expansion fixture, parametrized by python version etc"""
     extra_context = {
@@ -37,6 +36,7 @@ def template(python_version: str, run_func: Callable):
 def tests_template_renders_ok(template: Template):
     """Checks we can invoke copier simply without specific arguments"""
     pass  # Checking the "template" fixture doesn't fail the test
+
 
 def tests_template_makes_ok(template: Template):
     """Scenario: Running 'make' on template applies full build process"""
@@ -70,7 +70,9 @@ def tests_template_makes_ok(template: Template):
 
 def tests_cli_runs_ok(template: Template):
     """Runs the generated CLI's help works"""
-    template.run_in_dev(["uv", "run", template.context['project_slug'],"--help"], template)
+    template.run_in_dev(
+        ["uv", "run", template.context["project_slug"], "--help"], template
+    )
 
 
 def tests_template_makes_docker_release_ok(template: Template):
@@ -78,6 +80,7 @@ def tests_template_makes_docker_release_ok(template: Template):
     subprocess.check_call(["make", "docker-build-release"], cwd=template.path)
     image_name = template.context["project_slug"] + ":0.1.0"
     subprocess.check_call(["docker", "image", "rm", image_name])
+
 
 def tests_template_makes_docker_dev_ok(template: Template):
     """Checks we can build the dev docker image"""
@@ -103,10 +106,6 @@ def tests_releases_ok(template: Template, bump: str):
     assert (
         not git_changes_post_release.stdout
     ), "Should have no unstaged files after running 'make release'"
-
-
-
-
 
 
 @parametrize(
