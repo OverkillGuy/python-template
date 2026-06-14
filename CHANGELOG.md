@@ -6,6 +6,10 @@ templating versions are not perfect matches for semantic versions.
 
 ## [Unreleased]
 
+### Added
+
+- Support for python 3.14, changing default version to 3.13
+
 ## v2.0.0a26 - 2026-04-12
 
 ### Added
