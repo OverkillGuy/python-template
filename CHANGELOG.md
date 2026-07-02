@@ -6,6 +6,8 @@ templating versions are not perfect matches for semantic versions.
 
 ## [Unreleased]
 
+## v2.0.0a27 - 2026-07-02
+
 ### Added
 
 - Support for python 3.14, changing default version to 3.13
