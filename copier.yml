@@ -6,13 +6,7 @@ _skip_if_exists:
   - CHANGELOG.md
   - README.md
   - docs/source/index.md
-  # pyproject.toml is updated via migration task = excluded
-  # But only in updates from v1 to v2 = migration poetry -> uv
-# FIXME: Refine the filter for excluding pyproject.toml ONLY on update AND when moving from v1 to v2 of template (other cases should be empty)
-  - "{% if _copier_operation == 'update' -%}pyproject.toml{% endif %}"
-
-# and _copier_answers._commit.startswith('v1')
-# # Tasks (git init + commit + tag) interfere with the update process!
+# NOTE: Tasks (git init + commit + tag) interfere with the update process!
 _tasks:
   - when: "{{ _copier_operation == 'copy' }}"
     command: >-
@@ -23,8 +17,10 @@ _tasks:
       {{_copier_conf.src_path}}/hooks/git_init_project
 _migrations:
   - version: v2.0.0a8
-    command: cat pyproject.toml && uvx migrate-to-uv && uv lock && cat pyproject.toml
+    # HACK: "Git add" avoids https://github.com/orgs/copier-org/discussions/2612#discussioncomment-16544812
+    command: uvx migrate-to-uv && uv lock && git add pyproject.toml uv.lock
     when: "{{ _stage == 'before' }}"
+
 project_name:
   type: str
   help: "What is your project name? (format: Capitalized With Spaces)"

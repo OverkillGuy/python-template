@@ -10,6 +10,12 @@ templating versions are not perfect matches for semantic versions.
 
 - Support for python 3.14, changing default version to 3.13
 
+### Fixed
+
+- Running the uv migration task no longer causes nasty merge conflicts. 
+  Using [a workaround](https://github.com/orgs/copier-org/discussions/2612#discussioncomment-16544812),
+  awaiting proper solution upstream ([draft PR](https://github.com/copier-org/copier/pull/2376))
+
 ## v2.0.0a26 - 2026-04-12
 
 ### Added
