@@ -6,6 +6,11 @@ templating versions are not perfect matches for semantic versions.
 
 ## [Unreleased]
 
+### Added
+
+- Updated pre-commit hooks: ruff 0.16 includes new default rules,
+  read [the release announcement](https://astral.sh/blog/ruff-v0.16.0)).
+
 ### Fixed
 
 - Git repo creation hook no longer crashes stupidly
