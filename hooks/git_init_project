@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
-
-# Prepopulates a git -C "${TGTDIR}" repo out of the rendered template with an initial commit+tag
+# Prepopulates a git repo out of the rendered template with an initial commit+tag
 create_git_repository() {
     # if [ $# -lt 2 ]; then
     #     echo "Usage: create_git_repository USER_NAME USER_EMAIL"
@@ -11,15 +10,15 @@ create_git_repository() {
     # AUTHOR_NAME=$1
     # AUTHOR_EMAIL=$2
 
-   if ! git -C "${TGTDIR}" rev-parse --git-dir > /dev/null 2>&1;
+   if ! git rev-parse --git-dir > /dev/null 2>&1;
    then
         # No git repo exists
         echo "Creating a git repo..."
-        git -C "${TGTDIR}" init --initial-branch main
+        git init --initial-branch main
     else
         echo "Repo already exists..."
         # Check if any untracked files, continuing init if so
-        if ! git -C "${TGTDIR}" ls-files --others | grep -q '^$'
+        if ! git ls-files --others | grep -q '^$'
         then
             echo "But untracked git changes detected: Continuing repo init"
         else
@@ -38,22 +37,25 @@ commit_and_tag() {
     # Temporarily set commiter name.
     # Nicely solves problem of "missing git user" in CI by making all
     # template instantiation use a set user name/email combo
-    git -C "${TGTDIR}" config --get user.name > /dev/null || git -C "${TGTDIR}" config --local user.name "${AUTHOR_NAME}"
-    git -C "${TGTDIR}" config --get user.email > /dev/null || git -C "${TGTDIR}" config --local user.email "${AUTHOR_EMAIL}"
+    git config --get user.name > /dev/null || git config --local user.name "${AUTHOR_NAME}"
+    git config --get user.email > /dev/null || git config --local user.email "${AUTHOR_EMAIL}"
 
     # Commit and tag
-    git -C "${TGTDIR}" add --all
-    git -C "${TGTDIR}" commit \
+    git add --all
+    git commit \
         --message "Initial commit from 'copier' template"
-    git -C "${TGTDIR}" tag v0.1.0 \
+    git tag v0.1.0 \
         --annotate \
         --message "First releasable artefact, from template"
 
     # Reset the user config after committing if fallback values were used
-    git -C "${TGTDIR}" config --unset user.name || true
-    git -C "${TGTDIR}" config --unset user.email || true
+    git config --unset user.name || true
+    git config --unset user.email || true
 }
 
+
+pushd "${TGTDIR}"
 create_git_repository
 uv_lock
 commit_and_tag
+popd

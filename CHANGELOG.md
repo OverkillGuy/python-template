@@ -6,6 +6,10 @@ templating versions are not perfect matches for semantic versions.
 
 ## [Unreleased]
 
+### Fixed
+
+- Git repo creation hook no longer crashes stupidly
+
 ## v2.0.0a27 - 2026-07-02
 
 ### Added
