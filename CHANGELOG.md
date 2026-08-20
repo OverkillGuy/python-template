@@ -6,6 +6,8 @@ templating versions are not perfect matches for semantic versions.
 
 ## [Unreleased]
 
+## v2.0.0a28 - 2026-08-20
+
 ### Added
 
 - Updated pre-commit hooks: ruff 0.16 includes new default rules,
