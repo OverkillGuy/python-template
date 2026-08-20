@@ -6,6 +6,8 @@ templating versions are not perfect matches for semantic versions.
 
 ## [Unreleased]
 
+## v2.0.0a29 - 2026-08-20
+
 ### Added
 
 - The repository holding this template now uses this template recursively

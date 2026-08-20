@@ -1,6 +1,6 @@
 [project]
 name = "jb_python_project_skeleton"
-version = "2.0.0a28"
+version = "2.0.0a29"
 description = "A project skeleton for Python projects, using Copier lib"
 authors = [{ name = "Jb Doyon", email = "jb@jiby.tech" }]
 requires-python = ">=3.13,<4"
