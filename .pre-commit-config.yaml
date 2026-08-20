@@ -26,10 +26,6 @@ repos:
     name: Shellcheck
     args: ["-f", "gcc"]  # output filename:linenum:colnum (clickable)
 # Actual Python Linters
-- repo: https://github.com/python-poetry/poetry
-  rev: 1.6.1
-  hooks:  # Validate poetry package + ensure lockfile updated
-  - id: poetry-check
 - repo: https://github.com/psf/black
   rev: 23.7.0
   hooks:
