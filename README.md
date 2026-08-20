@@ -74,8 +74,8 @@ template itself, before expanding the boilerplate.
 
 ## Templated repository
 
-This repository was created by the copier template available at
-., using version v2.0.0a28.
+This repository was created by the copier template available at path ., using version
+v2.0.0a29.
 
 This is not a joke, this repo is a template, but also is an instantiation of its
 own template. I have good reasons, I promise.
