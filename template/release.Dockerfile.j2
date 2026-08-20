@@ -1,4 +1,4 @@
-FROM ghcr.io/astral-sh/uv:python{{python_version}}-trixie as builder
+FROM ghcr.io/astral-sh/uv:python{{python_version}}-trixie AS builder
 
 # Copy the project into the image
 WORKDIR /workdir
@@ -13,7 +13,7 @@ RUN uv export \
     && uv build --wheel
 
 # Start over with just the binary package install
-FROM python:{{python_version}}-slim as runner
+FROM python:{{python_version}}-slim AS runner
 
 # Bring the wheel file and the pinned dependency list
 COPY --from=builder /workdir/dist /workdir/requirements.lock.txt /app/
