@@ -8,7 +8,7 @@ lint:
 
 # Run a (fast, native) test suite which covers most test cases
 # See also: make slow-test, make slow-test-parallel, make try
-TEST_VARIANT="python_version=3.10-runfunc=run_native"
+TEST_VARIANT="run_func=run_native-python_version=3.13"
 test:
 	uv run pytest \
 		"tests/test_template.py::tests_template_makes_ok[${TEST_VARIANT}]"
@@ -64,13 +64,13 @@ python-gitignore:
 
 # Make a release commit + tag, creating Changelog entry
 # Set BUMP variable to any of uv-supported (major, minor, patch)
-# or number (1.2.3 etc), see 'uv version' docs for details
+# or number (1.2.3 etc), see 'uv version --bump' docs for details
 .PHONY: release
 # Default the bump to a patch (v1.2.3 -> v1.2.4)
 release: BUMP=patch
 release:
 # Set the new version Makefile variable after the version bump
-	$(eval NEW_VERSION := $(shell uv version --short ${BUMP}))
+	$(eval NEW_VERSION := $(shell uv version --bump ${BUMP}))
 	$(eval TMP_CHANGELOG := $(shell mktemp))
 	sed \
 		"s/\(## \[Unreleased\]\)/\1\n\n## v${NEW_VERSION} - $(shell date +%Y-%m-%d)/" \

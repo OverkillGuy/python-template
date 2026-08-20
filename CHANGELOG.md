@@ -23,7 +23,7 @@ templating versions are not perfect matches for semantic versions.
 
 ### Fixed
 
-- Running the uv migration task no longer causes nasty merge conflicts. 
+- Running the uv migration task no longer causes nasty merge conflicts.
   Using [a workaround](https://github.com/orgs/copier-org/discussions/2612#discussioncomment-16544812),
   awaiting proper solution upstream ([draft PR](https://github.com/copier-org/copier/pull/2376))
 

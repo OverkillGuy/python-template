@@ -54,8 +54,8 @@ commit_and_tag() {
 }
 
 
-pushd "${TGTDIR}"
+pushd "${TGTDIR}" || exit
 create_git_repository
 uv_lock
 commit_and_tag
-popd
+popd || exit
