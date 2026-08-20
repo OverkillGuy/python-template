@@ -35,10 +35,11 @@ test:
 slow-test:
 	uv run pytest tests/
 
-## Build the wheel/tarball package
+## Build the tarball package
+## (Wheel won't include template path)
 .PHONY: build
 build:
-	uv build
+	uv build --sdist
 
 ## Expands the template in a local folder, for experimenting
 ## see variables PYTHON_VERSION, MAKE_TGT, REF
