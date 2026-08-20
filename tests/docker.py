@@ -1,4 +1,5 @@
 """Useful utilities relating to docker containers"""
+
 import subprocess
 import sys
 import tarfile
@@ -6,12 +7,11 @@ from io import BytesIO
 
 import docker
 import pytest
+from testcontainers.core.container import DockerContainer
+from testcontainers.core.image import DockerImage
+from testcontainers.core.waiting_utils import wait_container_is_ready
 
 from tests.templating import Template
-
-from testcontainers.core.image import DockerImage
-from testcontainers.core.container import DockerContainer
-from testcontainers.core.waiting_utils import wait_container_is_ready
 
 
 def docker_or_skip():
@@ -24,7 +24,7 @@ def docker_or_skip():
 
 def copy_container_path_out(container, path, destination):
     """Copy a container's path out into destination/"""
-    tar_stream, stats = container._container.get_archive(path, encode_stream=True)
+    tar_stream, _stats = container._container.get_archive(path, encode_stream=True)
     tar_bytestring = BytesIO()
     for chunk in tar_stream:
         tar_bytestring.write(chunk)
@@ -35,7 +35,6 @@ def copy_container_path_out(container, path, destination):
 
 def python_dev_image(template: Template):
     """Build the python image of the template's dockerfile"""
-    pass
 
 
 def run_docker_devimg(
@@ -52,20 +51,23 @@ def run_docker_devimg(
     copy_source_path = "/workdir"
     docker_devimg_name = f"python-skeleton-testing:{py_version}"
     try:
-        with DockerImage(
-            path=template.path, tag=docker_devimg_name, clean_up=True
-        ) as image:
-            with DockerContainer(str(image)).with_command(command).with_env(
-                "XDG_CACHE_HOME", "/caches/"
-            ).with_volume_mapping(
+        with (
+            DockerImage(
+                path=template.path, tag=docker_devimg_name, clean_up=True
+            ) as image,
+            DockerContainer(str(image))
+            .with_command(command)
+            .with_env("XDG_CACHE_HOME", "/caches/")
+            .with_volume_mapping(
                 f"python-skeleton-test-{context['python_version']}", "/caches", "rw"
-            ) as container:
-                # .with_volume_mapping(template.path + "/.git/", "/workdir/.git/", "ro")
-                wait_container_is_ready()
-                exit_code = container.get_wrapped_container().wait()["StatusCode"]
-                logs = container.get_logs()
-                print(logs)
-                copy_container_path_out(container, copy_source_path, workdir)
+            ) as container,
+        ):
+            # .with_volume_mapping(template.path + "/.git/", "/workdir/.git/", "ro")
+            wait_container_is_ready()
+            exit_code = container.get_wrapped_container().wait()["StatusCode"]
+            logs = container.get_logs()
+            print(logs)
+            copy_container_path_out(container, copy_source_path, workdir)
     except docker.errors.BuildError as e:
         if "requires BuildKit." in e.args[0]:
             pytest.skip("Buildkit required for complex docker build")
@@ -99,7 +101,7 @@ def run_native(command: list[str], template: Template):
         else:
             print(e.stdout)
             print(e.stderr, file=sys.stderr)
-            raise e
+            raise
     try:
         subprocess.run(
             command,
@@ -113,4 +115,4 @@ def run_native(command: list[str], template: Template):
         # Explicitly print the failing logs before leaving
         print(e.stdout)
         print(e.stderr, file=sys.stderr)
-        raise e
+        raise

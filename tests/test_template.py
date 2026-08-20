@@ -1,8 +1,8 @@
 import os
 import subprocess
+from collections.abc import Callable
 from tempfile import TemporaryDirectory
 
-from typing import Callable
 import pytest
 from pytest_cases import fixture, parametrize
 
@@ -35,7 +35,7 @@ def template(python_version: str, run_func: Callable):
 # TODO Separate the parametrization of runfunc to avoid testing twice basic features
 def tests_template_renders_ok(template: Template):
     """Checks we can invoke copier simply without specific arguments"""
-    pass  # Checking the "template" fixture doesn't fail the test
+    # Checking the "template" fixture doesn't fail the test
 
 
 def tests_template_makes_ok(template: Template):
@@ -45,13 +45,13 @@ def tests_template_makes_ok(template: Template):
     out_path = template.run_in_dev(["make"], template)
     # Then the command succeeds
     # And I get test results
-    assert os.path.isfile(
-        out_path + "/test_results/results.xml"
-    ), "Should save test results jUnit results"
+    assert os.path.isfile(out_path + "/test_results/results.xml"), (
+        "Should save test results jUnit results"
+    )
     # And I get test coverage
-    assert os.path.isfile(
-        out_path + "/test_results/coverage.xml"
-    ), "Should save coverage"
+    assert os.path.isfile(out_path + "/test_results/coverage.xml"), (
+        "Should save coverage"
+    )
     # And I get generated docs in HTML
     assert os.listdir(out_path + "/docs/build/html/"), "Should build docs"
     # And I get built packages
@@ -62,10 +62,11 @@ def tests_template_makes_ok(template: Template):
         cwd=out_path,
         capture_output=True,
         text=True,
+        check=True,
     )
-    assert (
-        not git_changes_post_make.stdout
-    ), "Should have no unstaged files after running 'make'"
+    assert not git_changes_post_make.stdout, (
+        "Should have no unstaged files after running 'make'"
+    )
 
 
 def tests_cli_runs_ok(template: Template):
@@ -102,10 +103,11 @@ def tests_releases_ok(template: Template, bump: str):
         cwd=template.path,
         capture_output=True,
         text=True,
+        check=True,
     )
-    assert (
-        not git_changes_post_release.stdout
-    ), "Should have no unstaged files after running 'make release'"
+    assert not git_changes_post_release.stdout, (
+        "Should have no unstaged files after running 'make release'"
+    )
 
 
 @parametrize(
@@ -123,6 +125,5 @@ def tests_bad_projectname(bad_project_name):
     }
     # When I render the template
     # Then I get a validation error
-    with pytest.raises(ValueError):
-        with TemporaryDirectory() as tmp_path:
-            _path, _config = expand_template(tmp_path, extra_context)
+    with pytest.raises(ValueError), TemporaryDirectory() as tmp_path:
+        _path, _config = expand_template(tmp_path, extra_context)
