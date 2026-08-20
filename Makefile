@@ -70,12 +70,13 @@ python-gitignore:
 release: BUMP=patch
 release:
 # Set the new version Makefile variable after the version bump
-	$(eval NEW_VERSION := $(shell uv version --bump ${BUMP}))
+	$(eval NEW_VERSION := $(shell uv version --short --bump ${BUMP}))
 	$(eval TMP_CHANGELOG := $(shell mktemp))
 	sed \
 		"s/\(## \[Unreleased\]\)/\1\n\n## v${NEW_VERSION} - $(shell date +%Y-%m-%d)/" \
 		CHANGELOG.md > ${TMP_CHANGELOG}
 	mv --force ${TMP_CHANGELOG} CHANGELOG.md
+	uv lock
 	git add CHANGELOG.md pyproject.toml
 	git commit -m "Bump to version v${NEW_VERSION}"
 	git tag --annotate "v${NEW_VERSION}" \
