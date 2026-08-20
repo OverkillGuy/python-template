@@ -223,7 +223,7 @@ wheels = [
 
 [[package]]
 name = "jb-python-project-skeleton"
-version = "2.0.0a27"
+version = "2.0.0a28"
 source = { editable = "." }
 dependencies = [
     { name = "copier" },

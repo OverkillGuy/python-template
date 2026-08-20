@@ -3,3 +3,8 @@ MD024:
   # Allow duplicate heading names under different parent headings (doesn't
   # complain about multiple "Added" headings in changelog, for example)
   siblings_only: true
+MD013:
+  # Line length: ignore code blocks and tables
+  code_blocks: false
+  tables: false
+  # line_length: 120  # Default is 80

@@ -1,0 +1,10 @@
+# Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
+_commit: v2.0.0a28
+_src_path: .
+author_email: jb@jiby.tech
+author_name: Jb Doyon
+description: An opinionated template for new Python projects
+package_name: python_template
+project_name: Python Template
+project_slug: python-template
+python_version: '3.13'

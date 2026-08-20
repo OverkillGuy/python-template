@@ -23,12 +23,10 @@ dev = [
     "faker-microservice",
 ]
 
-[tool.uv]
-
 [tool.uv.build-backend]
 source-include = [
     "template/**",
-    "copier.yaml/**",
+    "copier.yaml",
     "hooks/**",
     "data/**",
     "CHANGELOG.md",

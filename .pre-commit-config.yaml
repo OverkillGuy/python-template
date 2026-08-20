@@ -1,18 +1,25 @@
 ---
 exclude: '^template/'
+default_language_version:
+  python: python3.13
 repos:
 - repo: https://github.com/pre-commit/pre-commit-hooks
-  rev: v4.4.0
+  rev: v6.0.0
   hooks:
   - id: trailing-whitespace
   - id: end-of-file-fixer
   - id: check-added-large-files
   - id: check-executables-have-shebangs
+  - id: check-shebang-scripts-are-executable
   - id: check-case-conflict
+  - id: check-symlinks
+  - id: destroyed-symlinks
   - id: check-vcs-permalinks
   - id: forbid-new-submodules
   - id: mixed-line-ending
+  - id: fix-byte-order-marker
   - id: check-merge-conflict
+    args: ["--assume-in-merge" ]  # Run the check also when not merging
   - id: detect-private-key
   - id: detect-aws-credentials
     args: ['--allow-missing-credentials']  # Avoid failure on CI
@@ -20,18 +27,32 @@ repos:
   - id: check-yaml
   - id: check-json
 - repo: https://github.com/shellcheck-py/shellcheck-py
-  rev: v0.9.0.5
+  rev: v0.11.0.1
   hooks:
   - id: shellcheck
     name: Shellcheck
     args: ["-f", "gcc"]  # output filename:linenum:colnum (clickable)
-# Actual Python Linters
-- repo: https://github.com/psf/black
-  rev: 23.7.0
+- repo: https://github.com/AleksaC/hadolint-py
+  rev: v2.15.1
   hooks:
-  - id: black
-    name: Black (Python formatter)
+  - id: hadolint
+    name: Hadolint (Dockerfile checker)
+# Actual Python Linters
+- repo: https://github.com/astral-sh/ruff-pre-commit
+  rev: v0.16.3
+  hooks:
+    - id: ruff-check
+      args: [ "--fix" ]
+    - id: ruff-format
+- repo: https://github.com/pre-commit/mirrors-mypy
+  rev: v2.3.0
+  hooks:
+  - id: mypy
+    name: Mypy (Python type-checker)
+    exclude: 'docs/source/.*\.py'
+    # Uncomment below if mypy requires extra type stub packages
+    # additional_dependencies: [types-PyYAML==6.0.12.2]
 - repo: https://github.com/igorshubovych/markdownlint-cli
-  rev: v0.42.0
+  rev: v0.49.1
   hooks:
   - id: markdownlint-fix
