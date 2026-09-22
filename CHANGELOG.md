@@ -6,13 +6,15 @@ though templating versions are not perfect matches for semantic versions.
 
 ## [Unreleased]
 
+### Removed
+
+- Python version `3.10` and `3.11` have been removed
+  - Dependencies won't allow these old versions anymore.
+- Target `make install-tools` no longer present, unnecessary now `uv` does it all.
+
 ### Fixed
 
 - Updated links in `CHANGELOG.md` about KeepAChangelog and SemVer.
-
-### Removed
-
-- Target `make install-tools` no longer present, unnecessary now `uv` does it all.
 
 ## v2.0.0a29 - 2026-08-20
 
