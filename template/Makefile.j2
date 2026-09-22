@@ -115,14 +115,6 @@ update:
 	uv lock --upgrade
 
 
-## Install tools (uv, pre-commit) via pipx
-## Assumes you have pipx installed
-# See https://jiby.tech/post/my-python-toolbox/#pipx-for-cli-installs-not-pip
-.PHONY: install-tools
-install-tools:
-	uv self version
-	uv tool install pre-commit
-
 ## Delete the virtualenv to clean dependencies
 ## Useful when switching to a branch with less dependencies
 .PHONY: venv-nuke

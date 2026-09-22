@@ -6,6 +6,10 @@ templating versions are not perfect matches for semantic versions.
 
 ## [Unreleased]
 
+### Removed
+
+- Target `make install-tools` no longer present, unnecessary now `uv` does it all.
+
 ## v2.0.0a29 - 2026-08-20
 
 ### Added
