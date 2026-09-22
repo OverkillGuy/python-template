@@ -11,6 +11,11 @@ templating versions are not perfect matches for semantic versions.
 ### Added
 
 - The repository holding this template now uses this template recursively
+  - Listen.
+  - This isn't as bad as it looks, okay?
+  - I needed to manage the Python scripts for the tests of the template repo.
+  - And where could I find the scaffolding for a Python repo? Oh wait.
+  - See?
 
 ## v2.0.0a28 - 2026-08-20
 
