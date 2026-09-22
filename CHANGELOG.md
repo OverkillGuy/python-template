@@ -1,10 +1,14 @@
 # Changelog for the python-template
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
-The project uses semantic versioning (see [semver](https://semver.org)), though
-templating versions are not perfect matches for semantic versions.
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.2/).
+The project uses semantic versioning (see [semver](https://semver.org/spec/v2.0.0.html)),
+though templating versions are not perfect matches for semantic versions.
 
 ## [Unreleased]
+
+### Fixed
+
+- Updated links in `CHANGELOG.md` about KeepAChangelog and SemVer.
 
 ### Removed
 
